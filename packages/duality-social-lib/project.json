@@ -1,0 +1,41 @@
+{
+  "name": "duality-social-lib",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/duality-social-lib/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/duality-social-lib/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "packages/duality-social-lib/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/duality-social-lib",
+        "tsConfig": "packages/duality-social-lib/tsconfig.lib.json",
+        "packageJson": "packages/duality-social-lib/package.json",
+        "main": "packages/duality-social-lib/src/index.ts",
+        "assets": ["packages/duality-social-lib/*.md"]
+      }
+    }
+  },
+  "tags": []
+}

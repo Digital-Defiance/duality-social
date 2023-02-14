@@ -1,0 +1,18 @@
+{
+  "name": "duality-social-node",
+  "version": "0.0.1",
+  "description": "Duality Social Node express backend",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Freddie Mercurial (Jessica M.) <jessica@brightchain.org>",
+  "license": "MIT",
+  "dependencies": {
+    "compression": "^1.7.4"
+  },
+  "devDependencies": {
+    "@types/compression": "^1.7.2"
+  }
+}
