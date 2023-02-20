@@ -1,5 +1,6 @@
 import express from 'express';
 import compression from 'compression';
+import { router as apiRouter } from './routes/api.route';
 
 const host = process.env.HOST ?? 'localhost';
 const port = process.env.PORT ? Number(process.env.PORT) : 3000;
@@ -11,9 +12,7 @@ app.use(compression());
 
 app.use(express.static(_app_folder, { index: ['index.html'] }));
 
-app.get('/api', (req, res) => {
-  res.send({ message: 'Hello API' });
-});
+app.use('/api', apiRouter);
 
 app.listen(port, host, () => {
   console.log(`[ ready ] http://${host}:${port}`);
