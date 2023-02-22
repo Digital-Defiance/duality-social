@@ -23,6 +23,12 @@
       },
       "configurations": {
         "production": {
+          "fileReplacements": [
+            {
+              "replace": "packages/duality-social-angular/src/environments/environment.ts",
+              "with": "packages/duality-social-angular/src/environments/environment.prod.ts"
+            }
+          ], 
           "budgets": [
             {
               "type": "initial",

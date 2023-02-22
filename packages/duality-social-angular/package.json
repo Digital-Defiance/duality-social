@@ -1,0 +1,32 @@
+{
+  "name": "duality-social-angular",
+  "version": "0.0.1",
+  "description": "Front end to duality social",
+  "type": "commonjs",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Digital Defiance",
+  "license": "MIT",
+  "dependencies": {
+    "@angular/animations": "~15.1.0",
+    "@angular/cdk": "^15.1.6",
+    "@angular/common": "~15.1.0",
+    "@angular/compiler": "~15.1.0",
+    "@angular/core": "~15.1.0",
+    "@angular/forms": "~15.1.0",
+    "@angular/material": "^15.1.6",
+    "@angular/platform-browser": "~15.1.0",
+    "@angular/platform-browser-dynamic": "~15.1.0",
+    "@angular/router": "~15.1.0",
+    "@azure/msal-angular": "^2.1.2",
+    "@azure/msal-browser": "^2.22.1",
+    "mongoose": "^4.11.14"
+  },
+  "devDependencies": {
+    "@angular-devkit/core": "^15.1.6",
+    "@angular/compiler": "~15.1.0",
+    "@schematics/angular": "^15.1.6"
+  }
+}
