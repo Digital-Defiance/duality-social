@@ -1,7 +1,7 @@
 
 import {
-  createMaskPngDataUrl,
-  imageDataUrlToSizeAndFile,
+  closestImageSize,
+  imageDataUrlToFile,
   makeDataUrl
 } from '@digital-defiance/duality-social-lib';
 import {
@@ -10,14 +10,78 @@ import {
     CreateImageRequestResponseFormatEnum,
     ConfigurationParameters,
     OpenAIApi,
+    CreateImageRequestSizeEnum,
   } from 'openai';
   import {
     OpenAIGenerationResult,
   } from '../models/openAiGenerationResult';
 import { promptResultParser } from '../models/promptResultParser';
-  
+import { decode, encode } from 'fast-png';
+import { ImageData, PngEncoderOptions } from 'fast-png/lib/types';
+
 export const DevilsAdvocatePrompt = "Given the following post by a human, write a response that takes an opposite position, like playing Devil's Advocate, using a similar tone and style:"
 export const DevilsAdvocateImagePrompt = "Given the following position text, and a supplied image, generate an image that depicts the position:"
+
+
+export async function createMaskPngDataUrl(size: number): Promise<string>
+{
+  const rawData = new Uint8ClampedArray(size * size * 4);
+  for (let i = 0; i < rawData.length; i += 4) {
+    rawData[i] = 0; // red
+    rawData[i + 1] = 0; // green
+    rawData[i + 2] = 0; // blue
+    rawData[i + 3] = 255; // alpha
+  }
+  const imageData: ImageData = {
+    width: size,
+    height: size,
+    depth: 8,
+    channels: 4,
+    data: rawData,
+  };
+  const encoded = Buffer.from(encode(imageData));
+  return makeDataUrl(encoded.toString('base64'));
+}
+
+export async function getImageSizeFromImageDataUrl(imageDataUrl: string): Promise<CreateImageRequestSizeEnum>
+{
+    try {
+      const imageData = Buffer.from(imageDataUrl.split(',', 2)[1], 'base64');
+      const png = decode(imageData);
+      const largestDimension = Math.max(png.width, png.height);
+      if (largestDimension === 0) {
+        return Promise.reject('Invalid image data URL');
+      }
+      return closestImageSize(largestDimension);
+    }
+    catch (
+      error
+    ) {
+      return Promise.reject(error);
+    }
+}
+
+export function createImageRequestSizeEnumToNumber(size: CreateImageRequestSizeEnum): number
+{
+  switch (size) {
+    case CreateImageRequestSizeEnum._256x256:
+      return 256;
+    case CreateImageRequestSizeEnum._512x512:
+      return 512;
+    case CreateImageRequestSizeEnum._1024x1024:
+      return 1024;
+    default:
+      throw new Error(`Invalid size: ${size}`);
+  }
+}
+
+export async function imageDataUrlToSizeAndFile(imageDataUrl: string): Promise<{ size: CreateImageRequestSizeEnum, file: File }>
+{
+  return {
+    size: await getImageSizeFromImageDataUrl(imageDataUrl),
+    file: imageDataUrlToFile(imageDataUrl),
+  };
+}
 
   /**
    * Returns a configured OpenAI API client.
@@ -98,10 +162,11 @@ export const DevilsAdvocateImagePrompt = "Given the following position text, and
     userId?: string,
   ): Promise<string> {
     const openai = getOpenAIClient(configurationParameters);
-    const maskData = createMaskPngDataUrl(256, false, true);
-    const maskArrayBuffer: ArrayBuffer = Buffer.from(maskData);
-    const maskFile = new File([maskArrayBuffer], 'mask.png');
-    const sizeFileObject = imageDataUrlToSizeAndFile(sourceImageDataUrl);
+    const sourceSizeEnum = await getImageSizeFromImageDataUrl(sourceImageDataUrl);
+    const sourceSize = createImageRequestSizeEnumToNumber(sourceSizeEnum);
+    const maskData = await createMaskPngDataUrl(sourceSize);
+    const maskFile = imageDataUrlToFile(maskData);
+    const sizeFileObject = await imageDataUrlToSizeAndFile(sourceImageDataUrl);
     const generatedImage = await openai.createImageEdit(
       sizeFileObject.file,
       maskFile,

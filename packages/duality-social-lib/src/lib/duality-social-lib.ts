@@ -1,22 +1,6 @@
-import { Canvas, Image } from 'canvas';
 import {
-  Configuration,
-  CreateCompletionRequest,
-  CreateImageRequestResponseFormatEnum,
   CreateImageRequestSizeEnum,
-  ConfigurationParameters,
-  OpenAIApi,
 } from 'openai';
-
-export function createMaskPngDataUrl(size: number, black = false, fullAlpha = true): string
-{
-  const canvas = new Canvas(size, size);
-  const context = canvas.getContext('2d')
-  context.fillStyle= black ? 'black' : 'white';
-  context.fillRect(0,0,canvas.width,canvas.height);
-  context.globalAlpha = fullAlpha ? 0 : 1;  
-  return canvas.toDataURL();
-}
 
   /**
    * Makes a data:// URL from a base64 encoded binary blob string containing a PNG image
@@ -40,13 +24,6 @@ export function createMaskPngDataUrl(size: number, black = false, fullAlpha = tr
     return CreateImageRequestSizeEnum._256x256;
   }
 
-export function imageDataToImage(imageDataUrl: string): Image
-{
-  const image = new Image();
-  image.src = imageDataUrl;
-  return image;
-}
-
 export function imageDataUrlToFile(imageDataUrl: string): File
 {
   if (!imageDataUrl.startsWith('data:image/png;base64,')) {
@@ -55,22 +32,4 @@ export function imageDataUrlToFile(imageDataUrl: string): File
   const imageData = Buffer.from(imageDataUrl.split(',', 2)[1]);
   const imageFile = new File([imageData], 'image.png');
   return imageFile;
-}
-
-export function getExistingImageSize(image: Image): CreateImageRequestSizeEnum
-{
-  return closestImageSize(image.height > image.width ? image.height : image.width);
-}
-
-export function getExistingImageUrlSize(imageDataUrl: string): CreateImageRequestSizeEnum
-{
-  return getExistingImageSize(imageDataToImage(imageDataUrl));
-}
-
-export function imageDataUrlToSizeAndFile(imageDataUrl: string): { size: CreateImageRequestSizeEnum, file: File }
-{
-  return {
-    size: getExistingImageUrlSize(imageDataUrl),
-    file: imageDataUrlToFile(imageDataUrl),
-  };
 }

@@ -1,3 +1,7 @@
+const clientId = process.env.CLIENT_ID ?? '6226576d-37e9-49eb-b201-ec1eeb0029b6';
+const cloudInstance = process.env.CLOUD_INSTANCE ?? 'https://login.microsoftonline.com/common';
+const tenantId = process.env.TENANT_ID ?? '';
+const authority = cloudInstance + tenantId;
 
 export const environment = {
     production: process.env.NODE_ENV === 'production',
@@ -15,9 +19,9 @@ export const environment = {
             'L*YWpe4-6YnkikcBqD*vnRFzkhums!xZ!LPRPHB9LFTFaXrBwC'
     },
     msal: {
-        clientId: process.env.CLIENT_ID ?? '6226576d-37e9-49eb-b201-ec1eeb0029b6',
-        cloudInstance: process.env.CLOUD_INSTANCE ?? 'https://login.microsoftonline.com/common',
-        authority: process.env.CLOUD_INSTANCE ?? 'https://login.microsoftonline.com/common' + process.env.TENANT_ID,
+        clientId: clientId,
+        cloudInstance: cloudInstance,
+        authority: authority,
         redirectUri: process.env.MSAL_REDIRECT_URI ?? '/',
         postLogoutRedirectUri: process.env.MSAL_POST_LOGOUT_REDIRECT_URI ?? '/',
         tenantId: process.env.MSAL_TENANT_ID,

@@ -12,9 +12,10 @@ import {
     REDIRECT_URI,
     POST_LOGOUT_REDIRECT_URI
 } from '../authConfig';
+import { environment } from '../environment';
 
 export const router = express.Router();
-
+console.log(msalConfig, environment);
 const msalInstance = new ConfidentialClientApplication(msalConfig);
 const cryptoProvider = new CryptoProvider();
 

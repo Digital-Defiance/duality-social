@@ -9,8 +9,8 @@ import { environment } from "./environment";
 export const msalConfig: Configuration = {
     auth: {
         clientId: environment.msal.clientId, // 'Application (client) ID' of app registration in Azure portal - this value is a GUID
-        authority: process.env.CLOUD_INSTANCE ?? '' + process.env.TENANT_ID, // Full directory URL, in the form of https://login.microsoftonline.com/<tenant>
-        clientSecret: process.env.CLIENT_SECRET // Client secret generated from the app registration in Azure portal
+        authority: environment.msal.authority, // Full directory URL, in the form of https://login.microsoftonline.com/<tenant>
+        clientSecret: environment.msal.clientSecret // Client secret generated from the app registration in Azure portal
     },
     system: {
         loggerOptions: {
