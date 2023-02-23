@@ -6,7 +6,6 @@ import { router as usersRouter } from './routes/users.route';
 import session = require('express-session');
 import { environment } from './environment';
 
-console.log(process.env);
 const _app_folder = 'dist/packages/duality-social-angular/';
 
 const app = express();
@@ -27,6 +26,9 @@ if (environment.cookies.enabled) {
 app.use('/auth', authRouter)
 app.use('/api', apiRouter);
 app.use('/users', usersRouter);
+app.get('**', (req, res) => {
+  res.sendFile('index.html', { root: _app_folder });
+});
 
 app.listen(environment.port, environment.host, () => {
   console.log(`[ ready ] http://${environment.host}:${environment.port}`);

@@ -1,6 +1,7 @@
 import {
   CreateImageRequestSizeEnum,
 } from 'openai';
+import { Buffer } from 'buffer';
 
   /**
    * Makes a data:// URL from a base64 encoded binary blob string containing a PNG image

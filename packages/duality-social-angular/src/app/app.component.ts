@@ -1,8 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MsalService, MsalBroadcastService, MSAL_GUARD_CONFIG, MsalGuardConfiguration } from '@azure/msal-angular';
 import { AuthenticationResult, InteractionStatus, PopupRequest, RedirectRequest, EventMessage, EventType } from '@azure/msal-browser';
-import { Subject, OperatorFunction, Observable } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
+import { Subject, filter, takeUntil, map } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +9,10 @@ import { filter, takeUntil } from 'rxjs/operators';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'Duality Social';
-  isIframe = false;
-  loginDisplay = false;
+  public readonly title = 'Duality Social';
+  public isIframe = false;
+  public isAuthenticated = false;
+  public loginDisplay = false;
   private readonly _destroying$ = new Subject<void>();
 
   constructor(
@@ -26,11 +26,13 @@ export class AppComponent implements OnInit, OnDestroy {
     this.setLoginDisplay();
 
     this.authService.instance.enableAccountStorageEvents(); // Optional - This will enable ACCOUNT_ADDED and ACCOUNT_REMOVED events emitted when a user logs in or out of another tab or window
+
+    const addedOrRemoved: (msg: EventMessage) => boolean = (msg: EventMessage) => msg.eventType === EventType.ACCOUNT_ADDED || msg.eventType === EventType.ACCOUNT_REMOVED
     this.msalBroadcastService.msalSubject$
       .pipe(
-        filter((msg: EventMessage) => msg.eventType === EventType.ACCOUNT_ADDED || msg.eventType === EventType.ACCOUNT_REMOVED),
+        filter(addedOrRemoved),
       )
-      .subscribe((result: EventMessage) => {
+      .subscribe((result) => {
         if (this.authService.instance.getAllAccounts().length === 0) {
           window.location.pathname = "/";
         } else {

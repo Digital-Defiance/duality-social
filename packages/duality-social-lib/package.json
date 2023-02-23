@@ -2,6 +2,10 @@
   "name": "@digital-defiance/duality-social-lib",
   "version": "0.0.1",
   "dependencies": {
+    "buffer": "^6.0.3",
     "mongoose": "^4.11.14"
+  },
+  "devDependencies": {
+    "@types/node": "^18.14.1"
   }
 }

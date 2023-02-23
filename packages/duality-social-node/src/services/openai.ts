@@ -25,18 +25,16 @@ export const DevilsAdvocateImagePrompt = "Given the following position text, and
 
 export async function createMaskPngDataUrl(size: number): Promise<string>
 {
-  const rawData = new Uint8ClampedArray(size * size * 4);
-  for (let i = 0; i < rawData.length; i += 4) {
-    rawData[i] = 0; // red
-    rawData[i + 1] = 0; // green
-    rawData[i + 2] = 0; // blue
-    rawData[i + 3] = 255; // alpha
+  const channelCount = 4;
+  const rawData = new Uint8ClampedArray(size * size * channelCount);
+  for (let i = 0; i < rawData.length; i++) {
+    rawData[i] = 0;
   }
   const imageData: ImageData = {
     width: size,
     height: size,
     depth: 8,
-    channels: 4,
+    channels: channelCount,
     data: rawData,
   };
   const encoded = Buffer.from(encode(imageData));
