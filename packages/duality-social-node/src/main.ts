@@ -6,6 +6,7 @@ import { router as usersRouter } from './routes/users.route';
 import session = require('express-session');
 import { environment } from './environment';
 
+console.log(process.env);
 const _app_folder = 'dist/packages/duality-social-angular/';
 
 const app = express();

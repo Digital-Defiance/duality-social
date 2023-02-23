@@ -23,22 +23,21 @@ jobs:
 
       - name: yarn, build, and test
         run: |
+          OPWD=$(pwd)
           yarn
-          npm run build --if-present
-          npm run test --if-present
+          cd ${OPWD}/packages/duality-social-lib && yarn
+          cd ${OPWD}/packages/duality-social-angular && yarn
+          cd ${OPWD}/packages/duality-social-node && yarn
+          cd ${OPWD}
+          nx build packages/duality-social-lib
+          nx build packages/duality-social-angular
+          nx build packages/duality-social-node
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
           path: .
-
-      - name: yarn
-        run: |
-          yarn
-          cd packages/duality-social-lib && yarn
-          cd ../../packages/duality-social-angular && yarn
-          cd ../../packages/duality-social-node && yarn
 
   deploy:
     runs-on: ubuntu-latest

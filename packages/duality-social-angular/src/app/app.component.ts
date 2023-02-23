@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MsalService, MsalBroadcastService, MSAL_GUARD_CONFIG, MsalGuardConfiguration } from '@azure/msal-angular';
 import { AuthenticationResult, InteractionStatus, PopupRequest, RedirectRequest, EventMessage, EventType } from '@azure/msal-browser';
-import { Subject } from 'rxjs';
+import { Subject, OperatorFunction, Observable } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
 @Component({

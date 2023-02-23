@@ -9,6 +9,9 @@ export const environment = {
         accessToken: process.env.OPENAI_API_KEY,
         organization: process.env.OPENAI_ORGANIZATION
     },
+    mongo: {
+        uri: process.env.MONGO_URL ?? 'mongodb://localhost:27017/duality-social',
+    },
     cookies: {
         enabled: process.env.COOKIE_ENABLED === 'true',
         /** 
