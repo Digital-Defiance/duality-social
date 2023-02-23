@@ -9,16 +9,37 @@
 - In each of the packages, run ```yarn```
 - Open the repository with VS Code
 
-### Front-End
 
-- Stored in packages/duality-social-angular
+### Shared library
+
+- Stored in packages/duality-social-lib
+- Build the library with ```nx build duality-social-lib``` from the toplevel directory
 
 ### Node app
 
 - Stored in packages/duality-social-node
+- Ensure the library is built first
+- Build with ```nx build duality-social-node``` from the toplevel directory
 
-### Documentation
+### Front-End
 
+- Stored in packages/duality-social-angular
+- Ensure the library is built first
+- Build with ```nx build duality-social-angular``` from the toplevel directory
+
+### Database
+
+- Azure Cosmos DB
+- Mongoose connector for both Node and JS/Angular
+- Connection string located at in the Azure Portal under Azure Cosmos DB > Connection Strings > Primary Connection String
+
+### Keys
+
+- In Azure Portal go to Key Vaults > duality-social > Secrets
+
+## Documentation
+
+- Docusaurus: [https://docusaurus.io/docs/installation](https://docusaurus.io/docs/installation)
 - Stored in packages/duality-social-docs
 - Build the documentation with ```nx build duality-social-docs``` from the toplevel directory
 - Serve the documentation with ```nx start duality-social-docs``` from the toplevel directory
