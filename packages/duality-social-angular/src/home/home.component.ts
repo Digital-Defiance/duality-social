@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
     }
     // make a call to the API to test
     const request: SilentRequest = {
-      scopes: ['User.Read','openid','profile','api://8c8572d9-9cad-4cee-b00f-4b642f7441bb/access_as_user'],
+      scopes: ['User.Read','openid','profile'],
       account: accountInfo,
     };
     await this.authService.instance.acquireTokenSilent(request).then((response) => {
