@@ -49,15 +49,15 @@ app.get('**', (req, res) => {
   res.sendFile('index.html', { root: _app_folder });
 });
 
-
 if (environment.developer.sslEnabled) {
+  const path = (process.env.NX_WORKSPACE_ROOT ?? '.') + '/packages/duality-social-node/localdev/';
   const httpsOptions = {
-    key: fs.readFileSync('./security/cert.key'),
-    cert: fs.readFileSync('./security/cert.pem')
+    key: fs.readFileSync(path + 'cert.key'),
+    cert: fs.readFileSync(path + 'cert.pem')
   }
   https.createServer(httpsOptions, app)
     .listen(environment.developer.port, () => {
-        console.log('server running at ' + environment.developer.port)
+        console.log(`[ ready ] https://${environment.developer.host}:${environment.developer.port}`);
     });
 } else {
   app.listen(environment.developer.port, environment.developer.host, () => {
