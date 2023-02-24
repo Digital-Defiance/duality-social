@@ -1,9 +1,16 @@
 import { Router } from 'express';
 import { testGet } from '../controllers/test';
-import { openAiRouter } from '../controllers/openai';
+import { openAiRouter  } from '../routes/openai.route';
 import { isAuthenticated } from './auth.route';
 
-export const router = Router();
 // all routes prefixed with /api
-router.get('/test', testGet);
-router.post('/openai', isAuthenticated, openAiRouter)
+export const apiRouter = Router();
+// Sub-routers
+// -----
+// all routes prefixed with /api/openai
+apiRouter.use('/openai', isAuthenticated, openAiRouter);
+
+// Commands
+// -----
+// /api/test
+apiRouter.get('/test', testGet);

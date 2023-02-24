@@ -1,14 +1,16 @@
 import express from 'express';
 import compression from 'compression';
-import { router as apiRouter } from './routes/api.route';
+import { apiRouter as apiRouter } from './routes/api.route';
 import { router as authRouter } from './routes/auth.route';
 import { router as usersRouter } from './routes/users.route';
 import session = require('express-session');
+import cors from 'cors';
 import https from 'https';
 import fs from 'fs';
 import { environment } from './environment';
 import { AccountInfo, PkceCodes } from "@azure/msal-common";
 import { AuthorizationCodeRequest, AuthorizationUrlRequest } from '@azure/msal-node';
+import logger from 'morgan';
 
 // Augment express-session with a custom SessionData object
 declare module "express-session" {
@@ -28,7 +30,11 @@ declare module "express-session" {
 const _app_folder = 'dist/packages/duality-social-angular/';
 
 const app = express();
+app.use(cors({ origin: true }));
 app.use(compression());
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(_app_folder, {
   index: ['index.html'],
 }));

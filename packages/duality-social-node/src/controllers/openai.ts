@@ -8,49 +8,53 @@ import {
     generateDallEImage,
     getOppositeResponseFromOpenAI
 } from '../services/openai';
-import { environment } from '../environment';
 import { isAuthenticated } from '../routes/auth.route';
+import { IDevilsAdvocateRequest, IDevilsAdvocateResponse } from '@digital-defiance/duality-social-lib';
 
-const openApiConfig: ConfigurationParameters = { 
-    accessToken: environment.openai.accessToken,
-    organization: environment.openai.organization
-};
+
 
 export async function devilsAdvocate(req: Request, res: Response): Promise<void> {
+    const body = req.body;
+    const userId = '1234'; // TODO: get from auth
+    if (body === undefined) {
+        res.status(400).json({
+            error: 'No request body'
+        });
+        return;
+    }
+    const aiRequest: IDevilsAdvocateRequest = body as IDevilsAdvocateRequest;
+    if (aiRequest === undefined) {
+        res.status(400).json({
+            error: 'Invalid request body'
+        });
+        return;
+    }
     try {
-        const post: string = req.body.post;
-        const postId: string = req.body.postId;
-        const userId: string = req.body.userId;
-        const images: Array<string> = req.body.images;
-        const openaiResponse = await getOppositeResponseFromOpenAI(openApiConfig,
-            post,
-            postId,
+        const openaiResponse = await getOppositeResponseFromOpenAI(
+            aiRequest.postText,
+            aiRequest.postId,
             userId);
         // if post has embedded image, generate an image using DALL-E
         const imageResponses: Array<string> = [];
-            for (let i = 0; i < images.length; i++) {
-                const imageDataUrl = images[i];
+            for (let i = 0; i < aiRequest.images.length; i++) {
+                const imageDataUrl = aiRequest.images[i];
                 const responseDataUrl = await generateDallEImage(
-                    openApiConfig,
-                    DevilsAdvocateImagePrompt + "\n\n" +
-                    openaiResponse.aiResponse,
+                    DevilsAdvocateImagePrompt.concat("\n\n", openaiResponse.aiResponse),
                     userId,
                     imageDataUrl);
                     if (responseDataUrl) {
                         imageResponses.push(responseDataUrl);
                     }
             }
-        res.status(200).json({
-            aiResponse: openaiResponse.aiResponse,
-            imageResponses: imageResponses
-        });
+        const response: IDevilsAdvocateResponse = {
+            postId: aiRequest.postId,
+            aiPostText: openaiResponse.aiResponse,
+            images: imageResponses
+        };
+        res.status(200).json(response);
     } catch (error) {
         res.status(500).json({
             error: error
         });
     }
 }
-
-export const openAiRouter = express
-    .Router()
-    .post('/devils-advocate', isAuthenticated, devilsAdvocate);

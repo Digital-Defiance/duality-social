@@ -17,11 +17,17 @@ import {
   } from '../models/openAiGenerationResult';
 import { promptResultParser } from '../models/promptResultParser';
 import { decode, encode } from 'fast-png';
-import { ImageData, PngEncoderOptions } from 'fast-png/lib/types';
+import { ImageData } from 'fast-png/lib/types';
+import { environment } from '../environment';
 
-export const DevilsAdvocatePrompt = "Given the following post by a human, write a response that takes an opposite position, like playing Devil's Advocate, using a similar tone and style:"
-export const DevilsAdvocateImagePrompt = "Given the following position text, and a supplied image, generate an image that depicts the position:"
+export const DevilsAdvocatePrompt = "Given the following post by a human, rewrite it, taking an opposite position, like playing Devil's Advocate, using a similar tone and style:";
+export const DevilsAdvocateImagePrompt = "Given the following position text, and a supplied image, generate an image that depicts the position:";
 
+const openAiConfig: ConfigurationParameters = {
+  accessToken: environment.openai.accessToken,
+  organization: environment.openai.organization
+};
+const openAiClient = getOpenAIClient(openAiConfig);
 
 export async function createMaskPngDataUrl(size: number): Promise<string>
 {
@@ -96,12 +102,10 @@ export async function imageDataUrlToSizeAndFile(imageDataUrl: string): Promise<{
    * @param response Response express;
    */
   export async function getOppositeResponseFromOpenAI(
-    configurationParameters: ConfigurationParameters,
     post: string,
     postId: string,
     userId?: string
   ): Promise<OpenAIGenerationResult> {
-    const openai = getOpenAIClient(configurationParameters);
     const model = 'text-davinci-003';
     const maxTokens = 1000;
     const temperature = 0.9;
@@ -117,7 +121,7 @@ export async function imageDataUrlToSizeAndFile(imageDataUrl: string): Promise<{
     // const logitBias = null;
     const completionRequest: CreateCompletionRequest = {
       model: model,
-      prompt: DevilsAdvocatePrompt + "\n\n" + post,
+      prompt: DevilsAdvocatePrompt.concat("\n\n", post),
       max_tokens: maxTokens,
       temperature,
       // top_p: topP,
@@ -134,7 +138,12 @@ export async function imageDataUrlToSizeAndFile(imageDataUrl: string): Promise<{
     if (userId) {
       completionRequest.user = userId;
     }
-    const openaiResponse = await openai.createCompletion(completionRequest);
+    const openaiResponse = await openAiClient.createCompletion(completionRequest, {
+      headers: {
+        'Authorization': 'Bearer ' + environment.openai.accessToken,
+        'Content-Type': 'application/json',
+      },
+    });
     if (openaiResponse.data?.choices) {
       try {
         return promptResultParser(openaiResponse.data.choices, postId);
@@ -154,18 +163,16 @@ export async function imageDataUrlToSizeAndFile(imageDataUrl: string): Promise<{
    * @returns The image data
    */
   export async function generateDallEImage(
-    configurationParameters: ConfigurationParameters,
     prompt: string,
     sourceImageDataUrl: string,
     userId?: string,
   ): Promise<string> {
-    const openai = getOpenAIClient(configurationParameters);
     const sourceSizeEnum = await getImageSizeFromImageDataUrl(sourceImageDataUrl);
     const sourceSize = createImageRequestSizeEnumToNumber(sourceSizeEnum);
     const maskData = await createMaskPngDataUrl(sourceSize);
     const maskFile = imageDataUrlToFile(maskData);
     const sizeFileObject = await imageDataUrlToSizeAndFile(sourceImageDataUrl);
-    const generatedImage = await openai.createImageEdit(
+    const generatedImage = await openAiClient.createImageEdit(
       sizeFileObject.file,
       maskFile,
       prompt,
