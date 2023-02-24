@@ -51,7 +51,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
 
 export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   const protectedResourceMap = new Map<string, Array<string>>();
-  protectedResourceMap.set('https://graph.microsoft.com/v1.0/me', ['user.read']); // Prod environment. Uncomment to use.
+  protectedResourceMap.set('https://graph.microsoft.com/v1.0/me', ['User.Read']); // Prod environment. Uncomment to use.
   //protectedResourceMap.set('https://graph.microsoft-ppe.com/v1.0/me', ['user.read']);
 
   return {
@@ -64,7 +64,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   return {
     interactionType: InteractionType.Redirect,
     authRequest: {
-      scopes: ['user.read']
+      scopes: ['User.Read']
     },
     loginFailedRoute: '/login-failed'
   };
