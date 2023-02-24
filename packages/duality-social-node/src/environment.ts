@@ -1,10 +1,33 @@
+/**
+ * 6226576d-37e9-49eb-b201-ec1eeb0029b6 is the production microsoft client id
+ * The other client id possibility is found under the Web App > Authentication under "App (client) ID"
+ */
 const clientId = process.env.CLIENT_ID ?? '6226576d-37e9-49eb-b201-ec1eeb0029b6';
-const cloudInstance = process.env.CLOUD_INSTANCE ?? 'https://login.microsoftonline.com/common';
-const tenantId = process.env.TENANT_ID ?? '';
-const authority = cloudInstance + tenantId;
+/**
+ * // https://learn.microsoft.com/en-us/azure/active-directory/develop/msal-client-application-configuration
+ */
+const cloudInstance = process.env.CLOUD_INSTANCE ?? 'https://login.microsoftonline.com/';
+/**
+ * https://learn.microsoft.com/en-us/azure/active-directory/develop/accounts-overview
+ */
+const tenantId = process.env.TENANT_ID ?? '9188040d-6c67-4c5b-b112-36a304b66dad';
+const authority = cloudInstance + (process.env.TENANT_ID ?? 'common/');
+//const authority = cloudInstance + tenantId + '/';
+const host = process.env.HOST ?? 'localhost';
+const port = Number(process.env.PORT ?? 3000);
+const production = process.env.NODE_ENV === 'production';
+const sslEnabled = process.env.SSL_ENABLED === 'true';
+const urlProto = sslEnabled ? 'https://' : 'http://';
+const devHost = (sslEnabled ? `${urlProto}${host}:${port}` : `${urlProto}${host}:${port}/`);
+const defaultUri = production ? `${urlProto}${host}:${port}/` : devHost;
 
 export const environment = {
-    production: process.env.NODE_ENV === 'production',
+    production: production,
+    developer: {
+        host: host,
+        port: port,
+        sslEnabled: sslEnabled,
+    },
     openai: {
         accessToken: process.env.OPENAI_API_KEY,
         organization: process.env.OPENAI_ORGANIZATION
@@ -25,11 +48,10 @@ export const environment = {
         clientId: clientId,
         cloudInstance: cloudInstance,
         authority: authority,
-        redirectUri: process.env.MSAL_REDIRECT_URI ?? '/',
-        postLogoutRedirectUri: process.env.MSAL_POST_LOGOUT_REDIRECT_URI ?? '/',
-        tenantId: process.env.MSAL_TENANT_ID,
-        clientSecret: process.env.MSAL_CLIENT_SECRET
-    },
-    host: process.env.HOST ?? 'localhost',
-    port: Number(process.env.PORT ?? 3000)
+        redirectUri: process.env.MSAL_REDIRECT_URI ?? defaultUri,
+        postLogoutRedirectUri: process.env.MSAL_POST_LOGOUT_REDIRECT_URI ?? defaultUri,
+        tenantId: tenantId,
+        clientSecret: process.env.MSAL_CLIENT_SECRET,
+        graphMeEndpoint: (process.env.GRAPH_API_ENDPOINT ?? 'https://graph.microsoft.com/') + "v1.0/me",
+    }
 };

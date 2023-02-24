@@ -20,6 +20,8 @@
     "@azure/msal-node": "^1.15.0",
     "@types/compression": "^1.7.2",
     "@types/express-session": "^1.17.6",
-    "@types/sharp": "^0.31.1"
+    "@types/sharp": "^0.31.1",
+    "fs": "^0.0.1-security",
+    "https": "^1.0.0"
   }
 }

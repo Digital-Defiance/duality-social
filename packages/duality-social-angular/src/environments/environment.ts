@@ -3,7 +3,14 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  msal: {
+    authority: 'https://login.microsoftonline.com/common/',
+    clientId: '8c8572d9-9cad-4cee-b00f-4b642f7441bb',
+    cloudInstance: 'https://login.microsoftonline.com/',
+    redirectUri: 'https://localhost:3000/',
+    postLogoutRedirectUri: 'https://localhost:3000/',
+  },
 };
 
 /*

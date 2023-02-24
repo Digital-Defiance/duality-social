@@ -17,6 +17,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { IPublicClientApplication, PublicClientApplication, InteractionType, BrowserCacheLocation, LogLevel } from '@azure/msal-browser';
 import { MsalGuard, MsalInterceptor, MsalBroadcastService, MsalInterceptorConfiguration, MsalModule, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG, MsalGuardConfiguration, MsalRedirectComponent } from '@azure/msal-angular';
 import { FailedComponent } from '../failed/failed.component';
+import { environment } from '../environments/environment.prod';
 
 const isIE = window.navigator.userAgent.indexOf("MSIE ") > -1 || window.navigator.userAgent.indexOf("Trident/") > -1; // Remove this line to use Angular Universal
 
@@ -31,8 +32,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
       //clientId: '3fba556e-5d4a-48e3-8e1a-fd57c12cb82e', // PPE testing environment
       authority: 'https://login.microsoftonline.com/common', // Prod environment. Uncomment to use.
       //authority: 'https://login.windows-ppe.net/common', // PPE testing environment.
-      redirectUri: '/',
-      postLogoutRedirectUri: '/'
+      redirectUri: environment.msal.redirectUri,
+      postLogoutRedirectUri: environment.msal.postLogoutRedirectUri
     },
     cache: {
       cacheLocation: BrowserCacheLocation.LocalStorage,

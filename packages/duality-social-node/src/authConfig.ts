@@ -10,7 +10,10 @@ export const msalConfig: Configuration = {
     auth: {
         clientId: environment.msal.clientId, // 'Application (client) ID' of app registration in Azure portal - this value is a GUID
         authority: environment.msal.authority, // Full directory URL, in the form of https://login.microsoftonline.com/<tenant>
-        clientSecret: environment.msal.clientSecret // Client secret generated from the app registration in Azure portal
+        /**
+         * Client secret generated from the app registration in Azure portal
+         */
+        clientSecret: environment.msal.clientSecret,
     },
     system: {
         loggerOptions: {
@@ -22,7 +25,3 @@ export const msalConfig: Configuration = {
         }
     }
 };
-
-export const REDIRECT_URI = process.env.REDIRECT_URI;
-export const POST_LOGOUT_REDIRECT_URI = process.env.POST_LOGOUT_REDIRECT_URI;
-export const GRAPH_ME_ENDPOINT = process.env.GRAPH_API_ENDPOINT + "v1.0/me";

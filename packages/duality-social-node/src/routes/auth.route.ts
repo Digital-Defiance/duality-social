@@ -5,17 +5,14 @@
 
 import express = require('express');
 import { Request, Response } from 'express';
-import { ConfidentialClientApplication, CryptoProvider } from '@azure/msal-node';
+import { AuthorizationUrlRequest, ConfidentialClientApplication, CryptoProvider } from '@azure/msal-node';
 
 import {
     msalConfig,
-    REDIRECT_URI,
-    POST_LOGOUT_REDIRECT_URI
 } from '../authConfig';
 import { environment } from '../environment';
 
 export const router = express.Router();
-console.log(msalConfig, environment);
 const msalInstance = new ConfidentialClientApplication(msalConfig);
 const cryptoProvider = new CryptoProvider();
 
@@ -33,11 +30,10 @@ async function redirectToAuthCodeUrl(req: Request, res: Response, next: (error: 
     // Generate PKCE Codes before starting the authorization flow
     const { verifier, challenge } = await cryptoProvider.generatePkceCodes();
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const sessionAny: any = req.session as any
     // Set generated PKCE codes and method as session vars
-    sessionAny.pkceCodes = {
-        challengeMethod: 'S256',
+    const challengeMethod = "S256";
+    req.session.pkceCodes = {
+        //challengeMethod: challengeMethod,
         verifier: verifier,
         challenge: challenge,
     };
@@ -49,24 +45,25 @@ async function redirectToAuthCodeUrl(req: Request, res: Response, next: (error: 
      * https://azuread.github.io/microsoft-authentication-library-for-js/ref/modules/_azure_msal_node.html#authorizationcoderequest
      **/
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    sessionAny.authCodeUrlRequest = {
-        redirectUri: REDIRECT_URI,
+    const authCodeUrlRequest: AuthorizationUrlRequest = {
+        redirectUri: environment.msal.redirectUri,
         responseMode: 'form_post', // recommended for confidential clients
-        codeChallenge: sessionAny.pkceCodes.challenge,
-        codeChallengeMethod: sessionAny.pkceCodes.challengeMethod,
+        codeChallenge: req.session.pkceCodes.challenge,
+        codeChallengeMethod: challengeMethod,
         ...authCodeUrlRequestParams,
     };
+    req.session.authCodeUrlRequest = authCodeUrlRequest;
 
-    sessionAny.authCodeRequest = {
-        redirectUri: REDIRECT_URI,
+    req.session.authCodeRequest = {
+        redirectUri: environment.msal.redirectUri,
         code: "",
         ...authCodeRequestParams,
     };
+    req.session.save();
 
     // Get url to sign user in and consent to scopes needed for application
     try {
-        const authCodeUrlResponse = await msalInstance.getAuthCodeUrl(sessionAny.authCodeUrlRequest);
+        const authCodeUrlResponse = await msalInstance.getAuthCodeUrl(authCodeUrlRequest);
         res.redirect(authCodeUrlResponse);
     } catch (error) {
         next(error);
@@ -74,11 +71,9 @@ async function redirectToAuthCodeUrl(req: Request, res: Response, next: (error: 
 };
 
 router.get('/signin', async (req: Request, res: Response, next) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const sessionAny: any = req.session as any
-
     // create a GUID for crsf
-    sessionAny.csrfToken = cryptoProvider.createNewGuid();
+    req.session.csrfToken = cryptoProvider.createNewGuid();
+    req.session.save();
 
     /**
      * The MSAL Node library allows you to pass your custom state as state parameter in the Request object.
@@ -87,7 +82,7 @@ router.get('/signin', async (req: Request, res: Response, next) => {
      */
     const state = cryptoProvider.base64Encode(
         JSON.stringify({
-            csrfToken: sessionAny.csrfToken,
+            csrfToken: req.session.csrfToken,
             redirectTo: '/'
         })
     );
@@ -116,16 +111,14 @@ router.get('/signin', async (req: Request, res: Response, next) => {
 });
 
 router.get('/acquireToken', async function (req, res, next) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const sessionAny: any = req.session as any
-
     // create a GUID for csrf
-    sessionAny.csrfToken = cryptoProvider.createNewGuid();
+    req.session.csrfToken = cryptoProvider.createNewGuid();
+    req.session.save();
 
     // encode the state param
     const state = cryptoProvider.base64Encode(
         JSON.stringify({
-            csrfToken: sessionAny.csrfToken,
+            csrfToken: req.session.csrfToken,
             redirectTo: '/users/profile'
         })
     );
@@ -144,24 +137,26 @@ router.get('/acquireToken', async function (req, res, next) {
 });
 
 router.post('/redirect', async function (req: Request, res: Response, next) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const sessionAny: any = req.session as any
-
     if (req.body.state) {
         const state = JSON.parse(cryptoProvider.base64Decode(req.body.state));
 
         // check if csrfToken matches
-        if (state.csrfToken === sessionAny.csrfToken) {
-            sessionAny.authCodeRequest.code = req.body.code; // authZ code
-            sessionAny.authCodeRequest.codeVerifier = sessionAny.pkceCodes.verifier // PKCE Code Verifier
+        if (state.csrfToken === req.session.csrfToken) {
+            if (!req.session.authCodeRequest) {
+                next(new Error('authCodeRequest is missing'));
+                return;
+            }
+            req.session.authCodeRequest.code = req.body.code; // authZ code
+            req.session.authCodeRequest.codeVerifier = req.session.pkceCodes?.verifier // PKCE Code Verifier
+            req.session.save();
 
             try {
-                const tokenResponse = await msalInstance.acquireTokenByCode(sessionAny.authCodeRequest);
-                sessionAny.accessToken = tokenResponse.accessToken;
-                sessionAny.idToken = tokenResponse.idToken;
-                sessionAny.account = tokenResponse.account;
-                sessionAny.isAuthenticated = true;
-
+                const tokenResponse = await msalInstance.acquireTokenByCode(req.session.authCodeRequest);
+                req.session.accessToken = tokenResponse.accessToken;
+                req.session.idToken = tokenResponse.idToken;
+                req.session.account = tokenResponse.account;
+                req.session.isAuthenticated = true;
+                req.session.save();
                 res.redirect(state.redirectTo);
             } catch (error) {
                 next(error);
@@ -180,7 +175,7 @@ router.get('/signout', function (req, res) {
      * session with Azure AD. For more information, visit:
      * https://docs.microsoft.com/azure/active-directory/develop/v2-protocols-oidc#send-a-sign-out-request
      */
-    const logoutUri = `${msalConfig.auth.authority}/oauth2/v2.0/logout?post_logout_redirect_uri=${POST_LOGOUT_REDIRECT_URI}`;
+    const logoutUri = `${msalConfig.auth.authority}/oauth2/v2.0/logout?post_logout_redirect_uri=${environment.msal.postLogoutRedirectUri}`;
 
     req.session.destroy(() => {
         res.redirect(logoutUri);
@@ -189,11 +184,10 @@ router.get('/signout', function (req, res) {
 
 // custom middleware to check auth state
 export function isAuthenticated(req: Request, res: Response, next: (error?: unknown) => void) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const sessionAny: any = req.session as any;
-    if (!sessionAny.isAuthenticated) {
+    if (!req.session.isAuthenticated) {
+        console.log('isAuthenticated: false');
         return res.redirect('/auth/signin'); // redirect to sign-in route
     }
-
+    console.log('isAuthenticated: true');
     next();
 };

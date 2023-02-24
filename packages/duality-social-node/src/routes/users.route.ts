@@ -6,26 +6,26 @@
 import express = require('express');
 import { Request, Response } from 'express';
 import { fetch } from '../fetch';
-import { GRAPH_ME_ENDPOINT } from '../authConfig';
 import { isAuthenticated } from './auth.route';
+import { environment } from '../environment';
 export const router = express.Router();
 
 router.get('/id',
     isAuthenticated, // check if user is authenticated
     async function (req: Request, res: Response, next: (error: unknown) => void) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const sessionAny: any = req.session as any;
-        res.render('id', { idTokenClaims: sessionAny.account.idTokenClaims });
+        if (!req.session || !req.session.account) {
+            next(new Error('Session not found'));
+            return;
+        }
+        res.render('id', { idTokenClaims: req.session.account.idTokenClaims });
     }
 );
 
 router.get('/profile',
     isAuthenticated, // check if user is authenticated
     async function (req, res, next) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const sessionAny: any = req.session as any;
         try {
-            const graphResponse = await fetch(GRAPH_ME_ENDPOINT, sessionAny.accessToken);
+            const graphResponse = await fetch(environment.msal.graphMeEndpoint, req.session?.accessToken ?? '');
             res.render('profile', { profile: graphResponse });
         } catch (error) {
             next(error);
