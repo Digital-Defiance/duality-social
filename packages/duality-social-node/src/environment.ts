@@ -19,7 +19,8 @@ const production = process.env.NODE_ENV === 'production';
 const sslEnabled = process.env.SSL_ENABLED === 'true';
 const urlProto = sslEnabled ? 'https://' : 'http://';
 const devHost = (sslEnabled ? `${urlProto}${host}:${port}` : `${urlProto}${host}:${port}/`);
-const defaultUri = production ? `${urlProto}${host}:${port}/` : devHost;
+const serverHost = production ? `${urlProto}${host}:${port}/` : devHost;
+const redirectUri = serverHost + 'auth/redirect';
 
 export const environment = {
     production: production,
@@ -48,8 +49,8 @@ export const environment = {
         clientId: clientId,
         cloudInstance: cloudInstance,
         authority: authority,
-        redirectUri: process.env.MSAL_REDIRECT_URI ?? defaultUri,
-        postLogoutRedirectUri: process.env.MSAL_POST_LOGOUT_REDIRECT_URI ?? defaultUri,
+        redirectUri: process.env.MSAL_REDIRECT_URI ?? redirectUri,
+        postLogoutRedirectUri: process.env.MSAL_POST_LOGOUT_REDIRECT_URI ?? redirectUri,
         tenantId: tenantId,
         clientSecret: process.env.MSAL_CLIENT_SECRET,
         graphMeEndpoint: (process.env.GRAPH_API_ENDPOINT ?? 'https://graph.microsoft.com/') + "v1.0/me",

@@ -5,5 +5,5 @@ import { isAuthenticated } from './auth.route';
 
 export const router = Router();
 // all routes prefixed with /api
-router.get('/test', isAuthenticated, testGet);
+router.get('/test', testGet);
 router.post('/openai', isAuthenticated, openAiRouter)
