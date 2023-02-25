@@ -6,7 +6,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-
 .container { margin: 1%; }
 .mat-toolbar.mat-primary { background-color: #2e007f; box-shadow: 2px 2px 2px 2px black; }
 .mat-typography { color: #ffffff; }
-
+.navbar-sidenav-container { background-color: #282828;}
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
