@@ -2,12 +2,11 @@ import { Component, OnInit, ChangeDetectorRef, OnDestroy, AfterViewInit } from '
 import { MediaMatcher } from '@angular/cdk/layout';
 import { timer } from 'rxjs';
 import { Subscription } from 'rxjs';
-
- import { AuthenticationService } from '../../core/services/auth.service';
-import { SpinnerService } from '../../core/services/spinner.service';
 // import { AuthGuard } from '../../core/guards/auth.guard';
-import { MsalGuard } from '@azure/msal-angular';
+import { MsalGuard, MsalService } from '@azure/msal-angular';
+import { AccountInfo } from '@azure/msal-browser';
 import { Router, RouterState, RouterStateSnapshot } from '@angular/router';
+import { SpinnerService } from '../../core/services/spinner.service';
 
 @Component({
     selector: 'app-layout',
@@ -27,7 +26,7 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     constructor(private changeDetectorRef: ChangeDetectorRef,
         private media: MediaMatcher,
         public spinnerService: SpinnerService,
-        private authService: AuthenticationService,
+        private authService: MsalService,
         private authGuard: MsalGuard,
         private router: Router) {
         this.mobileQuery = this.media.matchMedia('(max-width: 1000px)');
@@ -37,10 +36,10 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     ngOnInit(): void {
-        const user = this.authService.getCurrentUser();
+        const user: AccountInfo = this.authService.instance.getAllAccounts()[0];
 
-        this.isAdmin = user.isAdmin;
-        this.userName = user.fullName;
+        this.isAdmin = false;
+        this.userName = user.name ?? user.username ?? user.localAccountId ?? user.homeAccountId ?? "Unknown User";
 
         // Auto log-out subscription
         const timer$ = timer(2000, 5000);

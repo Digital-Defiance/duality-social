@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MsalService, MsalBroadcastService, MSAL_GUARD_CONFIG, MsalGuardConfiguration } from '@azure/msal-angular';
 import { AuthenticationResult, InteractionStatus, PopupRequest, RedirectRequest, EventMessage, EventType } from '@azure/msal-browser';
-import { Subject, filter, takeUntil, map } from 'rxjs';
+import { Subject, filter, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -17,8 +17,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
-    private authService: MsalService,
-    private msalBroadcastService: MsalBroadcastService
+    public authService: MsalService,
+    public msalBroadcastService: MsalBroadcastService
   ) {}
 
   ngOnInit(): void {
