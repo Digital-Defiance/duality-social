@@ -12,7 +12,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public readonly title = 'Duality Social';
   public isIframe = false;
   public isAuthenticated = false;
-  public loginDisplay = false;
+  public userLoggedIn = false;
   private readonly _destroying$ = new Subject<void>();
 
   constructor(
@@ -23,7 +23,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.isIframe = window !== window.parent && !window.opener; // Remove this line to use Angular Universal
-    this.setLoginDisplay();
+    this.updateUserLoggedIn();
 
     this.authService.instance.enableAccountStorageEvents(); // Optional - This will enable ACCOUNT_ADDED and ACCOUNT_REMOVED events emitted when a user logs in or out of another tab or window
 
@@ -36,7 +36,7 @@ export class AppComponent implements OnInit, OnDestroy {
         if (this.authService.instance.getAllAccounts().length === 0) {
           window.location.pathname = "/";
         } else {
-          this.setLoginDisplay();
+          this.updateUserLoggedIn();
         }
       });
 
@@ -46,13 +46,13 @@ export class AppComponent implements OnInit, OnDestroy {
         takeUntil(this._destroying$)
       )
       .subscribe(() => {
-        this.setLoginDisplay();
+        this.updateUserLoggedIn();
         this.checkAndSetActiveAccount();
       })
   }
 
-  setLoginDisplay() {
-    this.loginDisplay = this.authService.instance.getAllAccounts().length > 0;
+  updateUserLoggedIn() {
+    this.userLoggedIn = this.authService.instance.getAllAccounts().length > 0;
   }
 
   checkAndSetActiveAccount(){

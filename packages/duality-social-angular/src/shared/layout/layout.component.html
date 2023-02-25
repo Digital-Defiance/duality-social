@@ -14,44 +14,53 @@
 
     <span class="navbar-spacer"></span>
 
-    <button mat-icon-button [matMenuTriggerFor]="notificationMenu">
-      <mat-icon matBadge="2" matBadgeColor="accent">notifications</mat-icon>
-    </button>
-    <mat-menu #notificationMenu="matMenu" xPosition="before" yPosition="above" [overlapTrigger]="false">
+    <!-- do not show the notifications icon if not logged in-->
+    <div *ngIf="userLoggedInDisplay">
+      <button mat-icon-button [matMenuTriggerFor]="notificationMenu">
+        <mat-icon matBadge="2" matBadgeColor="accent">notifications</mat-icon>
+      </button>
+      <mat-menu #notificationMenu="matMenu" xPosition="before" yPosition="above" [overlapTrigger]="false">
 
-      <a mat-menu-item>
-        <span>You have new tasks</span>
-      </a>
-      <a mat-menu-item>
-        <span>You have a new message</span>
-      </a>
+        <a mat-menu-item>
+          <span>You have new tasks</span>
+        </a>
+        <a mat-menu-item>
+          <span>You have a new message</span>
+        </a>
 
-    </mat-menu>
-
-
-
-    <button mat-button [matMenuTriggerFor]="userMenu">
-      <mat-icon>person</mat-icon>
-      <span fxShow fxHide.xs>
-        {{userName}}
-      </span>
-    </button>
-    <mat-menu #userMenu="matMenu" xPosition="before" yPosition="above" [overlapTrigger]="false">
-
-      <a mat-menu-item [routerLink]="['/account/profile']">
+      </mat-menu>
+      <button mat-button [matMenuTriggerFor]="userMenu">
         <mat-icon>person</mat-icon>
-        <span>Account</span>
-      </a>
+        <span fxShow fxHide.xs>
+          {{userName}}
+        </span>
+      </button>
+      <mat-menu #userMenu="matMenu" xPosition="before" yPosition="above" [overlapTrigger]="false">
 
-      <a mat-menu-item [routerLink]="['/auth/login']">
-        <mat-icon>exit_to_app</mat-icon>
-        <span>Log out</span>
-      </a>
+        <a mat-menu-item [routerLink]="['/profile']">
+          <mat-icon>person</mat-icon>
+          <span>Account</span>
+        </a>
 
-    </mat-menu>
+        <a mat-menu-item (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Log out</span>
+        </a>
 
+      </mat-menu>
+    </div>
+    <div *ngIf="!userLoggedInDisplay">
+      <button mat-button [matMenuTriggerFor]="loginMenu">
+        <mat-icon>person</mat-icon>
+      </button>
+      <mat-menu #loginMenu="matMenu" xPosition="before" yPosition="above" [overlapTrigger]="false">
+        <a mat-menu-item (click)="loginRedirect()">
+          <mat-icon>person_outline</mat-icon>
+          <span>Log in</span>
+        </a>
+      </mat-menu>
+    </div>
   </mat-toolbar>
-
   <mat-sidenav-container class="navbar-sidenav-container">
     <!-- Side nav -->
     <mat-sidenav #snav [opened]="!mobileQuery.matches" [mode]="mobileQuery.matches ? 'over' : 'side'"
@@ -85,7 +94,7 @@
           <p mat-line> Account </p>
         </a>
 
-        <a mat-list-item [routerLink]="['/auth/login']">
+        <a mat-list-item (click)="logout()">
           <mat-icon mat-list-icon>exit_to_app</mat-icon>
           <p mat-line> Log out </p>
         </a>
@@ -107,7 +116,7 @@
           <p mat-line> Typography </p>
         </a>
 
-        <a mat-list-item href="https://material.angular.io/components/categories" target="_blank">
+        <a rel="noopener" mat-list-item href="https://material.angular.io/components/categories" target="_blank">
           <mat-icon mat-list-icon>
             link
           </mat-icon>

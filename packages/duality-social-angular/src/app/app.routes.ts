@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MsalGuard } from '@azure/msal-angular';
 import { BrowserUtils } from '@azure/msal-browser';
+import { HomeComponent } from '../home/home.component';
+import { ProfileComponent } from '../profile/profile.component';
 // import { ProfileComponent } from '../profile/profile.component';
 // import { HomeComponent } from '../home/home.component';
 // import { FailedComponent } from '../failed/failed.component';
@@ -24,6 +26,15 @@ import { BrowserUtils } from '@azure/msal-browser';
 // ];
 
 const appRoutes: Routes = [
+  {
+    path: '',
+    component: HomeComponent
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [MsalGuard]
+  },
   {
     path: 'auth',
     loadChildren: () => import('../features/auth/auth.module').then(m => m.AuthModule),

@@ -9,7 +9,6 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 
 import { AppRoutingModule } from './app.routes';
-import { AppComponent } from './app.component';
 import { HomeComponent } from '../home/home.component';
 import { ProfileComponent } from '../profile/profile.component';
 
@@ -22,6 +21,7 @@ import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { CustomMaterialModule } from '../custom-material/custom-material.module';
 import { LoggerModule } from 'ngx-logger';
+import { LayoutComponent } from '../shared/layout/layout.component';
 
 const isIE = window.navigator.userAgent.indexOf("MSIE ") > -1 || window.navigator.userAgent.indexOf("Trident/") > -1; // Remove this line to use Angular Universal
 
@@ -76,7 +76,6 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
 
 @NgModule({
   declarations: [
-    AppComponent,
     HomeComponent,
     ProfileComponent,
     FailedComponent
@@ -95,9 +94,9 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     SharedModule,
     CustomMaterialModule.forRoot(),
     LoggerModule.forRoot({
-      serverLoggingUrl: `http://my-api/logs`,
+      //serverLoggingUrl: `http://my-api/logs`,
       level: environment.logLevel,
-      serverLogLevel: environment.serverLogLevel
+      //serverLogLevel: environment.serverLogLevel
     }),
     //
     HttpClientModule,
@@ -125,6 +124,6 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     MsalGuard,
     MsalBroadcastService
   ],
-  bootstrap: [AppComponent, MsalRedirectComponent]
+  bootstrap: [LayoutComponent, MsalRedirectComponent]
 })
 export class AppModule { }

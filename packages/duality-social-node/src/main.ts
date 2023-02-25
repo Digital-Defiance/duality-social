@@ -4,7 +4,7 @@ import { apiRouter as apiRouter } from './routes/api.route';
 import { router as authRouter } from './routes/auth.route';
 import { router as usersRouter } from './routes/users.route';
 import session = require('express-session');
-import cors from 'cors';
+import { cors as corslib } from './cors';
 import https from 'https';
 import fs from 'fs';
 import { environment } from './environment';
@@ -30,7 +30,7 @@ declare module "express-session" {
 const _app_folder = 'dist/packages/duality-social-angular/';
 
 const app = express();
-app.use(cors({ origin: true }));
+app.use(corslib);
 app.use(compression());
 app.use(logger('dev'));
 app.use(express.json());
