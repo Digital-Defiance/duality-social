@@ -15,3 +15,7 @@
   max-height: 400px;
   overflow: auto;
 }
+
+#_feed .mat-mdc-card-content {
+  padding: 0 5px!important;
+}
