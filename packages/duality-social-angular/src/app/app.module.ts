@@ -9,7 +9,6 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routes';
-import { HomeComponent } from '../home/home.component';
 import { ProfileComponent } from '../profile/profile.component';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -76,7 +75,6 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     ProfileComponent,
     FailedComponent
   ],

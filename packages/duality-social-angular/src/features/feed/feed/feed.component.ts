@@ -5,11 +5,11 @@ import { NGXLogger } from 'ngx-logger';
 import { AuthenticationService } from '../../../core/services/auth.service';
 
 @Component({
-  selector: 'app-dashboard-home',
-  templateUrl: './dashboard-home.component.html',
-  styleUrls: ['./dashboard-home.component.css']
+  selector: 'app-feed',
+  templateUrl: './feed.component.html',
+  styleUrls: ['./feed.component.css']
 })
-export class DashboardHomeComponent implements OnInit {
+export class FeedComponent implements OnInit {
   currentUser: any;
 
   constructor(private notificationService: NotificationService,
@@ -20,8 +20,8 @@ export class DashboardHomeComponent implements OnInit {
 
   ngOnInit() {
     this.currentUser = this.authService.getCurrentUser();
-    this.titleService.setTitle('Duality Social - Dashboard');
-    this.logger.log('Dashboard loaded');
+    this.titleService.setTitle('Duality Social - Feed');
+    this.logger.log('Feed loaded');
 
     setTimeout(() => {
       this.notificationService.openSnackBar('Welcome!');

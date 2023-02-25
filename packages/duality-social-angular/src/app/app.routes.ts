@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MsalGuard } from '@azure/msal-angular';
 import { BrowserUtils } from '@azure/msal-browser';
-import { HomeComponent } from '../home/home.component';
+import { LandingPageComponent } from '../features/landing/landing-page/landing-page.component';
 import { ProfileComponent } from '../profile/profile.component';
 // import { ProfileComponent } from '../profile/profile.component';
 // import { HomeComponent } from '../home/home.component';
@@ -28,7 +28,7 @@ import { ProfileComponent } from '../profile/profile.component';
 const appRoutes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    loadChildren: () => import('../features/landing/landing.module').then(m => m.LandingModule),
   },
   {
     path: 'profile',
@@ -40,8 +40,8 @@ const appRoutes: Routes = [
     loadChildren: () => import('../features/auth/auth.module').then(m => m.AuthModule),
   },
   {
-    path: 'dashboard',
-    loadChildren: () => import('../features/dashboard/dashboard.module').then(m => m.DashboardModule),
+    path: 'feed',
+    loadChildren: () => import('../features/feed/feed.module').then(m => m.FeedModule),
     canActivate: [MsalGuard]
   },
   {
@@ -76,7 +76,7 @@ const appRoutes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'dashboard',
+    redirectTo: 'feed',
     pathMatch: 'full'
   }
 ];

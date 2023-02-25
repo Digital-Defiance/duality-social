@@ -7,7 +7,7 @@
       <mat-icon>menu</mat-icon>
     </button>
 
-    <a class="navbar-brand" [routerLink]="['/']" matTooltip="Home" style="display: contents;">
+    <a class="navbar-brand" [routerLink]="['/']" matTooltip="Home" matTooltipPosition="after" style="display: contents;">
       <div><img src="/assets/favicon-150h.svg" alt="masks" style="height: 50px; position: relative; top: 5px;" /></div>
       <a class="title" href="/"><img src="/assets/duality-banner-tx.svg" alt="Duality Social" style="height: 50px; width: 231px; position: relative; top: 5px;" /></a>
     </a>
@@ -69,11 +69,11 @@
       <mat-nav-list>
         <h3 mat-subheader>Home</h3>
 
-        <a mat-list-item [routerLink]="['/dashboard']" routerLinkActive="active">
+        <a mat-list-item [routerLink]="['/feed']" routerLinkActive="active">
           <mat-icon mat-list-icon>
-            dashboard
+            rss_feed
           </mat-icon>
-          <p mat-line> Dashboard </p>
+          <p mat-line> Feed </p>
         </a>
 
         <a mat-list-item [routerLink]="['/customers']" routerLinkActive="active">

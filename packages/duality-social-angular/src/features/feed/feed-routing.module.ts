@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from '../../shared/layout/layout.component';
 
-import { DashboardHomeComponent } from './dashboard-home/dashboard-home.component';
+import { FeedComponent } from './feed/feed.component';
 
 const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
     children: [
-      { path: '', component: DashboardHomeComponent },
+      { path: '', component: FeedComponent },
     ]
   }
 ];
@@ -18,4 +18,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class DashboardRoutingModule { }
+export class FeedRoutingModule { }
