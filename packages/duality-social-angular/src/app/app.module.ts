@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -8,7 +8,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 
-import { AppRoutingModule, routes } from './app.routes';
+import { AppRoutingModule } from './app.routes';
 import { AppComponent } from './app.component';
 import { HomeComponent } from '../home/home.component';
 import { ProfileComponent } from '../profile/profile.component';
@@ -18,6 +18,10 @@ import { IPublicClientApplication, PublicClientApplication, InteractionType, Bro
 import { MsalGuard, MsalInterceptor, MsalBroadcastService, MsalInterceptorConfiguration, MsalModule, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG, MsalGuardConfiguration, MsalRedirectComponent } from '@azure/msal-angular';
 import { FailedComponent } from '../failed/failed.component';
 import { environment } from '../environments/environment.prod';
+import { CoreModule } from '../core/core.module';
+import { SharedModule } from '../shared/shared.module';
+import { CustomMaterialModule } from '../custom-material/custom-material.module';
+import { LoggerModule } from 'ngx-logger';
 
 const isIE = window.navigator.userAgent.indexOf("MSIE ") > -1 || window.navigator.userAgent.indexOf("Trident/") > -1; // Remove this line to use Angular Universal
 
@@ -85,6 +89,17 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     MatToolbarModule,
     MatListModule,
     MatMenuModule,
+    //
+    BrowserAnimationsModule,
+    CoreModule,
+    SharedModule,
+    CustomMaterialModule.forRoot(),
+    LoggerModule.forRoot({
+      serverLoggingUrl: `http://my-api/logs`,
+      level: environment.logLevel,
+      serverLogLevel: environment.serverLogLevel
+    }),
+    //
     HttpClientModule,
     MsalModule
   ],

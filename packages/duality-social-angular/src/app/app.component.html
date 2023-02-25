@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<!-- <mat-toolbar color="primary">
     <div><img src="/assets/favicon-150h.svg" alt="masks" style="height: 50px; position: relative; top: 5px;" /></div>
     <a class="title" href="/"><img src="/assets/duality-banner-tx.svg" alt="Duality Social" style="height: 50px; width: 231px; position: relative; top: 5px;" /></a>
 
@@ -18,7 +18,7 @@
       <button mat-menu-item (click)="logout(true)">Logout using Popup</button>
     </mat-menu>
 
-  </mat-toolbar>
+  </mat-toolbar> -->
   <div class="container">
     <!--This is to avoid reload during acquireTokenSilent() because of hidden iframe -->
     <router-outlet *ngIf="!isIframe"></router-outlet>

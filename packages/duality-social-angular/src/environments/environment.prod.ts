@@ -1,5 +1,9 @@
+import { NgxLoggerLevel } from 'ngx-logger';
+
 export const environment = {
   production: true,
+  logLevel: NgxLoggerLevel.OFF,
+  serverLogLevel: NgxLoggerLevel.ERROR,
   msal: {
     authority: 'https://login.microsoftonline.com/83f34336-afeb-4706-b665-02995bbdffc8/',
     clientId: '8c8572d9-9cad-4cee-b00f-4b642f7441bb',
@@ -13,3 +17,4 @@ export const environment = {
     postLogoutRedirectUri: 'https://duality.social/auth/signout',
   }
 };
+

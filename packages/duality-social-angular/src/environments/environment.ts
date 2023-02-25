@@ -2,8 +2,12 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import { NgxLoggerLevel } from 'ngx-logger';
+
 export const environment = {
   production: false,
+  logLevel: NgxLoggerLevel.OFF,
+  serverLogLevel: NgxLoggerLevel.ERROR,
   msal: {
     authority: 'https://login.microsoftonline.com/83f34336-afeb-4706-b665-02995bbdffc8/',
     clientId: '8c8572d9-9cad-4cee-b00f-4b642f7441bb',

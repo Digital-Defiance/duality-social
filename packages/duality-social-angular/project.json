@@ -12,7 +12,7 @@
         "outputPath": "dist/packages/duality-social-angular",
         "index": "packages/duality-social-angular/src/index.html",
         "main": "packages/duality-social-angular/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": "packages/duality-social-angular/src/polyfills.ts",
         "tsConfig": "packages/duality-social-angular/tsconfig.app.json",
         "assets": [
           "packages/duality-social-angular/src/favicon.ico",
@@ -32,8 +32,8 @@
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumWarning": "1mb",
+              "maximumError": "2mb"
             },
             {
               "type": "anyComponentStyle",
