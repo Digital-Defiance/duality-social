@@ -5,7 +5,6 @@ import { AuthenticationService } from '../../../core/services/auth.service';
 import { NotificationService } from '../../../core/services/notification.service';
 import { SpinnerService } from '../../../core/services/spinner.service';
 
-
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',

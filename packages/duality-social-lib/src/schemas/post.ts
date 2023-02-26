@@ -1,4 +1,4 @@
-import { Schema, Types } from 'mongoose';
+import { Schema } from 'mongoose';
 import { HumanityType } from '../lib/enumerations/humanityType';
 
 export const postSchema = new Schema({
@@ -14,11 +14,11 @@ export const postSchema = new Schema({
   /**
    * The id of the parent post if this is a reply.
    */
-  parentId:  { type: Types.ObjectId, null: true, default: null },
+  parentId:  { type: Schema.Types.ObjectId, null: true, default: null },
   hidden: { type: Boolean, null: true, default: null },
   hiddenAt: Date,
   createdAt: { type: Date, default: Date.now, required: true, readonly: true },
-  createdById: { type: Types.ObjectId, required: true, readonly: true },
+  createdById: { type: Schema.Types.ObjectId, required: true, readonly: true },
   meta: {
     expands: Number,
     impressions: Number,

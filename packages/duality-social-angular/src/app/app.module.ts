@@ -98,7 +98,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     }),
     //
     HttpClientModule,
-    MsalModule
+    MsalModule,
   ],
   providers: [
     {

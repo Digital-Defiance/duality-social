@@ -4,7 +4,7 @@
   <mat-toolbar class="navbar" color="primary">
 
     <button mat-icon-button (click)="snav.toggle()">
-      <mat-icon>menu</mat-icon>
+      <i class="fa-duotone fa-square-list">menu</i>
     </button>
 
     <a class="navbar-brand" [routerLink]="['/']" matTooltip="Home" matTooltipPositionAtOrigin="true" style="display: contents;">
@@ -30,7 +30,7 @@
 
       </mat-menu>
       <button mat-button [matMenuTriggerFor]="userMenu">
-        <mat-icon>person</mat-icon>
+        <i class="fa-duotone fa-person"></i>
         <span fxShow fxHide.xs>
           {{userName}}
         </span>
@@ -38,12 +38,12 @@
       <mat-menu #userMenu="matMenu" xPosition="before" yPosition="above" [overlapTrigger]="false">
 
         <a mat-menu-item [routerLink]="['/profile']">
-          <mat-icon>person</mat-icon>
+          <i class="fa-duotone fa-person"></i>
           <span>Account</span>
         </a>
 
         <a mat-menu-item (click)="logout()">
-          <mat-icon>exit_to_app</mat-icon>
+          <i class="fa-duotone fa-person-to-door"></i>
           <span>Log out</span>
         </a>
 
@@ -51,11 +51,11 @@
     </div>
     <div *ngIf="!userLoggedInDisplay">
       <button mat-button [matMenuTriggerFor]="loginMenu">
-        <mat-icon>person</mat-icon>
+        <i class="fa-duotone fa-person"></i>person
       </button>
       <mat-menu #loginMenu="matMenu" xPosition="before" yPosition="above" [overlapTrigger]="false">
         <a mat-menu-item (click)="loginRedirect()">
-          <mat-icon>person_outline</mat-icon>
+          <i class="fa-duotone fa-person-sign"></i>
           <span>Log in</span>
         </a>
       </mat-menu>
@@ -70,32 +70,26 @@
         <h3 mat-subheader>Home</h3>
 
         <a mat-list-item [routerLink]="['/feed']" routerLinkActive="active">
-          <mat-icon mat-list-icon>
-            rss_feed
-          </mat-icon>
+          <i class="fa-duotone fa-rss"></i>
           <p mat-line> Feed </p>
         </a>
 
         <a mat-list-item [routerLink]="['/customers']" routerLinkActive="active">
-          <mat-icon mat-list-icon>
-            business
-          </mat-icon>
+          <i class="fa-duotone fa-building"></i>
           <p mat-line> Customers </p>
         </a>
         <a mat-list-item [routerLink]="['/users']" routerLinkActive="active">
-          <mat-icon mat-list-icon>
-            people
-          </mat-icon>
+          <i class="fa-duotone fa-people-group"></i>
           <p mat-line> Users </p>
         </a>
 
         <a mat-list-item [routerLink]="['/account/profile']">
-          <mat-icon mat-list-icon>person</mat-icon>
+          <i class="fa-duotone fa-person-sign"></i>
           <p mat-line> Account </p>
         </a>
 
         <a mat-list-item (click)="logout()">
-          <mat-icon mat-list-icon>exit_to_app</mat-icon>
+          <i class="fa-duotone fa-person-to-door"></i>
           <p mat-line> Log out </p>
         </a>
 
@@ -104,29 +98,21 @@
         <h3 mat-subheader>Resources</h3>
 
         <a mat-list-item [routerLink]="['/icons']" routerLinkActive="active">
-          <mat-icon mat-list-icon>
-            toll
-          </mat-icon>
+          <i class="fa-duotone fa-icons"></i>
           <p mat-line> Icons </p>
         </a>
         <a mat-list-item [routerLink]="['/typography']" routerLinkActive="active">
-          <mat-icon mat-list-icon>
-            font_download
-          </mat-icon>
+          <i class="fa-duotone fa-font-case"></i>
           <p mat-line> Typography </p>
         </a>
 
         <a rel="noopener" mat-list-item href="https://material.angular.io/components/categories" target="_blank">
-          <mat-icon mat-list-icon>
-            link
-          </mat-icon>
+          <i class="fa-duotone fa-link-simple"></i>
           <p mat-line> Material Components </p>
         </a>
 
         <a id="push-bottom" mat-list-item [routerLink]="['/about']" routerLinkActive="active">
-          <mat-icon mat-list-icon>
-            info_outline
-          </mat-icon>
+          <i class="fa-duotone fa-info"></i>
           <p mat-line> About </p>
         </a>
       </mat-nav-list>
@@ -144,5 +130,9 @@
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
-
+  <div class="floating-button-container md-fab-bottom-right" slot="fixed" vertical="bottom" horizontal="end">
+    <div class="button iconbutton" mat-fab color="accent" [routerLink]="['/posts/new']">
+      <i class="fa-duotone fa-list"></i>
+    </div>
+  </div>
 </div>

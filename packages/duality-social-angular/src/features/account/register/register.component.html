@@ -2,13 +2,21 @@
   <form [formGroup]="form" fxFlex="30%" fxFlex.sm="50%" fxFlex.xs="90%">
       <mat-card>
           <mat-card-title>Duality Social</mat-card-title>
-          <mat-card-subtitle>Reset your password</mat-card-subtitle>
+          <mat-card-subtitle>Register</mat-card-subtitle>
           <mat-card-content>
 
               <mat-form-field class="full-width">
-                  <input id="emailInput" matInput readonly disabled [value]="email">
+                  <input id="emailInput" aria-label="email address" placeholder="email@example.com" matInput [value]="email" autocomplete="email">
+                  <mat-error *ngIf="form.controls['emailInput'].hasError('required')">
+                    Please enter a valid email address
+                  </mat-error>
               </mat-form-field>
-
+              <mat-form-field class="full-width">
+                <input id="usernameInput" aria-label="username" placeholder="Username" matInput [value]="username" autocomplete="username">
+                <mat-error *ngIf="form.controls['username'].hasError('required')">
+                  Please enter a valid username
+                </mat-error>
+            </mat-form-field>
               <mat-form-field class="full-width">
                 <input id="passwordInput" matInput placeholder="New Password" formControlName="newPassword" [type]="hideNewPassword ? 'password' : 'text'" autocomplete="new-password">
                 <i class="fa-duotone  {{hideNewPassword ? 'fa-eye' : 'fa-eye-slash'}}" (click)="hideNewPassword = !hideNewPassword"></i>
@@ -30,7 +38,7 @@
           </mat-card-content>
 
           <mat-card-actions class="login-actions">
-              <button id="submit" mat-raised-button color="primary" [disabled]="form.invalid || loading" (click)="resetPassword()">OK</button>
+              <button id="submit" mat-raised-button color="primary" [disabled]="form.invalid || loading" (click)="register()">OK</button>
               <button id="cancel" mat-button (click)="cancel()">Back to Login</button>
           </mat-card-actions>
 

@@ -1,14 +1,14 @@
-import { Schema, Types } from 'mongoose';
+import { Schema } from 'mongoose';
 
 export const postImpressionSchema = new Schema({
     /**
      * The id of the post being viewed.
      */
-    postId: { type: Types.ObjectId, required: true, null: false, readonly: true },
+    postId: { type: Schema.Types.ObjectId, required: true, null: false, readonly: true },
     /**
      * The id of the user viewing the post.
      */
-    userId: { type: Types.ObjectId, required: true, null: false, readonly: true },
+    userId: { type: Schema.Types.ObjectId, required: true, null: false, readonly: true },
     /**
      * The ip address of the user viewing the post.
      */

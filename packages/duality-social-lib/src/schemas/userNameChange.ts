@@ -1,4 +1,4 @@
-import { Schema, Types } from 'mongoose';
+import { Schema } from 'mongoose';
 
 export const userNameChangeSchema = new Schema({
     /**
@@ -16,5 +16,5 @@ export const userNameChangeSchema = new Schema({
     /**
      * The id of the user changing their name.
      */
-    createdBy: { type: Types.ObjectId, required: true, null: false, readonly: true },
+    createdBy: { type: Schema.Types.ObjectId, required: true, null: false, readonly: true },
 });

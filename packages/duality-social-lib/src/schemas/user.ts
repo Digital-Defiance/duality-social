@@ -1,4 +1,4 @@
-import { Schema, Types } from 'mongoose';
+import { Schema } from 'mongoose';
 import { AccountStatusType } from '../lib/enumerations/accountStatusType';
 import { AccountLoginType } from '../lib/enumerations/accountLoginType';
 import { AdminLevel } from '../lib/enumerations/adminLevel';
@@ -63,7 +63,7 @@ export const userSchema = new Schema({
   /**
    * The user who last updated the user.
    */
-  updatedById: Types.ObjectId,
+  updatedById: Schema.Types.ObjectId,
   /**
    * The date/time the user was deleted.
    */
@@ -71,7 +71,7 @@ export const userSchema = new Schema({
   /**
    * The user who deleted the user.
    */
-  deletedById: { type: Types.ObjectId, null: true, default: null },
+  deletedById: { type: Schema.Types.ObjectId, null: true, default: null },
   /**
    * Current deletion status (none, self-deleted, admin-deleted, etc)
    */

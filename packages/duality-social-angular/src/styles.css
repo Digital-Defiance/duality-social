@@ -7,6 +7,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-
 .mat-toolbar.mat-primary { background-color: #2e007f; box-shadow: 2px 2px 2px 2px black; }
 .mat-typography { color: #ffffff; }
 .navbar-sidenav-container { background-color: #282828;}
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -97,14 +98,14 @@ body {
   margin-top: 8px !important;
 }
 
-.no-records .mat-icon {
+.no-records i.fa-duotone {
   width: 130px;
   height: 130px;
   font-size: 130px;
   color: #c7c7c7;
 }
 
-p .mat-icon {
+p i.fa-duotone {
   vertical-align: middle;
 }
 

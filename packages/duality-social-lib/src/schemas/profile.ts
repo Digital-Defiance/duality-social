@@ -1,10 +1,10 @@
-import { Schema, Types } from 'mongoose';
+import { Schema } from 'mongoose';
 
 export const profileSchema = new Schema({
   /**
    * The id of the user whose profile this is
    */
-  userId: { type: Types.ObjectId, required: true, null: false, readonly: true },
+  userId: { type: Schema.Types.ObjectId, required: true, null: false, readonly: true },
   userPrincipalName: { type: String, default: null, null: true },
   givenName: { type: String, default: null, null: true },
   surname: { type: String, default: null,null: true },

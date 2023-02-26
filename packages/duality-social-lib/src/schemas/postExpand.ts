@@ -1,14 +1,14 @@
-import { Schema, Types } from 'mongoose';
+import { Schema } from 'mongoose';
 
 export const postExpandSchema = new Schema({
     /**
      * The id of the post being expanded.
      */
-    postId: { type: Types.ObjectId, required: true, null: false, readonly: true },
+    postId: { type: Schema.Types.ObjectId, required: true, null: false, readonly: true },
     /**
      * The id of the original impression.
      */
-    postImpressionId: { type: Types.ObjectId, required: true, null: false, readonly: true },
+    postImpressionId: { type: Schema.Types.ObjectId, required: true, null: false, readonly: true },
     /**
      * The time the post was expanded.
      */

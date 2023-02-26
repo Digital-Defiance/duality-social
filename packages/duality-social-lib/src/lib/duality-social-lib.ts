@@ -34,3 +34,28 @@ export function imageDataUrlToFile(imageDataUrl: string): File
   const imageFile = new File([imageData], 'image.png');
   return imageFile;
 }
+
+export function parseFontAwesome(input: string): string {
+  // look for [:fa-anything fa-blah:] and [:fa-blah:]
+  /* if only one 'fa-'term is specified, assume fa-regular
+    * [:fa-person:] -> <i class="fa-regular fa-person"></i>
+  /* if two 'fa-'terms are specified, assume the first is the style
+    * and the second is the icon
+    * [:fa-solid fa-person:] -> <i class="fa-solid fa-person"></i>
+    */
+   const oneTermRegex = /\[:fa-([a-zA-Z0-9-]+):\]/g;
+   const twoTermRegex = /\[:fa-([a-zA-Z0-9-]+)(?: fa-([a-zA-Z0-9-]+))?:\]/g;
+  
+    let changed = false;
+    do {
+      const before = input;
+      // Replace [:fa-X:] with <i class="fa-regular fa-X"></i>
+      input = input.replace(oneTermRegex, '<i class="fa-regular fa-$1"></i>');
+      
+      // Replace [:fa-X fa-Y:] with <i class="fa-X fa-Y"></i>
+      input = input.replace(twoTermRegex, '<i class="fa-$1 fa-$2"></i>');
+      changed = before !== input;
+    } while (changed);
+
+    return input;
+}
