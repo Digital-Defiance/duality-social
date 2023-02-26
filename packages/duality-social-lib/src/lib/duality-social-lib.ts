@@ -141,6 +141,11 @@ export function validatePairs(pairs: FontAwesomePair[]): boolean {
   return true;
 }
 
+export function validateFontSwaps(input: string): boolean {
+  const pairs = extractPairs(input);
+  return validatePairs(pairs);
+}
+
 export function parseFontAwesome(input: string): string {
   // look for [:fa-anything fa-blah:] and [:fa-blah:]
   /* if only one 'fa-'term is specified, assume fa-regular
