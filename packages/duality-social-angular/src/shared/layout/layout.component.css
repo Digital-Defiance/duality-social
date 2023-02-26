@@ -86,3 +86,7 @@ a.mat-list-item.active {
   vertical-align: middle;
   background-color: #7E7E7F
 }
+
+#userNameButton {
+  font-size: larger;
+}
