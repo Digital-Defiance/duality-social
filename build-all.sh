@@ -27,12 +27,15 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-echo ""
-echo "Building duality-social-docs"
-nx build duality-social-docs
-if [ $? -ne 0 ]; then
-    echo "Failed to build duality-social-docs"
-    exit 1
+# if we're not skipping documentation via SKIP_DOCS being set
+if [ -z "${SKIP_DOCS}" ]; then
+    echo ""
+    echo "Building duality-social-docs"
+    nx build duality-social-docs
+    if [ $? -ne 0 ]; then
+        echo "Failed to build duality-social-docs"
+        exit 1
+    fi
 fi
 
 cd "${OPWD}"

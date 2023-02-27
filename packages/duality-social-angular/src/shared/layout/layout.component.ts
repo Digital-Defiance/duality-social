@@ -42,18 +42,19 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
   public isAdmin = false;
   public userLoggedInDisplay = false;
   private readonly _destroying$ = new Subject<void>();
+  public newPostVisible = false;
 
   private autoLogoutSubscription: Subscription = new Subscription();
 
   constructor(
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
-    private changeDetectorRef: ChangeDetectorRef,
-    private media: MediaMatcher,
+    public changeDetectorRef: ChangeDetectorRef,
+    public media: MediaMatcher,
     public spinnerService: SpinnerService,
-    private authService: MsalService,
-    private msalBroadcastService: MsalBroadcastService,
-    private authGuard: MsalGuard,
-    private router: Router
+    public authService: MsalService,
+    public msalBroadcastService: MsalBroadcastService,
+    public authGuard: MsalGuard,
+    public router: Router
   ) {
     this.mobileQuery = this.media.matchMedia('(max-width: 1000px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -91,6 +92,17 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     } else {
       this.authService.logoutRedirect();
     }
+  }
+
+  public showNewPost() {
+    this.newPostVisible = true;
+    this.router.navigate(['feed'], {
+      queryParams: { newPost: true },
+    });
+  }
+
+  public hideNewPost() {
+    this.newPostVisible = false;
   }
 
   ngOnInit(): void {

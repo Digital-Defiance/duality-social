@@ -1,8 +1,8 @@
 import { Schema } from 'mongoose';
-import { AccountStatusType } from '../lib/enumerations/accountStatusType';
-import { AccountLoginType } from '../lib/enumerations/accountLoginType';
-import { AdminLevel } from '../lib/enumerations/adminLevel';
-import { LockType } from '../lib/enumerations/lockType';
+import { AccountStatusType } from '../enumerations/accountStatusType';
+import { AccountLoginType } from '../enumerations/accountLoginType';
+import { AdminLevel } from '../enumerations/adminLevel';
+import { LockType } from '../enumerations/lockType';
 
 /**
  * A user in the system.
@@ -12,7 +12,7 @@ export const userSchema = new Schema({
    * Whether the login is via email/password or via external authentication.
    */
   accountType: { type: String, enum: AccountLoginType, default: AccountLoginType.Microsoft, required: true},
-  accountStatusType: { type: String, enum: AccountStatusType, default: AccountStatusType.AccountActive, required: true, null: false },
+  accountStatusType: { type: String, enum: AccountStatusType, default: AccountStatusType.Active, required: true, null: false },
   /**
    * The user's email address, used for login if accountType is email/password.
    * Used for sending notifications, regardless.
@@ -73,13 +73,9 @@ export const userSchema = new Schema({
    */
   deletedById: { type: Schema.Types.ObjectId, null: true, default: null },
   /**
-   * Current deletion status (none, self-deleted, admin-deleted, etc)
-   */
-  deletionStatus: { type: String, enum: AccountStatusType, null: true, default: null },
-  /**
    * Whether the account is under any kind of lock.
    */
-  accountFreeze: { type: String, enum: LockType, default: LockType.PendingEmailVerification },
+  adminFreezeType: { type: String, enum: LockType, default: LockType.PendingEmailVerification },
   meta: {
     /**
      * How many posts the user has made.

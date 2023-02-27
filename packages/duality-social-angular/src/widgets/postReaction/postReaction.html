@@ -1,0 +1,3 @@
+<div class="postReaction"><select title="Reactions" name="postReaction">
+<option *ngFor="let reaction of reactionsArray" [value]="reaction.type" [title]="reaction.type"><i class="fa-duotone fa-{{reaction.icon}}"></i></option>
+</select></div>

@@ -1,8 +1,12 @@
 
 import {
   closestImageSize,
+  HumanityType,
   imageDataUrlToFile,
-  makeDataUrl
+  IPost,
+  IPostViewpoint,
+  makeDataUrl,
+  PostViewpoint
 } from '@digital-defiance/duality-social-lib';
 import {
     Configuration,
@@ -19,7 +23,8 @@ import { promptResultParser } from '../models/promptResultParser';
 import { decode, encode } from 'fast-png';
 import { ImageData } from 'fast-png/lib/types';
 import { environment } from '../environment';
-
+import { model, Model, Schema } from "mongoose";
+import { Post, postSchema, postViewpointSchema } from '@digital-defiance/duality-social-lib'
 export const DevilsAdvocatePrompt = "Given the following post by a human, rewrite it, taking an opposite position, like playing Devil's Advocate, using a similar tone and style:";
 export const DevilsAdvocateImagePrompt = "Given the following position text, and a supplied image, generate an image that depicts the position:";
 
@@ -103,8 +108,8 @@ export async function imageDataUrlToSizeAndFile(imageDataUrl: string): Promise<{
    */
   export async function getOppositeResponseFromOpenAI(
     post: string,
-    postId: string,
-    userId?: string
+    postId: Schema.Types.ObjectId,
+    userId?: Schema.Types.ObjectId
   ): Promise<OpenAIGenerationResult> {
     const model = 'text-davinci-003';
     const maxTokens = 1000;
@@ -136,7 +141,7 @@ export async function imageDataUrlToSizeAndFile(imageDataUrl: string): Promise<{
       // logit_bias: logitBias,
     };
     if (userId) {
-      completionRequest.user = userId;
+      completionRequest.user = userId.toString();
     }
     const openaiResponse = await openAiClient.createCompletion(completionRequest, {
       headers: {
@@ -165,7 +170,7 @@ export async function imageDataUrlToSizeAndFile(imageDataUrl: string): Promise<{
   export async function generateDallEImage(
     prompt: string,
     sourceImageDataUrl: string,
-    userId?: string,
+    userId?: Schema.Types.ObjectId,
   ): Promise<string> {
     const sourceSizeEnum = await getImageSizeFromImageDataUrl(sourceImageDataUrl);
     const sourceSize = createImageRequestSizeEnumToNumber(sourceSizeEnum);
@@ -179,7 +184,7 @@ export async function imageDataUrlToSizeAndFile(imageDataUrl: string): Promise<{
       1, // generate 1 image
       sizeFileObject.size,
       CreateImageRequestResponseFormatEnum.B64Json, // return base64 encoded json
-      userId
+      userId?.toString()
     );
     if (generatedImage.data?.data) {
       const imageBase64Json: string | null =
@@ -200,4 +205,51 @@ export async function imageDataUrlToSizeAndFile(imageDataUrl: string): Promise<{
         cause: [generatedImage, generatedImage.data?.data],
       })
     );
+  }
+
+   async function runPrompt(createdById: Schema.Types.ObjectId, humanity: HumanityType, postContent: string): Promise<Post> {
+    // todo start spinner? deal with outside this?
+    const post = new Post();
+    post.createdById = createdById;
+    const savedPost = await post.toPostModel().save();
+    const postId: Schema.Types.ObjectId | undefined = savedPost._id;
+    if (!postId) {
+      throw new Error('Post id not saved');
+    }
+    post._id = postId;
+    const firstViewpoint = new PostViewpoint({
+      postId: postId,
+      humanityType: humanity,
+      content: postContent,
+      createdById: createdById,
+    } as IPostViewpoint);
+    const firstViewpointModel = firstViewpoint.toPostModel();
+    const firstViewpointId = (await firstViewpointModel.save())._id;
+    if (!firstViewpointId) {
+      throw new Error('First viewpoint id not saved');
+    }
+    const aiResponse = await getOppositeResponseFromOpenAI(postContent, postId, createdById);
+    if ((aiResponse).postId !== postId) {
+      throw new Error('Post id mismatch');
+    }
+    post.inputViewpointId = firstViewpointId;
+    // TODO: images
+    const aiViewpoint = new PostViewpoint({
+      postId: postId,
+      humanityType: HumanityType.AI,
+      content: aiResponse.aiResponse,
+      createdById: createdById,
+    } as IPostViewpoint);
+    const aiViewpointModel = aiViewpoint.toPostModel();
+    const aiViewpointId = (await aiViewpointModel.save())._id;
+    if (!aiViewpointId) {
+      throw new Error('AI viewpoint id not saved');
+    }
+    post.aiViewpointId = aiViewpointId;
+    const postModel = post.toPostModel();
+    const postResult = await postModel.save();
+    if (!postResult._id) {
+      throw new Error('Post not saved');
+    }
+    return new Post(postResult.toObject());
   }

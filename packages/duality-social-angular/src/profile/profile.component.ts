@@ -11,7 +11,7 @@ const GRAPH_ENDPOINT = 'https://graph.microsoft.com/v1.0/me'; // Prod graph endp
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  profile!: IProfile;
+  public profile!: IProfile;
 
   constructor(
     private http: HttpClient
@@ -24,7 +24,7 @@ export class ProfileComponent implements OnInit {
   getProfile() {
     this.http.get(GRAPH_ENDPOINT)
       .subscribe(profile => {
-        this.profile = profile;
+        this.profile = profile as IProfile;
       });
   }
 }

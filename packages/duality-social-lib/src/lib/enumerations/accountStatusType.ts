@@ -1,8 +1,12 @@
 export enum AccountStatusType {
     /**
+     * The account is new and unverified.
+     */
+    NewUnverified = 'NewUnverified',
+    /**
      * The account is active.
      */
-    AccountActive = 'AccountActive',
+    Active = 'Active',
     /**
      * The account has been deleted by an administrator.
      */
@@ -16,4 +20,5 @@ export enum AccountStatusType {
      * The account has been fully deleted by the user,
      */
     SelfDelete = 'SelfDelete',
+    AdminFreeze = 'AdminFreeze',
 }

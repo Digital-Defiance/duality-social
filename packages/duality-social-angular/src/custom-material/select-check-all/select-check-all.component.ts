@@ -14,8 +14,6 @@ export class SelectCheckAllComponent {
   @Input() values = [];
   @Input() text = 'Select All';
 
-  constructor() { }
-
   isChecked(): boolean {
     return this.model.value && this.values.length
       && this.model.value.length === this.values.length;

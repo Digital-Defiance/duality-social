@@ -73,6 +73,9 @@ a.mat-list-item.active {
   right: auto;
   bottom: -5px;
 }
+.floating-button-container .button:active {
+  transform: translateY(4px);
+}
 
 /* round fab bottom right corner */
 .md-fab-bottom-right{
@@ -89,4 +92,11 @@ a.mat-list-item.active {
 
 #userNameButton {
   font-size: larger;
+}
+
+#loggedInNavBarSection .mat-mdc-icon-button.mat-mdc-button-base {
+  height: 0px;
+  position: relative;
+  top: 10px;
+  padding: 0px!important;
 }

@@ -27,6 +27,7 @@ export const environment = {
     developer: {
         host: host,
         port: port,
+        baseUrl: serverHost,
         sslEnabled: sslEnabled,
     },
     openai: {
@@ -35,6 +36,9 @@ export const environment = {
     },
     mongo: {
         uri: process.env.MONGO_URL ?? 'mongodb://localhost:27017/duality-social',
+        sessionCollection: 'sessions',
+        sessionDatabase: 'duality-social',
+        mongoSessions: true
     },
     cookies: {
         enabled: process.env.COOKIE_ENABLED === 'true',

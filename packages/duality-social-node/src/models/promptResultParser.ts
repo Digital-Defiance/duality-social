@@ -2,10 +2,11 @@ import {
     OpenAIGenerationResult,
   } from './openAiGenerationResult';
   import { CreateCompletionResponseChoicesInner } from 'openai';
+import { Schema } from 'mongoose';
   
   export function promptResultParser(
     choices: CreateCompletionResponseChoicesInner[],
-    postId?: string
+    postId?: Schema.Types.ObjectId
   ): OpenAIGenerationResult {
     if (!choices || choices.length == 0 || !choices[0].text) {
       throw new Error('Empty choices', { cause: choices });

@@ -1,0 +1,32 @@
+<div id="faPlayground" class="container" fxLayout="row" fxLayoutAlign="center none">
+    <div fxFlex="95%">
+        <mat-card>
+            <mat-card-content>
+                <h2>Post</h2>
+                <form [formGroup]="form">
+                    <div fxLayout="row">
+                        <mat-form-field class="full-width">
+                        <textarea
+                            matInput
+                            placeholder="Test or prepare something neat!"
+                            formControlName="postContent"
+                        ></textarea>
+                        </mat-form-field>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+        <mat-card>
+            <mat-card-content>
+                <h2>Preview</h2>
+                <form [formGroup]="form">
+                    <div fxLayout="row">
+                        <mat-form-field class="full-width">
+                            <span id="playgroundOutput">{{ PlaygroundOutput }}</span>
+                        </mat-form-field>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

@@ -1,7 +1,11 @@
+import { Schema } from 'mongoose';
+import { HumanityType } from '../enumerations/humanityType';
+
 export interface IVote {
-    _id: string;
-    postId: string;
-    human: boolean;
+    postId: Schema.Types.ObjectId;
+    humanity: HumanityType;
     createdAt: number;
-    createdById: string;
+    createdById: Schema.Types.ObjectId;
 }
+
+export interface IVoteDocument extends IVote, Document {}

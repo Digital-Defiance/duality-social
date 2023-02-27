@@ -8,7 +8,7 @@ export const apiRouter = Router();
 // Sub-routers
 // -----
 // all routes prefixed with /api/openai
-apiRouter.use('/openai', isAuthenticated, openAiRouter);
+apiRouter.use('/openai', openAiRouter);
 
 // Commands
 // -----

@@ -50,6 +50,7 @@
     "packages/*"
   ],
   "dependencies": {
+    "@typegoose/typegoose": "^10.2.0",
     "axios": "^1.0.0",
     "mongoose": "^6.10.0",
     "rxjs": "~7.8.0",

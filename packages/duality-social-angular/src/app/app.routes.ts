@@ -65,7 +65,7 @@ const appRoutes: Routes = [
     canActivate: [MsalGuard]
   },
   {
-    path: 'typography',
+    path: 'playground',
     loadChildren: () => import('../features/typography/typography.module').then(m => m.TypographyModule),
     canActivate: [MsalGuard]
   },

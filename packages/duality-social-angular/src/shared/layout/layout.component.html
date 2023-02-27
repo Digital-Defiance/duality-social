@@ -15,7 +15,7 @@
     <span class="navbar-spacer"></span>
 
     <!-- do not show the notifications icon if not logged in-->
-    <div *ngIf="userLoggedInDisplay">
+    <div id="loggedInNavBarSection" *ngIf="userLoggedInDisplay">
       <button mat-icon-button [matMenuTriggerFor]="notificationMenu">
         <mat-icon matBadge="2" matBadgeColor="accent">notifications</mat-icon>
       </button>
@@ -74,15 +74,6 @@
           <p mat-line> Feed </p>
         </a>
 
-        <a mat-list-item [routerLink]="['/customers']" routerLinkActive="active">
-          <i class="fa-duotone fa-building"></i>
-          <p mat-line> Customers </p>
-        </a>
-        <a mat-list-item [routerLink]="['/users']" routerLinkActive="active">
-          <i class="fa-duotone fa-people-group"></i>
-          <p mat-line> Users </p>
-        </a>
-
         <a mat-list-item [routerLink]="['/account/profile']">
           <i class="fa-duotone fa-person-sign"></i>
           <p mat-line> Account </p>
@@ -97,18 +88,9 @@
 
         <h3 mat-subheader>Resources</h3>
 
-        <a mat-list-item [routerLink]="['/icons']" routerLinkActive="active">
-          <i class="fa-duotone fa-icons"></i>
-          <p mat-line> Icons </p>
-        </a>
-        <a mat-list-item [routerLink]="['/typography']" routerLinkActive="active">
+        <a mat-list-item [routerLink]="['/playground']" routerLinkActive="active">
           <i class="fa-duotone fa-font-case"></i>
-          <p mat-line> Typography </p>
-        </a>
-
-        <a rel="noopener" mat-list-item href="https://material.angular.io/components/categories" target="_blank">
-          <i class="fa-duotone fa-link-simple"></i>
-          <p mat-line> Material Components </p>
+          <p mat-line> Icon Playground </p>
         </a>
 
         <a id="push-bottom" mat-list-item [routerLink]="['/about']" routerLinkActive="active">
@@ -130,8 +112,8 @@
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
-  <div class="floating-button-container md-fab-bottom-right" slot="fixed" vertical="bottom" horizontal="end">
-    <div class="button iconbutton" mat-fab color="accent" [routerLink]="['/posts/new']">
+  <div class="floating-button-container md-fab-bottom-right" slot="fixed" vertical="bottom" horizontal="end" *ngIf="userLoggedInDisplay">
+    <div class="button iconbutton" mat-fab color="accent" (click)="showNewPost()">
       <i class="fa-duotone fa-pen-field"></i>
     </div>
   </div>

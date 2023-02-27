@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { TypographyRoutingModule } from './typography-routing.module';
-import { TypographyComponent } from './typography/typography.component';
 import { SharedModule } from '../../shared/shared.module';
+import { PlaygroundComponent } from '../../widgets/fontAwesomePlayground/playground.component';
 
 
 @NgModule({
-  declarations: [TypographyComponent],
+  declarations: [PlaygroundComponent],
   imports: [
     CommonModule,
     SharedModule,
