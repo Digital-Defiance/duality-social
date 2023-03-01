@@ -1,4 +1,10 @@
 #!/bin/bash
+_CMD="install"
+if [ "$1" == "--upgrade" ]; then
+    _CMD="upgrade"
+    shift
+fi
+
 OPWD=`pwd`
 PACKAGES=`find . -not -path "*/node_modules/*" -not -path "./dist/*" -name package.json -type f`
 for package in ${PACKAGES}; do
@@ -11,7 +17,7 @@ for package in ${PACKAGES}; do
         echo "Failed to cd to $PACKAGE_PATH"
         exit 1
     fi
-    yarn install
+    yarn $_CMD $@
     if [ $? -ne 0 ]; then
         echo "Failed to install dependencies for $PACKAGE_PATH"
         exit 1

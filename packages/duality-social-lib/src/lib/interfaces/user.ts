@@ -43,6 +43,7 @@ export interface IUserMeta {
 }
 
 export interface IUser {
+    _id?: Schema.Types.ObjectId;
   // graphql fields
     givenName: string;
     surname: string;

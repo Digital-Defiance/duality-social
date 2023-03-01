@@ -10,6 +10,7 @@ export const UserPathName = '/users/';
 export const UserModel = model(UserModelName, userSchema);
 
 export class User implements IUser {
+    _id?: Schema.Types.ObjectId;
     @prop()
     public adminFreezeType: LockType;
     @prop()
