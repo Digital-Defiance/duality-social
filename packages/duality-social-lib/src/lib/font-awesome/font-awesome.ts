@@ -8,6 +8,7 @@ import {
   library,
   IconStyle,
 } from '@fortawesome/fontawesome-svg-core';
+import { fab } from '@fortawesome/free-brands-svg-icons';
 import { fas } from '@fortawesome/pro-solid-svg-icons';
 import { far } from '@fortawesome/pro-regular-svg-icons';
 import { fal } from '@fortawesome/pro-light-svg-icons';
@@ -22,7 +23,7 @@ import {
 import { FontAwesomeTextStyleType } from '../enumerations/fontAwesomeTextClass';
 import { stripHtml } from "string-strip-html";
 
-library.add(fas, far, fal, fat, fad, fass);
+library.add(fab, fas, far, fal, fat, fad, fass);
 
 export interface IFontAwesomeParseItem {
   colorClass: FontAwesomeTextStyleType;

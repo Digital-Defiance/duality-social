@@ -3,7 +3,16 @@
   "version": "0.0.1",
   "dependencies": {
     "buffer": "^6.0.3",
-    "string-strip-html": "8.4.0"
+    "string-strip-html": "8.4.0",
+    "@fortawesome/fontawesome-pro": "^6.3.0",
+    "@fortawesome/fontawesome-svg-core": "^6.3.0",
+    "@fortawesome/free-brands-svg-icons": "^6.3.0",
+    "@fortawesome/pro-duotone-svg-icons": "^6.3.0",
+    "@fortawesome/pro-light-svg-icons": "^6.3.0",
+    "@fortawesome/pro-regular-svg-icons": "^6.3.0",
+    "@fortawesome/pro-solid-svg-icons": "^6.3.0",
+    "@fortawesome/pro-thin-svg-icons": "^6.3.0",
+    "@fortawesome/sharp-solid-svg-icons": "^6.3.0"
   },
   "devDependencies": {
     "@types/node": "^18.14.1"

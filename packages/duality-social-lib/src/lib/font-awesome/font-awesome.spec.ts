@@ -1,4 +1,4 @@
-import { parseIconMarkup } from './font-awesome/font-awesome';
+import { parseIconMarkup } from './font-awesome';
 
 describe('dualitySocialLib', () => {
   it('should test [:thumbs-up:]', () => {
