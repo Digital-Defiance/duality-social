@@ -54,4 +54,9 @@ describe('dualitySocialLib', () => {
     const output = parseIconMarkup(input);
     expect(output).toBe(input);
   });
+  it('Doesn\'t allow odd injections', () => {
+    const input = 'This is a trick test [:solid heart x x <blah></blah>:]';
+    const output = parseIconMarkup(input);
+    expect(output).toBe("This is a trick test <i class=\"fa-solid fa-heart\" style=\"x x\"></i>");
+  });
 });

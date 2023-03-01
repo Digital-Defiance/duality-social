@@ -20,6 +20,8 @@ import {
   ReactionTypeIcons,
 } from '../enumerations/defaultReactionsType';
 import { FontAwesomeTextStyleType } from '../enumerations/fontAwesomeTextClass';
+import { stripHtml } from "string-strip-html";
+
 library.add(fas, far, fal, fat, fad, fass);
 
 export interface IFontAwesomeParseItem {
@@ -63,6 +65,14 @@ export function makeReaction(
 }
 
 export function parseIconMarkup(input: string): string {
+  input = stripHtml(input, {
+    stripTogetherWithTheirContents: [
+      "script", // default
+      "style", // default
+      "xml", // default
+      // "pre", // <-- custom-added
+    ],
+  }).result;
   const regex = /\[(?::([^\]]*):|)\]/g;
 
   let match: RegExpExecArray | null;
@@ -70,7 +80,6 @@ export function parseIconMarkup(input: string): string {
     if (match[1] === undefined) {
       continue;
     }
-    console.log(match);
     const iconWords: string[] = [];
     const styleWords: string[] = [];
     const contents = match[1];
