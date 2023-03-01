@@ -10,22 +10,21 @@
                             matInput
                             placeholder="Test or prepare something neat!"
                             formControlName="postContent"
+                            (ngModelChange)="updatePostContent()"
                         ></textarea>
                         </mat-form-field>
                     </div>
                 </form>
             </mat-card-content>
         </mat-card>
-        <mat-card>
+        <mat-card style="margin-top: 30px;">
             <mat-card-content>
                 <h2>Preview</h2>
-                <form [formGroup]="form">
-                    <div fxLayout="row">
-                        <mat-form-field class="full-width">
-                            <span id="playgroundOutput">{{ PlaygroundOutput }}</span>
-                        </mat-form-field>
+                <div fxLayout="row">
+                    <div id="playgroundOutput">
+                        <div [innerHTML]="PlaygroundOutput"></div>
                     </div>
-                </form>
+                </div>
             </mat-card-content>
         </mat-card>
     </div>

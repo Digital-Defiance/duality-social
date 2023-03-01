@@ -99,17 +99,21 @@ export function parseIconMarkup(input: string): string {
       } else if (i < 2) {
         iconWords.push(`fa-${word.toLowerCase()}`);
       } else {
-        styleWords.push(word.trim());
+        styleWords.push(word);
       }
     }
     if (iconWords.length === 1) {
       iconWords.unshift('fa-regular');
     }
-    const styleAttr =
-      styleWords.length > 0 ? ` style="${styleWords.join(' ')}"` : '';
-    const newTag = `<i class="${iconWords.join(' ')}"${styleAttr}></i>`;
-
-    input = input.replace(match[0], newTag);
+    let newTag = match[0];
+    if (styleWords.length > 0) {
+      const styleAttr = ` style="display: inline-block; ${styleWords.join(' ')}"`;
+      newTag = `<i class="${iconWords.join(' ')}"${styleAttr}></i>`;
+    } else {
+      newTag = `<i class="${iconWords.join(' ')}"></i>`;
+    }
+    const matchOffset = input.indexOf(match[0]);
+    input = input.substring(0, matchOffset) + newTag + input.substring(matchOffset + match[0].length);
   }
   return input;
 }

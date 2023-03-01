@@ -20,6 +20,7 @@ import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { CustomMaterialModule } from '../custom-material/custom-material.module';
 import { LoggerModule } from 'ngx-logger';
+import { SafeHtmlPipe } from '../core/safeHtml.pipe';
 
 const isIE = window.navigator.userAgent.indexOf("MSIE ") > -1 || window.navigator.userAgent.indexOf("Trident/") > -1; // Remove this line to use Angular Universal
 
@@ -76,6 +77,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   declarations: [
     AppComponent,
     ProfileComponent,
+    SafeHtmlPipe,
     FailedComponent
   ],
   imports: [

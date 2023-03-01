@@ -1,34 +1,54 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Directive, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import {
   UntypedFormControl,
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
+import { SafeHtml } from '@angular/platform-browser';
 import { parseIconMarkup } from '@digital-defiance/duality-social-lib';
+import { SafeHtmlPipe } from '../../core/safeHtml.pipe';
 
 @Component({
   selector: 'app-fa-playground',
   templateUrl: './playground.component.html',
   styleUrls: ['./playground.component.css'],
+  encapsulation: ViewEncapsulation.None,
+  providers: [SafeHtmlPipe]
 })
-export class PlaygroundComponent implements OnInit {
-  // constructor() {}
+export class PlaygroundComponent implements OnInit, OnChanges {
+  constructor(private _safeHtmlPipe: SafeHtmlPipe) {}
+
+  public get PlaygroundOutput(): SafeHtml {
+    return this._playgroundOutput;
+  }
+  public set PlaygroundOutput(value: SafeHtml) {
+    this._playgroundOutput = parseIconMarkup(value.toString());
+  }
+  private _playgroundOutput: SafeHtml = "" as SafeHtml;
+
   /**
    * Whether to show the new post input box.
    */
   public form!: UntypedFormGroup;
-  private _playgroundOutput = '';
-  public get PlaygroundOutput(): string {
-    return this._playgroundOutput;
-  }
-  private _postContent = '';
-  public get postConent(): string {
+  private _postContent:SafeHtml = '';
+  public get postContent(): SafeHtml {
     return this._postContent;
   }
-  public set postContent(value: string) {
+  public set postContent(value: SafeHtml) {
     this._postContent = value;
-    const parsedInput = parseIconMarkup(this._postContent);
-    this._playgroundOutput = parsedInput;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.updatePostContent();
+  }
+
+  public updatePostContent(): void {
+    const postContent = this.form.get('postContent')?.value;
+    const parsedInput = parseIconMarkup(postContent)
+      .replace("\r\n", "\n")
+      .replace("\r", "")
+      .replace("\n", "<br/>");
+    this._playgroundOutput = this._safeHtmlPipe.transform(parsedInput);
   }
 
   public ngOnInit(): void {

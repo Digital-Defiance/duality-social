@@ -29,6 +29,7 @@ declare module "express-session" {
     isAuthenticated?: boolean;
   }
 }
+mongoose.set('strictQuery', true);
 mongoose.connect(environment.mongo.uri).then(() => {
   const MongoDBStore = mongoDbSession(session);
   const _app_folder = 'dist/packages/duality-social-angular/';
