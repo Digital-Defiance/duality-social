@@ -17,6 +17,7 @@
 /***************************************************************************************************
  * BROWSER POLYFILLS
  */
+(window as any).process = { env: { }, };
 
 /**
  * By default, zone.js will patch all possible macroTask and DomEvents

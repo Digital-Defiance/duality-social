@@ -18,7 +18,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
-import { MatStepperModule } from '@angular/material/stepper';
+// import { MatStepperModule } from '@angular/material/stepper';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -51,6 +51,7 @@ export const MY_FORMATS = {
 @NgModule({
   imports: [
     CommonModule,
+    MatFormFieldModule, MatRadioModule, MatSliderModule, MatGridListModule,
     MatMomentDateModule,
     MatSidenavModule, MatIconModule, MatToolbarModule, MatButtonModule,
     MatListModule, MatCardModule, MatProgressBarModule, MatInputModule,
