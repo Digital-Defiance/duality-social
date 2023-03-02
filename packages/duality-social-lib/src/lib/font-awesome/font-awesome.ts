@@ -66,8 +66,18 @@ export function makeReaction(
   return `<i class="fa-${colorClass} ${reactionTypeIcon}}"></i>`;
 }
 
+/**
+ * This function takes the input and looks for several cases of the following syntax:
+ * {{iconName}} or {{ iconName }} which renders as fa-regular fa-iconName
+ * {{style iconName}} or {{ style iconName }} which renders as fa-style fa-iconName 
+ *   such as fa-solid fa-heart
+ * {{style iconName; ..style attribures..}} or {{ style iconName; ..style attributes.. }} which 
+ *   renders as <i class="fa-style fa-iconName" style="..style attributes.." such as <i class="fa-solid fa-heart" style="background-color: black; color: red;">
+ * @param input The string to be parsed
+ * @returns parsed markup
+ */
 export function parseIconMarkup(input: string): string {
-  const regex = /\{\{([a-zA-Z0-9-_;:%#&* ^ ]+)\}\}/g;
+  const regex = /\{\{([a-zA-Z0-9-_;:%#&*! ^ ]+)\}\}/g;
 
   let match: RegExpExecArray | null;
   while ((match = regex.exec(input)) !== null) {

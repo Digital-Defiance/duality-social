@@ -15,10 +15,10 @@
     "@fortawesome/pro-regular-svg-icons": "^6.3.0",
     "@fortawesome/pro-solid-svg-icons": "^6.3.0",
     "@fortawesome/pro-thin-svg-icons": "^6.3.0",
-    "@fortawesome/sharp-solid-svg-icons": "^6.3.0"
-  },
-  "devDependencies": {
+    "@fortawesome/sharp-solid-svg-icons": "^6.3.0",
     "@types/linkify-it": "^3.0.2",
     "@types/markdown-it": "^12.2.3"
+  },
+  "devDependencies": {
   }
 }

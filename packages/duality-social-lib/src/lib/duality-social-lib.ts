@@ -2,7 +2,8 @@ import { CreateImageRequestSizeEnum } from 'openai';
 import { Buffer } from 'buffer';
 import { stripHtml } from "string-strip-html";
 import { parseIconMarkup } from './font-awesome/font-awesome';
-import MarkdownIt from 'markdown-it';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const MarkdownIt = require('markdown-it');
 
 /**
  * Makes a data:// URL from a base64 encoded binary blob string containing a PNG image
