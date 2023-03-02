@@ -3,17 +3,34 @@
 ## Architecture
 
 - Azure App Service for hosting
+  -https://azure.microsoft.com/en-us/products/app-service
   - https://duality-social.azurewebsites.net
 - Azure Cosmos DB for database
+  - https://azure.microsoft.com/en-us/services/cosmos-db/
   - https://duality-social.documents.azure.com:443/
 - Azure Web PubSub for real-time communication
+  - https://azure.microsoft.com/en-us/services/web-pubsub/
   - duality-social.webpubsub.azure.com
+- Mongoose for database access
+  - https://mongoosejs.com/
+- Express for web server
+  - https://expressjs.com/
+- Angular 15 for frontend
+  - https://angular.io/
+- Angular Material for UI components
+  - https://material.angular.io/
+- markdown-it for markdown rendering
+  - https://markdown-it.github.io/markdown-it/
+- Font Awesome for icons, with custom icon formatting helpers
+  - https://fontawesome.com/icons
 
 ## References
 - https://github.com/Azure-Samples/angular-cosmosdb
 - https://learn.microsoft.com/en-us/azure/cosmos-db/mongodb/tutorial-develop-nodejs-part-3
 - https://learn.microsoft.com/en-us/azure/cosmos-db/mongodb/tutorial-develop-nodejs-part-5
 - https://azure.microsoft.com/en-us/blog/easily-build-realtime-apps-with-websockets-and-azure-web-pubsub-now-in-preview/
+- https://markdown-it.github.io/markdown-it/#MarkdownIt.disable
+- https://thecodebarbarian.com/working-with-mongoose-in-typescript.html
 ----
 
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>

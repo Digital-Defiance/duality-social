@@ -30,7 +30,7 @@
 
       </mat-menu>
       <button id="userNameButton" mat-button [matMenuTriggerFor]="userMenu">
-        <i class="fa-duotone fa-person"></i>
+        <i class="fa-solid fa-person"></i>
         <span fxShow fxHide.xs>
           {{userName}}
         </span>
@@ -38,7 +38,7 @@
       <mat-menu #userMenu="matMenu" xPosition="before" yPosition="above" [overlapTrigger]="false">
 
         <a mat-menu-item [routerLink]="['/profile']">
-          <i class="fa-duotone fa-person"></i>
+          <i class="fa-solid fa-person"></i>
           <span>Account</span>
         </a>
 
@@ -51,11 +51,11 @@
     </div>
     <div *ngIf="!userLoggedInDisplay">
       <button mat-button [matMenuTriggerFor]="loginMenu">
-        <i class="fa-duotone fa-person"></i>person
+        <i class="fa-solid fa-person"></i>person
       </button>
       <mat-menu #loginMenu="matMenu" xPosition="before" yPosition="above" [overlapTrigger]="false">
         <a mat-menu-item (click)="loginRedirect()">
-          <i class="fa-duotone fa-person-sign"></i>
+          <i class="fa-solid fa-person-sign"></i>
           <span>Log in</span>
         </a>
       </mat-menu>

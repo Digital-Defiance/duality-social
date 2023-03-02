@@ -6,17 +6,33 @@
                 <form [formGroup]="form">
                     <div fxLayout="row">
                         <mat-form-field class="full-width">
-                        <textarea
-                            matInput
-                            placeholder="Test or prepare something neat!"
-                            formControlName="postContent"
-                            (ngModelChange)="updatePostContent()"
-                        ></textarea>
+                            <textarea matInput placeholder="Test or prepare something neat!"
+                                formControlName="postContent" (ngModelChange)="updatePostContent()"></textarea>
                         </mat-form-field>
                     </div>
                 </form>
             </mat-card-content>
         </mat-card>
         <app-post-preview [PreviewInput]="postContent"></app-post-preview>
+        <mat-card>
+            <mat-card-content>
+                <div ngNonBindable>
+                    <ul>
+                        <li>We're making extensive use of <a rel="noopener" target="_blank" title="FontAwesome Pro"
+                                href="https://fontawesome.com/icons">FontAwesome Pro</a>, so you
+                            can use any of their icons on this page and get to know the
+                            amazing selection of images you can include in anything you write.</li>
+                        <li>The formatting follows three forms: <ol>
+                                <li>{{iconName}} -&gt; &lt;i class="fa-regular fa-iconName"&gt;&lt;/i&gt;</li>
+                                <li>{{iconStyle iconName}} -&gt; &lt;i class="fa-iconStyle
+                                    fa-iconName"&gt;&lt;/i&gt;</li>
+                                <li>{{iconStyle iconName ...style..}} -&gt; &lt;i class="fa-iconStyle fa-iconName"
+                                    style="..style.."&gt;&lt;/i&gt;</li>
+                            </ol>
+                        </li>
+                    </ul>
+                </div>
+            </mat-card-content>
+        </mat-card>
     </div>
 </div>
