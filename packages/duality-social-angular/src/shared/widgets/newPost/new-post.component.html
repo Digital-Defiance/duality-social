@@ -9,6 +9,7 @@
                 matInput
                 placeholder="Say something memorable..."
                 formControlName="postContent"
+                (ngModelChange)="updatePostContent()"
               ></textarea>
             </mat-form-field>
           </div>
@@ -23,5 +24,6 @@
         </form>
       </mat-card-content>
     </mat-card>
+    <app-post-preview [PreviewInput]="postContent" *ngIf="this.postContent"></app-post-preview>
   </div>
 </div>

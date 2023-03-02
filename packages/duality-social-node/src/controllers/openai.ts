@@ -32,6 +32,8 @@ export async function devilsAdvocate(req: Request, res: Response): Promise<void>
         return;
     }
     const post: Post = new Post();
+    post.inputViewpointId = new Schema.Types.ObjectId(PostViewpointPathName);
+    post.aiViewpointId = new Schema.Types.ObjectId(PostViewpointPathName);
     const newId = (await post.toPostModel().save())._id;
     if (newId === undefined) {
         res.status(500).json({

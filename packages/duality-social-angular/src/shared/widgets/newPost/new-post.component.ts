@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from "@angular/core";
 import { UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
 import { LayoutComponent } from "../../../shared/layout/layout.component";
 import { ActivatedRoute } from '@angular/router';
@@ -9,11 +9,21 @@ import { HttpClient } from '@angular/common/http';
     templateUrl: './new-post.component.html',
     styleUrls: ['./new-post.component.css']
   })
-export class NewPostComponent implements OnInit {
+export class NewPostComponent implements OnInit, OnChanges {
   /**
    * Whether to show the new post input box.
    */
   public form!: UntypedFormGroup;
+  
+  private _postContent = '';
+  @Input()
+  public get postContent(): string {
+    return this._postContent;
+  }
+  public set postContent(value: string) {
+    this._postContent = value;
+  }
+
   public get signedIn(): boolean {
     return this.layoutComponent.authService.instance.getAllAccounts().length > 0;
   }
@@ -21,10 +31,18 @@ export class NewPostComponent implements OnInit {
     
   }
 
+  public updatePostContent(): void {
+    this._postContent = this.form.get('postContent')?.value;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.updatePostContent();
+  }
+
   public async submit(): Promise<void> {
     if (this.form.valid) {
-        this.httpClient.post('https://localhost:3000/api/openai/devils-advocate', {
-          postContent: this.form.get('postContent')?.value
+        this.httpClient.post('/api/openai/devils-advocate', {
+          postContent: this._postContent
         }, {
           headers: {
             'Content-Type': 'application/json'
