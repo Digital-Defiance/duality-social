@@ -5,18 +5,13 @@ import {
   Validators,
 } from '@angular/forms';
 import { SafeHtml } from '@angular/platform-browser';
-import { parsePostContent } from '@digital-defiance/duality-social-lib';
-import { SafeHtmlPipe } from '../../pipes/safe-html.pipe';
 
 @Component({
   selector: 'app-fa-playground',
   templateUrl: './playground.component.html',
   styleUrls: ['./playground.component.css'],
-  encapsulation: ViewEncapsulation.None,
-  providers: [SafeHtmlPipe]
 })
 export class PlaygroundComponent implements OnInit, OnChanges {
-  constructor(private _safeHtmlPipe: SafeHtmlPipe) {}
 
   public get PlaygroundOutput(): SafeHtml {
     return this._playgroundOutput;
@@ -30,11 +25,11 @@ export class PlaygroundComponent implements OnInit, OnChanges {
    * Whether to show the new post input box.
    */
   public form!: UntypedFormGroup;
-  private _postContent:SafeHtml = '';
-  public get postContent(): SafeHtml {
+  private _postContent = '';
+  public get postContent(): string {
     return this._postContent;
   }
-  public set postContent(value: SafeHtml) {
+  public set postContent(value: string) {
     this._postContent = value;
   }
 
@@ -43,9 +38,7 @@ export class PlaygroundComponent implements OnInit, OnChanges {
   }
 
   public updatePostContent(): void {
-    const postContent = this.form.get('postContent')?.value;
-    const parsedInput = parsePostContent(postContent);
-    this._playgroundOutput = this._safeHtmlPipe.transform(parsedInput);
+    this._postContent = this.form.get('postContent')?.value;
   }
 
   public ngOnInit(): void {

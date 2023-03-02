@@ -15,6 +15,7 @@ import { PostComponent } from './widgets/post/post.component';
 import { PostViewpointComponent } from './widgets/post-viewpoint/post-viewpoint.component';
 import { NewPostComponent } from './widgets/newPost/new-post.component';
 import { PlaygroundComponent } from './widgets/fontAwesomePlayground/playground.component';
+import { PostPreviewComponent } from './widgets/post-preview/post-preview.component';
 
 @NgModule({
     imports: [
@@ -35,6 +36,7 @@ import { PlaygroundComponent } from './widgets/fontAwesomePlayground/playground.
         NewPostComponent,
         PlaygroundComponent,
         PostComponent,
+        PostPreviewComponent,
         PostViewpointComponent,
     ],
     exports: [
@@ -51,6 +53,7 @@ import { PlaygroundComponent } from './widgets/fontAwesomePlayground/playground.
         NewPostComponent,
         PlaygroundComponent,
         PostComponent,
+        PostPreviewComponent,
         PostViewpointComponent,
     ]
 })
