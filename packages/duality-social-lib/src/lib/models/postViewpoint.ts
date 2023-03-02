@@ -30,8 +30,6 @@ export class PostViewpoint implements IPostViewpoint
   @prop()
   public content: string;
   @prop()
-  public deleted: boolean;
-  @prop()
   public deletedAt?: Date;
   @prop()
   public parentId?: Schema.Types.ObjectId;
@@ -53,7 +51,6 @@ export class PostViewpoint implements IPostViewpoint
     this.humanityType = doc?.humanityType ?? HumanityType.Human;
     this.parentViewpointId = doc?.parentViewpointId ?? new Schema.Types.ObjectId(PostViewpointPathName);
     this.content = doc?.content ?? '';
-    this.deleted = doc?.deleted ?? false;
     this.deletedAt = doc?.deletedAt ?? undefined;
     this.createdAt = doc?.createdAt ?? _now;
     this.createdById = doc?.createdById ?? new Schema.Types.ObjectId(UserPathName);

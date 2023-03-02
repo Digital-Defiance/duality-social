@@ -24,7 +24,6 @@ export interface IPostViewpoint {
    */
   parentViewpointId: Schema.Types.ObjectId;
   content: string;
-  deleted: boolean;
   deletedAt?: Date;
   createdAt: Date;
   createdById: Schema.Types.ObjectId;

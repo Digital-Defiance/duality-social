@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
-import { LayoutComponent } from "../../shared/layout/layout.component";
+import { LayoutComponent } from "../../../shared/layout/layout.component";
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 

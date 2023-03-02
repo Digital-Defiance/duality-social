@@ -5,8 +5,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { SafeHtml } from '@angular/platform-browser';
-import { parseIconMarkup } from '@digital-defiance/duality-social-lib';
-import { SafeHtmlPipe } from '../../core/safeHtml.pipe';
+import { parsePostContent } from '@digital-defiance/duality-social-lib';
+import { SafeHtmlPipe } from '../../pipes/safe-html.pipe';
 
 @Component({
   selector: 'app-fa-playground',
@@ -22,7 +22,7 @@ export class PlaygroundComponent implements OnInit, OnChanges {
     return this._playgroundOutput;
   }
   public set PlaygroundOutput(value: SafeHtml) {
-    this._playgroundOutput = parseIconMarkup(value.toString());
+    this._playgroundOutput = value;
   }
   private _playgroundOutput: SafeHtml = "" as SafeHtml;
 
@@ -44,10 +44,7 @@ export class PlaygroundComponent implements OnInit, OnChanges {
 
   public updatePostContent(): void {
     const postContent = this.form.get('postContent')?.value;
-    const parsedInput = parseIconMarkup(postContent)
-      .replace("\r\n", "\n")
-      .replace("\r", "")
-      .replace("\n", "<br/>");
+    const parsedInput = parsePostContent(postContent);
     this._playgroundOutput = this._safeHtmlPipe.transform(parsedInput);
   }
 

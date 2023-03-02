@@ -10,6 +10,11 @@ import { ContentPlaceholderAnimationComponent } from './content-placeholder-anim
 import { LocalDatePipe } from './pipes/local-date.pipe';
 import { YesNoPipe } from './pipes/yes-no.pipe';
 import { LayoutComponent } from './layout/layout.component';
+import { SafeHtmlPipe } from './pipes/safe-html.pipe';
+import { PostComponent } from './widgets/post/post.component';
+import { PostViewpointComponent } from './widgets/post-viewpoint/post-viewpoint.component';
+import { NewPostComponent } from './widgets/newPost/new-post.component';
+import { PlaygroundComponent } from './widgets/fontAwesomePlayground/playground.component';
 
 @NgModule({
     imports: [
@@ -25,7 +30,12 @@ import { LayoutComponent } from './layout/layout.component';
         LimitToPipe,
         LocalDatePipe,
         YesNoPipe,
-        LayoutComponent
+        SafeHtmlPipe,
+        LayoutComponent,
+        NewPostComponent,
+        PlaygroundComponent,
+        PostComponent,
+        PostViewpointComponent,
     ],
     exports: [
         FormsModule,
@@ -36,7 +46,12 @@ import { LayoutComponent } from './layout/layout.component';
         ConfirmDialogComponent,
         ContentPlaceholderAnimationComponent,
         LocalDatePipe,
-        YesNoPipe
+        YesNoPipe,
+        SafeHtmlPipe,
+        NewPostComponent,
+        PlaygroundComponent,
+        PostComponent,
+        PostViewpointComponent,
     ]
 })
 export class SharedModule { }

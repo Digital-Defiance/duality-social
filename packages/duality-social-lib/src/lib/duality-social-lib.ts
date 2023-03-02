@@ -1,5 +1,8 @@
 import { CreateImageRequestSizeEnum } from 'openai';
 import { Buffer } from 'buffer';
+import { stripHtml } from "string-strip-html";
+import { parseIconMarkup } from './font-awesome/font-awesome';
+import MarkdownIt from 'markdown-it';
 
 /**
  * Makes a data:// URL from a base64 encoded binary blob string containing a PNG image
@@ -30,4 +33,33 @@ export function imageDataUrlToFile(imageDataUrl: string): File {
   const imageData = Buffer.from(imageDataUrl.split(',', 2)[1]);
   const imageFile = new File([imageData], 'image.png');
   return imageFile;
+}
+
+export function parsePostContent(content: string): string {
+  // Phase 1: Strip HTML
+  // we strip the html first because we don't really support HTML in posts,
+  // but our syntax is too close to markdown so it gets parsed as HTML
+  content = stripHtml(content, {
+    stripTogetherWithTheirContents: [
+      "script", // default
+      "style", // default
+      "xml", // default
+      // "pre", // <-- custom-added
+    ],
+  }).result;
+
+  // Phase 2: Parse markdown
+  content = MarkdownIt('default')
+    .set({
+      breaks: true,
+      html: true,
+      linkify: true,
+      typographer: true,
+      xhtmlOut: true,
+    })
+    .render(content);
+
+  // Phase 3: Parse our custom icon syntax
+  content = parseIconMarkup(content);
+  return content;
 }

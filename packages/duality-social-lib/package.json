@@ -3,7 +3,10 @@
   "version": "0.0.1",
   "dependencies": {
     "buffer": "^6.0.3",
+    "linkify-it": "^4.0.1",
+    "markdown-it": "^13.0.1",
     "string-strip-html": "8.4.0",
+    "tlds": "^1.236.0",
     "@fortawesome/fontawesome-pro": "^6.3.0",
     "@fortawesome/fontawesome-svg-core": "^6.3.0",
     "@fortawesome/free-brands-svg-icons": "^6.3.0",
@@ -15,6 +18,7 @@
     "@fortawesome/sharp-solid-svg-icons": "^6.3.0"
   },
   "devDependencies": {
-    "@types/node": "^18.14.1"
+    "@types/linkify-it": "^3.0.2",
+    "@types/markdown-it": "^12.2.3"
   }
 }

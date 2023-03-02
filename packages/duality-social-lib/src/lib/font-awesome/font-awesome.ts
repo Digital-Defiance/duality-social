@@ -21,9 +21,10 @@ import {
   ReactionTypeIcons,
 } from '../enumerations/defaultReactionsType';
 import { FontAwesomeTextStyleType } from '../enumerations/fontAwesomeTextClass';
-import { stripHtml } from "string-strip-html";
 
+// configure fontawesome
 library.add(fab, fas, far, fal, fat, fad, fass);
+export const fontAwesomeLibrary = library;
 
 export interface IFontAwesomeParseItem {
   colorClass: FontAwesomeTextStyleType;
@@ -66,15 +67,7 @@ export function makeReaction(
 }
 
 export function parseIconMarkup(input: string): string {
-  input = stripHtml(input, {
-    stripTogetherWithTheirContents: [
-      "script", // default
-      "style", // default
-      "xml", // default
-      // "pre", // <-- custom-added
-    ],
-  }).result;
-  const regex = /\[(?::([^\]]*):|)\]/g;
+  const regex = /\{\{([a-zA-Z0-9-_;:%#&* ^ ]+)\}\}/g;
 
   let match: RegExpExecArray | null;
   while ((match = regex.exec(input)) !== null) {
@@ -87,10 +80,16 @@ export function parseIconMarkup(input: string): string {
     if (!contents) {
       continue;
     }
-    const words = contents.split(' ');
+    let skip = false;
+    const words = contents.trim().split(' ');
     for (let i = 0; i < words.length; i++) {
       const word = words[i].trim();
       if (!word) {
+        skip = true;
+        continue;
+      }
+      if (!/[a-zA-Z0-9-_]+/.test(word)) {
+        skip = true;
         continue;
       }
       if (i < 2 && word === 'sharpsolid') {
@@ -102,6 +101,9 @@ export function parseIconMarkup(input: string): string {
         styleWords.push(word);
       }
     }
+    if (skip) {
+      continue;
+    }
     if (iconWords.length === 1) {
       iconWords.unshift('fa-regular');
     }
@@ -112,8 +114,8 @@ export function parseIconMarkup(input: string): string {
     } else {
       newTag = `<i class="${iconWords.join(' ')}"></i>`;
     }
-    const matchOffset = input.indexOf(match[0]);
-    input = input.substring(0, matchOffset) + newTag + input.substring(matchOffset + match[0].length);
+    input = input.replace(match[0], newTag);
   }
+
   return input;
 }

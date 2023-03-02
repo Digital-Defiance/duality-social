@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from '../../shared/layout/layout.component';
 import { MatCardModule } from '@angular/material/card';
-import { PlaygroundComponent } from '../../widgets/fontAwesomePlayground/playground.component';
+import { PlaygroundComponent } from '../../shared/widgets/fontAwesomePlayground/playground.component';
 
 const routes: Routes = [
   {
