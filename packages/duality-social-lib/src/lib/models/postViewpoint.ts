@@ -3,7 +3,7 @@ import { Document, model, Schema } from 'mongoose';
 import { HumanityType } from '../enumerations/humanityType';
 import { IPostMeta } from '../interfaces/post';
 import { IPostViewpoint, IPostViewpointMeta } from '../interfaces/postViewpoint';
-import postSchema from '../schemas/post';
+import { postSchema } from '../schemas/post';
 import { UserPathName } from './user';
 export const PostViewpointModelName = 'PostViewpoint';
 export const PostViewpointPathName = '/postViewpoints/';

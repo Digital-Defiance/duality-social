@@ -1,7 +1,7 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { Document, model, Schema } from 'mongoose';
 import { IPost, IPostMeta } from '../interfaces/post';
-import postSchema from '../schemas/post';
+import { postSchema } from '../schemas/post';
 import { PostViewpointPathName } from './postViewpoint';
 import { UserPathName } from './user';
 export const PostModelName = 'Post';

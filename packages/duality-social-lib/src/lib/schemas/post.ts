@@ -21,4 +21,3 @@ export const postSchema = new Schema({
         reactions:  Number,
       }
     });
-  export default postSchema;
