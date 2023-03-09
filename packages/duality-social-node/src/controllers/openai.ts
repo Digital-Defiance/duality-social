@@ -87,7 +87,7 @@ export async function devilsAdvocate(req: Request, res: Response): Promise<void>
                     });
             }
         const response: IDevilsAdvocateResponse = {
-            postId: newId,
+            postId: newId.toString(),
             aiPostText: aiPostText,
             images: imageResponses
         };
