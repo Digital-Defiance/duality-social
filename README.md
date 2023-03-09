@@ -2,6 +2,11 @@
 
 ## Architecture
 
+- OpenAI GPT-3 for text generation
+  - https://openai.com/blog/openai-api/
+  - https://platform.openai.com/docs/guides/completion
+  - https://platform.openai.com/docs/guides/chat
+  - https://platform.openai.com/docs/guides/images
 - Azure App Service for hosting
   - https://azure.microsoft.com/en-us/products/app-service
   - https://duality-social.azurewebsites.net
