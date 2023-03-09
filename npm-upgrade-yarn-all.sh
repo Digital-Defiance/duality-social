@@ -25,5 +25,5 @@ for package in ${PACKAGES}; do
         exit 1
     fi
 done
-rm -f ${SCRIPT_DIR}/package-lock.json packages/*/package-lock.json
+rm -f "${SCRIPT_DIR}/package-lock.json" "${SCRIPT_DIR}/packages/*/package-lock.json"
 cd "${OPWD}"
