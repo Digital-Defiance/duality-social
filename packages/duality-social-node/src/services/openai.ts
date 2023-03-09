@@ -29,6 +29,7 @@ export const DevilsAdvocatePrompt = "Given the following post by a human, rewrit
 export const DevilsAdvocateImagePrompt = "Given the following position text, and a supplied image, generate an image that depicts the position:";
 
 const openAiConfig: ConfigurationParameters = {
+  basePath: environment.openai.type === 'azure' ? 'https://api.openai.com/v1' : 'https://api.openai.com/v1',
   accessToken: environment.openai.accessToken,
   organization: environment.openai.organization
 };
