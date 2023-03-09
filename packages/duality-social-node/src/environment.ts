@@ -67,10 +67,10 @@ export const environment: IEnvironment = {
         sslEnabled: sslEnabled,
     },
     openai: {
-        type: 'azure',
+        type: process.env.OPENAI_PROVIDER === 'azure' ? 'azure' : 'openai',
         accessToken: process.env.OPENAI_API_KEY ?? '',
         organization: process.env.OPENAI_ORGANIZATION ? process.env.OPENAI_ORGANIZATION : undefined,
-        model: process.env.OPENAI_MODEL ? process.env.OPENAI_MODEL : undefined,
+        model: process.env.OPENAI_MODEL ? process.env.OPENAI_MODEL : 'chat-3.5-turbo',
         deployment: process.env.OPENAI_DEPLOYMENT ? process.env.OPENAI_DEPLOYMENT : undefined,
     },
     mongo: {

@@ -5,7 +5,7 @@ import { BrowserUtils } from '@azure/msal-browser';
 import { LandingPageComponent } from '../features/landing/landing-page/landing-page.component';
 import { ProfileComponent } from '../profile/profile.component';
 // import { ProfileComponent } from '../profile/profile.component';
-// import { HomeComponent } from '../home/home.component';
+import { HomeComponent } from '../home/home.component';
 // import { FailedComponent } from '../failed/failed.component';
 // import { AuthGuard } from '../core/guards/auth.guard';
 
@@ -29,6 +29,11 @@ const appRoutes: Routes = [
   {
     path: '',
     loadChildren: () => import('../features/landing/landing.module').then(m => m.LandingModule),
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
+    canActivate: [MsalGuard]
   },
   {
     path: 'profile',

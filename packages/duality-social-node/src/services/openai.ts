@@ -180,8 +180,8 @@ export async function imageDataUrlToSizeAndFile(imageDataUrl: string): Promise<{
     const sizeFileObject = await imageDataUrlToSizeAndFile(sourceImageDataUrl);
     const generatedImage = await openAiClient.createImageEdit(
       sizeFileObject.file,
-      maskFile,
       prompt,
+      maskFile,
       1, // generate 1 image
       sizeFileObject.size,
       CreateImageRequestResponseFormatEnum.B64Json, // return base64 encoded json
