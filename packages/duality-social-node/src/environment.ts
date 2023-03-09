@@ -31,8 +31,11 @@ export const environment = {
         sslEnabled: sslEnabled,
     },
     openai: {
+        type: 'azure',
         accessToken: process.env.OPENAI_API_KEY,
-        organization: process.env.OPENAI_ORGANIZATION
+        organization: process.env.OPENAI_ORGANIZATION ? process.env.OPENAI_ORGANIZATION : undefined,
+        model: process.env.OPENAI_MODEL ? process.env.OPENAI_MODEL : undefined,
+        deployment: process.env.OPENAI_DEPLOYMENT ? process.env.OPENAI_DEPLOYMENT : undefined,
     },
     mongo: {
         uri: process.env.MONGO_URL ?? 'mongodb://localhost:27017/duality-social',

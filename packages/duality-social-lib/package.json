@@ -1,6 +1,8 @@
 {
   "name": "@digital-defiance/duality-social-lib",
+  "description": "Shared library for Duality Social front and back ends.",
   "version": "0.0.1",
+  "license": "MIT",
   "dependencies": {
     "buffer": "^6.0.3",
     "linkify-it": "^4.0.1",
@@ -20,5 +22,6 @@
     "@types/markdown-it": "^12.2.3"
   },
   "devDependencies": {
+    "jest-util": "^29.5.0"
   }
 }

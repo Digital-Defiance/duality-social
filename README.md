@@ -3,7 +3,7 @@
 ## Architecture
 
 - Azure App Service for hosting
-  -https://azure.microsoft.com/en-us/products/app-service
+  - https://azure.microsoft.com/en-us/products/app-service
   - https://duality-social.azurewebsites.net
 - Azure Cosmos DB for database
   - https://azure.microsoft.com/en-us/services/cosmos-db/

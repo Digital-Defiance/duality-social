@@ -1,6 +1,7 @@
 {
   "name": "duality-social-docs",
-  "version": "0.0.0",
+  "description": "Duality Social Developer Documentation",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
@@ -23,7 +24,8 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "2.3.1"
+    "@docusaurus/module-type-aliases": "2.3.1",
+    "jest-util": "^29.5.0"
   },
   "browserslist": {
     "production": [

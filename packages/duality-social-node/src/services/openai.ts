@@ -111,7 +111,7 @@ export async function imageDataUrlToSizeAndFile(imageDataUrl: string): Promise<{
     postId: Schema.Types.ObjectId,
     userId?: Schema.Types.ObjectId
   ): Promise<OpenAIGenerationResult> {
-    const model = 'text-davinci-003';
+    const model = 'gpt-3.5-turbo';
     const maxTokens = 1000;
     const temperature = 0.9;
     // const topP = 1;
