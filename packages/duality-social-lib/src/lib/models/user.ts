@@ -1,38 +1,31 @@
-import { prop, getModelForClass } from '@typegoose/typegoose';
-import { Document, model, Schema } from 'mongoose';
+import { Schema } from 'mongoose';
 import { AccountLoginType } from '../enumerations/accountLoginType';
 import { AccountStatusType } from '../enumerations/accountStatusType';
 import { LockType } from '../enumerations/lockType';
+import { IHasID } from '../interfaces/hasId';
 import { IUser, IUserMeta } from '../interfaces/user';
 import userSchema from '../schemas/user';
+import { BaseModelCache } from './baseModelCache';
 export const UserModelName = 'User';
 export const UserPathName = '/users/';
-export const UserModel = model(UserModelName, userSchema);
+export const UserCache = new BaseModelCache<User>(UserModelName, UserPathName, userSchema);
 
-export class User implements IUser {
-    _id?: Schema.Types.ObjectId;
-    @prop()
+export class User implements IUser, IHasID {
+    public _id?: string;
+    public accountEmail?: string;
     public adminFreezeType: LockType;
-    @prop()
     public accountStatusType: AccountStatusType;
-    @prop()
     public accountType: AccountLoginType;
-    @prop()
     public emailVerified: boolean;
-    @prop()
     public givenName: string;
-    @prop()
     public surname: string;
-    @prop()
     public userPrincipalName: string;
-    @prop()
     public canLogin: boolean;
-    @prop()
     public meta: IUserMeta;
-    @prop()
     public createdAt: Date;
-    @prop()
     public updatedAt: Date;
+    public deletedAt?: Date;
+    public deletedBy?: Schema.Types.ObjectId;
 
     constructor(doc?: IUser) {
         const _now = new Date();
@@ -47,15 +40,7 @@ export class User implements IUser {
         this.meta = doc?.meta as IUserMeta ?? { expands: 0, impressions: 0, reactions: 0, reactionsByType: {} };
         this.createdAt = doc?.createdAt ?? _now;
         this.updatedAt = doc?.updatedAt ?? _now;
-    }
-    public toUserModel(): Document<Schema.Types.ObjectId,unknown,User> {
-        const UserModel = getModelForClass(User);
-        const user = new UserModel(this);
-        return user;
-    }
-    public static async byId(id: string): Promise<User> {
-        const UserModel = getModelForClass(User);
-        const user = await UserModel.findById(id);
-        return user as User;
+        this.deletedAt = doc?.deletedAt;
+        this.deletedBy = doc?.deletedBy;
     }
 } 

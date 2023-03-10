@@ -1,12 +1,12 @@
 import { Schema } from "mongoose";
+import { IHasID } from "./hasId";
 
 export interface IInvitationMeta {
     uses: number;
     views: number;
 }
 
-export interface Invitation {
-    _id?: Schema.Types.ObjectId;
+export interface Invitation extends IHasID {
     email?: string;
     phone?: string;
     code?: string;
@@ -18,8 +18,7 @@ export interface Invitation {
     updatedById?: Schema.Types.ObjectId;
 }
 
-export interface IClaimedInvitation {
-    _id?: Schema.Types.ObjectId;
+export interface IClaimedInvitation extends IHasID {
     invitationId: Schema.Types.ObjectId;
     ip: string;
     email?: string;

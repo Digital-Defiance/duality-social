@@ -13,7 +13,5 @@ export const profileSchema = new Schema({
   website: { type: String, default: null,null: true },
   avatar: { type: String, default: null,null: true },
   banner: { type: String, default: null, null: true },
-  createdAt: { type: Date, default: Date.now, readonly: true, required: true, null: false },
-  updatedAt: { type: Date, default: null, null: true},
   deletedAt: { type: Date, default: null, null: true },
-});
+},{ timestamps: true });

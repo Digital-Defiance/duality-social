@@ -2,6 +2,7 @@ import { Schema } from 'mongoose';
 import { AccountLoginType } from '../enumerations/accountLoginType';
 import { AccountStatusType } from '../enumerations/accountStatusType';
 import { LockType } from '../enumerations/lockType';
+import { IHasID } from './hasId';
 
 export interface IUserMeta {
   /**
@@ -42,8 +43,7 @@ export interface IUserMeta {
   totalReplyViewsReceived: number;
 }
 
-export interface IUser {
-    _id?: Schema.Types.ObjectId;
+export interface IUser extends IHasID {
   // graphql fields
     givenName: string;
     surname: string;
@@ -83,5 +83,3 @@ export interface IUser {
     deletedBy?: Schema.Types.ObjectId;
     meta: IUserMeta;
   }
-
-export interface IUserDocument extends IUser, Document {}

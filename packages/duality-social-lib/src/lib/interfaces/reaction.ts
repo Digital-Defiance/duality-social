@@ -32,5 +32,3 @@ export interface IReaction {
      */
     createdById: Schema.Types.ObjectId;
 }
-
-export interface IReactionDocument extends IReaction, Document {}

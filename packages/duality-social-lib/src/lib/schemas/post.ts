@@ -11,13 +11,11 @@ export const postSchema = new Schema({
      * The id of the parent post if this is a reply.
      */
     parentId:  { type: Schema.Types.ObjectId, ref: 'Post', null: true, default: null },
-    createdAt: { type: Date, default: Date.now, required: true, readonly: true },
     createdById: { type: Schema.Types.ObjectId, ref: 'User', required: true, readonly: true },
-    updatedAt: { type: Date, default: Date.now, required: true },
     updatedById: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     meta: {
         expands: Number,
         impressions: Number,
         reactions:  Number,
       }
-    });
+    },{ timestamps: true });

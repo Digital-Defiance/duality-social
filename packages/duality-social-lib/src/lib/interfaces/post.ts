@@ -1,4 +1,5 @@
 import { Schema } from 'mongoose';
+import { IHasID } from './hasId';
 
 export interface IPostMeta {
     expands: number,
@@ -7,9 +8,7 @@ export interface IPostMeta {
     reactionsByType: { [key: string]: number };
 }
 
-export interface IPost {
-    _id?: Schema.Types.ObjectId;
-
+export interface IPost extends IHasID {
     // graphql fields
 
     // duality social specific fields
@@ -27,5 +26,3 @@ export interface IPost {
     updatedById: Schema.Types.ObjectId;
     meta: IPostMeta;
 }
-
-export interface IPostDocument extends IPost, Document {}

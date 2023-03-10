@@ -13,6 +13,6 @@ export const adminUserSchema = new Schema({
    */
   sudoHash: { type: String, required: true, null: false },
   lastSudo: { type: Date, default: Date.now, required: true, null: false, readonly: true },
-});
+},{ timestamps: true });
 
 export default adminUserSchema;

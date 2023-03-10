@@ -1,5 +1,6 @@
 import { Schema } from 'mongoose';
 import { HumanityType } from '../enumerations/humanityType';
+import { IHasID } from './hasId';
 
 
 export interface IPostViewpointMeta {
@@ -9,8 +10,7 @@ export interface IPostViewpointMeta {
   reactionsByType: { [key: string]: number };
 }
 
-export interface IPostViewpoint {
-  _id?: Schema.Types.ObjectId;
+export interface IPostViewpoint extends IHasID {
   /**
    * Correlation id to link the dualities.
    */
@@ -31,5 +31,3 @@ export interface IPostViewpoint {
   updatedById: Schema.Types.ObjectId;
   meta: IPostViewpointMeta;
 }
-
-export interface IPostViewpointDocument extends IPostViewpoint, Document {}

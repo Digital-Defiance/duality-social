@@ -9,8 +9,6 @@ export const invitationSchema = new Schema({
         uses: { type: Number, required: true, null: false, readonly: true },
         views: { type: Number, required: true, null: false, readonly: true },
     },
-    createdAt: { type: Date, default: Date.now, required: true, readonly: true },
     createdById: { type: Schema.Types.ObjectId, required: true, null: false, readonly: true },
-    updatedAt: { type: Date, default: Date.now, required: true, readonly: true },
     updatedById: { type: Schema.Types.ObjectId, required: true, null: false, readonly: true },
-});
+},{ timestamps: true });

@@ -53,14 +53,6 @@ export const userSchema = new Schema({
    */
   lastLogin: { type: Date, null: true, default: null },
   /**
-   * The date/time the user was created.
-   */
-  createdAt: { type: Date, default: Date.now, required: true, null: false, readonly: true },
-  /**
-   * The date/time the user was last updated.
-   */
-  updatedAt: { type: Date, default: null, null: true },
-  /**
    * The user who last updated the user.
    */
   updatedById: Schema.Types.ObjectId,
@@ -114,6 +106,6 @@ export const userSchema = new Schema({
      */
     totalReplyViewsReceived: { type: Number, null: false, default: 0 },
   },
-});
+},{ timestamps: true });
 
 export default userSchema;

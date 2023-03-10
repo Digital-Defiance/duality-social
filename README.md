@@ -40,7 +40,6 @@
 - https://www.mongodb.com/docs/manual/core/index-compound/
 - https://mongoosejs.com/docs/schematypes.html#objectids
 - https://github.com/graphql-compose/graphql-compose-mongoose
-- https://github.com/typegoose/typegoose
 - https://learn.microsoft.com/en-us/azure/active-directory/develop/scenario-web-api-call-api-overview
 - https://learn.microsoft.com/en-us/azure/active-directory/develop/scenario-protected-web-api-app-registration
 - https://learn.microsoft.com/en-us/azure/active-directory/develop/index-web-api

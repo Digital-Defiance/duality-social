@@ -24,6 +24,6 @@ export const postViewpointSchema = new Schema({
     impressions: Number,
     reactions:  Number,
   }
-});
+},{ timestamps: true });
 
 export default postViewpointSchema;
