@@ -26,6 +26,8 @@
 - Stored in packages/duality-social-angular
 - Ensure the library is built first
 - Build with ```nx build duality-social-angular``` from the toplevel directory
+- Need to get the NPM key for FontAwesome from https://fontawesome.com/docs/web/setup/packages
+  - The NPM password is given under the "1. Configure Access" section.
 
 ### Database
 
