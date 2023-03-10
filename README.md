@@ -72,7 +72,8 @@
 - https://learn.microsoft.com/en-us/azure/active-directory/develop/web-app-quickstart?pivots=devlang-nodejs-passport#download-the-sample-application-and-modules
 - https://learn.microsoft.com/en-us/azure/azure-web-pubsub/key-concepts?WT.mc_id=Portal-Microsoft_Azure_SignalR
 - https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/samples/msal-node-samples/auth-code
--  https://learn.microsoft.com/en-us/azure/app-service/quickstart-nodejs?pivots=development-environment-vscode&tabs=linux
+- https://learn.microsoft.com/en-us/azure/app-service/quickstart-nodejs?pivots=development-environment-vscode&tabs=linux
+- https://stackoverflow.com/questions/37969764/representing-mongoose-model-as-a-typescript-class
 ----
 
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
