@@ -1,3 +1,5 @@
+import { phone, PhoneResult } from 'phone';
+
 export class FormattedPhoneNumber 
 {
     private _rawPhone: string;
@@ -18,8 +20,11 @@ export class FormattedPhoneNumber
     }
 
     protected format(): string {
-        // TODO: implement
-        return this._rawPhone;
+        const formatted: PhoneResult = phone(this._rawPhone);
+        if (formatted.isValid) {
+            return formatted.phoneNumber;
+        }
+        return this._rawPhone.trim();
     }
 
     public get CountryCode(): string {

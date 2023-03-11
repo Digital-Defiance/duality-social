@@ -17,6 +17,7 @@
     "@types/markdown-it": "^12.2.3",
     "linkify-it": "^4.0.1",
     "markdown-it": "^13.0.1",
+    "phone": "^3.1.35",
     "string-strip-html": "8.4.0",
     "tlds": "^1.236.0"
   },
