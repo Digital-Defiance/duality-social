@@ -1,4 +1,4 @@
-import { FormattedPhoneNumber } from "../models/formattedPhoneNumber";
+import { PhoneResult } from "phone";
 import { IHasID } from "./hasId";
 import { IHasTimestamps } from "./hasTimestamps";
 import { IUrlData } from "./urlData";
@@ -25,7 +25,8 @@ export interface IProfile extends IHasID, IHasTimestamps {
     publicEmail?: string;
     emailVerified: boolean;
     publicLocation?: string;
-    publicPhone?: FormattedPhoneNumber;
+    publicPhone?: string;
+    get PublicPhone(): PhoneResult;
     phoneVerified: boolean;
     coverImage?: string;
     profileImage?: string;
