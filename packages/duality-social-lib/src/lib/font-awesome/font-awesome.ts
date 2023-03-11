@@ -49,7 +49,7 @@ export const DefaultColorClass = FontAwesomeTextStyleTypeEnum.Regular;
 export function searchFontAwesomeCompletions(search: string): IconDefinition[] {
   const results: IconDefinition[] = [];
   const searchLower = search.toLowerCase();
-  const library: IFontAwesomeLibrary = FontAwesomeLibrary as any as IFontAwesomeLibrary;
+  const library: IFontAwesomeLibrary = FontAwesomeLibrary as unknown as IFontAwesomeLibrary;
   for (const icon of library.definitions) {
     if (icon.iconName.toLowerCase().indexOf(searchLower) >= 0) {
       results.push(icon);

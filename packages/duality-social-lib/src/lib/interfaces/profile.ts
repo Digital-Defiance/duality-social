@@ -31,3 +31,5 @@ export interface IProfile extends IHasID, IHasTimestamps {
     profileImage?: string;
     socialUrls: IUrlData[];
   };
+
+  export type ProfileKeys = { [P in keyof IProfile]: P }[keyof IProfile];

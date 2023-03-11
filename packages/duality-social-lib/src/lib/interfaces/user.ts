@@ -86,3 +86,6 @@ export interface IUser extends IHasID, IHasTimestamps, IHasSoftDelete {
     deletedBy?: Schema.Types.ObjectId;
     meta: IUserMeta;
   }
+
+  export type UserKeys = { [P in keyof IUser]: P }[keyof IUser];
+  export type UserMetaKeya = { [P in keyof IUserMeta]: P }[keyof IUserMeta];
