@@ -1,8 +1,9 @@
-import { IconName } from '@fortawesome/fontawesome-svg-core';
+import { IconName } from '@fortawesome/fontawesome-common-types';
 
-export type DefaultReactions = 'Angry' | 'Celebrate' | 'Hug' | 'Huh?' | 'Laugh' | 'Like' | 'Love' | 'Sad' | 'Wow';
+export const DefaultReactions = ['Angry', 'Celebrate', 'Hug', 'Huh?', 'Laugh', 'Like', 'Love', 'Sad', 'Wow'] as const;
+export type DefaultReactionsType = typeof DefaultReactions[number];
 
-export enum DefaultReactionsType {
+export enum DefaultReactionsTypeEnum {
   Angry = 'Angry',
   Celebrate = 'Celebrate',
   Hug = 'Hug',
@@ -15,61 +16,61 @@ export enum DefaultReactionsType {
 }
 
 export const ReactionTypeIcons = {
-  [DefaultReactionsType.Angry]: 'face-angry',
-  [DefaultReactionsType.Celebrate]: 'party-horn',
-  [DefaultReactionsType.Hug]: 'face-smiling-hands',
-  [DefaultReactionsType.Huh]: 'face-confused',
-  [DefaultReactionsType.Laugh]: 'face-laugh',
-  [DefaultReactionsType.Like]: 'thumbs-up',
-  [DefaultReactionsType.Love]: 'heart',
-  [DefaultReactionsType.Sad]: 'face-sad-tear',
-  [DefaultReactionsType.Wow]: 'face-hushed',
+  [DefaultReactionsTypeEnum.Angry]: 'face-angry',
+  [DefaultReactionsTypeEnum.Celebrate]: 'party-horn',
+  [DefaultReactionsTypeEnum.Hug]: 'face-smiling-hands',
+  [DefaultReactionsTypeEnum.Huh]: 'face-confused',
+  [DefaultReactionsTypeEnum.Laugh]: 'face-laugh',
+  [DefaultReactionsTypeEnum.Like]: 'thumbs-up',
+  [DefaultReactionsTypeEnum.Love]: 'heart',
+  [DefaultReactionsTypeEnum.Sad]: 'face-sad-tear',
+  [DefaultReactionsTypeEnum.Wow]: 'face-hushed',
 };
 
 export interface IReactionArrayEntry {
-  reaction: DefaultReactionsType;
+  reaction: DefaultReactionsTypeEnum;
   icon: IconName;
 }
 export const DefaultReactionsArray: IReactionArrayEntry[] = [
   {
-    reaction: DefaultReactionsType.Angry,
-    icon: ReactionTypeIcons[DefaultReactionsType.Angry] as IconName,
+    reaction: DefaultReactionsTypeEnum.Angry,
+    icon: ReactionTypeIcons[DefaultReactionsTypeEnum.Angry] as IconName,
   },
   {
-    reaction: DefaultReactionsType.Celebrate,
-    icon: ReactionTypeIcons[DefaultReactionsType.Celebrate] as IconName,
+    reaction: DefaultReactionsTypeEnum.Celebrate,
+    icon: ReactionTypeIcons[DefaultReactionsTypeEnum.Celebrate] as IconName,
   },
   {
-    reaction: DefaultReactionsType.Hug,
-    icon: ReactionTypeIcons[DefaultReactionsType.Hug] as IconName,
+    reaction: DefaultReactionsTypeEnum.Hug,
+    icon: ReactionTypeIcons[DefaultReactionsTypeEnum.Hug] as IconName,
   },
   {
-    reaction: DefaultReactionsType.Huh,
-    icon: ReactionTypeIcons[DefaultReactionsType.Huh] as IconName,
+    reaction: DefaultReactionsTypeEnum.Huh,
+    icon: ReactionTypeIcons[DefaultReactionsTypeEnum.Huh] as IconName,
   },
   {
-    reaction: DefaultReactionsType.Laugh,
-    icon: ReactionTypeIcons[DefaultReactionsType.Laugh] as IconName,
+    reaction: DefaultReactionsTypeEnum.Laugh,
+    icon: ReactionTypeIcons[DefaultReactionsTypeEnum.Laugh] as IconName,
   },
   {
-    reaction: DefaultReactionsType.Like,
-    icon: ReactionTypeIcons[DefaultReactionsType.Like] as IconName,
+    reaction: DefaultReactionsTypeEnum.Like,
+    icon: ReactionTypeIcons[DefaultReactionsTypeEnum.Like] as IconName,
   },
   {
-    reaction: DefaultReactionsType.Love,
-    icon: ReactionTypeIcons[DefaultReactionsType.Love] as IconName,
+    reaction: DefaultReactionsTypeEnum.Love,
+    icon: ReactionTypeIcons[DefaultReactionsTypeEnum.Love] as IconName,
   },
   {
-    reaction: DefaultReactionsType.Sad,
-    icon: ReactionTypeIcons[DefaultReactionsType.Sad] as IconName,
+    reaction: DefaultReactionsTypeEnum.Sad,
+    icon: ReactionTypeIcons[DefaultReactionsTypeEnum.Sad] as IconName,
   },
   {
-    reaction: DefaultReactionsType.Wow,
-    icon: ReactionTypeIcons[DefaultReactionsType.Wow] as IconName,
+    reaction: DefaultReactionsTypeEnum.Wow,
+    icon: ReactionTypeIcons[DefaultReactionsTypeEnum.Wow] as IconName,
   }];
 
 
-export function getReactionTypeIcon(reactionType: DefaultReactionsType): IconName {
+export function getReactionTypeIcon(reactionType: DefaultReactionsTypeEnum): IconName {
   if (!ReactionTypeIcons[reactionType]) {
     throw new Error(`Reaction type ${reactionType} is not supported.`);
   }

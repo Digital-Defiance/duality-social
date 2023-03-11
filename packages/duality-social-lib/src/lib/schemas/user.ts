@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
-import { AccountStatusType } from '../enumerations/accountStatusType';
-import { AccountLoginType } from '../enumerations/accountLoginType';
+import { AccountStatusTypeEnum } from '../enumerations/accountStatusType';
+import { AccountLoginTypeEnum } from '../enumerations/accountLoginType';
 import { AdminLevel } from '../enumerations/adminLevel';
 import { LockType } from '../enumerations/lockType';
 
@@ -13,7 +13,7 @@ export const UserSchema = new Schema({
    * Whether the login is via email/password or via external authentication.
    */
   accountType: { type: String, enum: AccountLoginType, default: AccountLoginType.Microsoft, required: true},
-  accountStatusType: { type: String, enum: AccountStatusType, default: AccountStatusType.Active, required: true, null: false },
+  accountStatusType: { type: String, enum: AccountStatusTypeEnum, default: AccountStatusTypeEnum.Active, required: true, null: false },
   /**
    * The user's email address, used for login if accountType is email/password.
    * Used for sending notifications, regardless.

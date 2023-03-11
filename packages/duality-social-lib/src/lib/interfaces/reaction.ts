@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose';
-import { DefaultReactionsType } from '../enumerations/defaultReactionsType';
+import { DefaultReactionsTypeEnum } from '../enumerations/defaultReactionsType';
 import { ReactionType } from '../enumerations/reactionType';
 import { IHasCreation } from './hasCreation';
 import { IHasID } from './hasId';
@@ -16,7 +16,7 @@ export interface IReaction extends IHasID, IHasCreation {
     /**
      * The built-in reaction that was made.
      */
-    reaction?: DefaultReactionsType;
+    reaction?: DefaultReactionsTypeEnum;
     /**
      * The emoji reaction that was made.
      */

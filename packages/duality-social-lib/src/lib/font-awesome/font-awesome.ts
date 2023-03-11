@@ -1,12 +1,15 @@
+/// file: font-awesome.ts
+/// description: Font Awesome helper functions to look up icons and parse markup
+
 import {
   IconName,
   IconDefinition,
   IconPrefix,
+  IconStyle
 } from '@fortawesome/fontawesome-common-types';
 import {
   findIconDefinition,
   library,
-  IconStyle,
 } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { fas } from '@fortawesome/pro-solid-svg-icons';
@@ -17,17 +20,21 @@ import { fad } from '@fortawesome/pro-duotone-svg-icons';
 import { fass } from '@fortawesome/sharp-solid-svg-icons';
 import {
   getReactionTypeIcon,
-  DefaultReactionsType,
+  DefaultReactionsTypeEnum,
   ReactionTypeIcons,
 } from '../enumerations/defaultReactionsType';
-import { FontAwesomeTextStyleType } from '../enumerations/fontAwesomeTextClass';
+import { FontAwesomeTextStyleTypeEnum } from '../enumerations/fontAwesomeTextClass';
 
 // configure fontawesome
 library.add(fab, fas, far, fal, fat, fad, fass);
 export const FontAwesomeLibrary = library;
 
+interface IFontAwesomeLibrary {
+  definitions: IconDefinition[];
+}
+
 export interface IFontAwesomeParseItem {
-  colorClass: FontAwesomeTextStyleType;
+  colorClass: FontAwesomeTextStyleTypeEnum;
   name: IconName;
   definition: IconDefinition;
 }
@@ -38,10 +45,19 @@ export interface IFontAwesomeParseResult {
   changes: IFontAwesomeParseItem[];
 }
 
-export const DefaultColorClass = FontAwesomeTextStyleType.Regular;
+export const DefaultColorClass = FontAwesomeTextStyleTypeEnum.Regular;
 export function searchFontAwesomeCompletions(search: string): IconDefinition[] {
-  library.add
+  const results: IconDefinition[] = [];
+  const searchLower = search.toLowerCase();
+  const library: IFontAwesomeLibrary = FontAwesomeLibrary as any as IFontAwesomeLibrary;
+  for (const icon of library.definitions) {
+    if (icon.iconName.toLowerCase().indexOf(searchLower) >= 0) {
+      results.push(icon);
+    }
+  }
+  return results;
 }
+
 export function verifyFontAwesome(
   iconPrefix: IconPrefix,
   iconName: IconName
@@ -57,8 +73,8 @@ export function verifyFontAwesome(
 }
 
 export function makeReaction(
-  reactionType: DefaultReactionsType,
-  textStyleType: FontAwesomeTextStyleType
+  reactionType: DefaultReactionsTypeEnum,
+  textStyleType: FontAwesomeTextStyleTypeEnum
 ): string {
   if (!ReactionTypeIcons[reactionType]) {
     throw new Error(`Reaction type ${reactionType} is not supported.`);

@@ -1,16 +1,13 @@
-import { CssStyleClass, IconFamily, IconName, IconDefinition, IconStyle } from '@fortawesome/fontawesome-common-types';
-import {
-  findIconDefinition,
-  library,
-  IconPrefix,
-} from '@fortawesome/fontawesome-svg-core';
+export const FontAwesomeIconPrefixes = ["fas", "far", "fal", "fat", "fad", "fab", "fak", "fass"] as const;
+export type FontAwesomeIconPrefix = typeof FontAwesomeIconPrefixes[number];
+export const FontAwesomeIconStyle = ["solid", "regular", "light", "thin", "duotone", "brands" ] as const;
+export type FontAwesomeIconStyle = typeof FontAwesomeIconStyle[number];
+export const FontAwesomeIconFamilies = ["classic", "sharp", "duotone"] as const;
+export type FontAwesomeIconFamily = typeof FontAwesomeIconFamilies[number];
+export const FontAwesomeIconCssStyleClasses = ["fa-solid", "fa-regular", "fa-light", "fa-thin", "fa-duotone", "fa-brands" ] as const;
+export type FontAwesomeIconCssStyleClass = typeof FontAwesomeIconCssStyleClasses[number];
 
-export const FontAwesomeIconPrefixes: Array<IconPrefix> = ["fas", "far", "fal", "fat", "fad", "fab", "fak", "fass"];
-export const FontAwesomeIconStyle: Array<IconStyle> = ["solid", "regular", "light", "thin", "duotone", "brands" ]
-export const FontAwesomeIconFamilies: Array<IconFamily> = ["classic", "sharp", "duotone"];
-export const FontAwesomeIconCssStyleClasses: Array<CssStyleClass> = ["fa-solid", "fa-regular", "fa-light", "fa-thin", "fa-duotone", "fa-brands" ];
-
-export enum FontAwesomeTextStyleType {
+export enum FontAwesomeTextStyleTypeEnum {
   Classic = 'classic',
   DuoTone = 'fa-duotone',
   Light = 'fa-light',
@@ -32,31 +29,31 @@ export enum FontAwesomeTextAbbreviation {
 }
 
 export const FontAbbreviationToClassTable = {
-  [FontAwesomeTextAbbreviation.DuoTone]: FontAwesomeTextStyleType.DuoTone,
-  [FontAwesomeTextAbbreviation.Light]: FontAwesomeTextStyleType.Light,
-  [FontAwesomeTextAbbreviation.Regular]: FontAwesomeTextStyleType.Regular,
-  [FontAwesomeTextAbbreviation.SharpSolid]: FontAwesomeTextStyleType.SharpSolid,
-  [FontAwesomeTextAbbreviation.Solid]: FontAwesomeTextStyleType.Solid,
-  [FontAwesomeTextAbbreviation.Thin]: FontAwesomeTextStyleType.Thin,
-  [FontAwesomeTextAbbreviation.Brands]: FontAwesomeTextStyleType.Brands,
+  [FontAwesomeTextAbbreviation.DuoTone]: FontAwesomeTextStyleTypeEnum.DuoTone,
+  [FontAwesomeTextAbbreviation.Light]: FontAwesomeTextStyleTypeEnum.Light,
+  [FontAwesomeTextAbbreviation.Regular]: FontAwesomeTextStyleTypeEnum.Regular,
+  [FontAwesomeTextAbbreviation.SharpSolid]: FontAwesomeTextStyleTypeEnum.SharpSolid,
+  [FontAwesomeTextAbbreviation.Solid]: FontAwesomeTextStyleTypeEnum.Solid,
+  [FontAwesomeTextAbbreviation.Thin]: FontAwesomeTextStyleTypeEnum.Thin,
+  [FontAwesomeTextAbbreviation.Brands]: FontAwesomeTextStyleTypeEnum.Brands,
 }
 
 export const FontClassToAbbreviationNameTable = {
-  [FontAwesomeTextStyleType.DuoTone]: FontAwesomeTextAbbreviation.DuoTone,
-  [FontAwesomeTextStyleType.Light]: FontAwesomeTextAbbreviation.Light,
-  [FontAwesomeTextStyleType.Regular]: FontAwesomeTextAbbreviation.Regular,
-  [FontAwesomeTextStyleType.SharpSolid]: FontAwesomeTextAbbreviation.SharpSolid,
-  [FontAwesomeTextStyleType.Solid]: FontAwesomeTextAbbreviation.Solid,
-  [FontAwesomeTextStyleType.Thin]: FontAwesomeTextAbbreviation.Thin,
-  [FontAwesomeTextStyleType.Brands]: FontAwesomeTextAbbreviation.Brands,
+  [FontAwesomeTextStyleTypeEnum.DuoTone]: FontAwesomeTextAbbreviation.DuoTone,
+  [FontAwesomeTextStyleTypeEnum.Light]: FontAwesomeTextAbbreviation.Light,
+  [FontAwesomeTextStyleTypeEnum.Regular]: FontAwesomeTextAbbreviation.Regular,
+  [FontAwesomeTextStyleTypeEnum.SharpSolid]: FontAwesomeTextAbbreviation.SharpSolid,
+  [FontAwesomeTextStyleTypeEnum.Solid]: FontAwesomeTextAbbreviation.Solid,
+  [FontAwesomeTextStyleTypeEnum.Thin]: FontAwesomeTextAbbreviation.Thin,
+  [FontAwesomeTextStyleTypeEnum.Brands]: FontAwesomeTextAbbreviation.Brands,
 }
 
 export const FontClassToNameTable = {
-  [FontAwesomeTextStyleType.DuoTone]: 'DuoTone',
-  [FontAwesomeTextStyleType.Light]: 'Light',
-  [FontAwesomeTextStyleType.Regular]: 'Regular',
-  [FontAwesomeTextStyleType.SharpSolid]: 'SharpSolid',
-  [FontAwesomeTextStyleType.Solid]: 'Solid',
-  [FontAwesomeTextStyleType.Thin]: 'Thin',
-  [FontAwesomeTextStyleType.Brands]: 'Brands',
+  [FontAwesomeTextStyleTypeEnum.DuoTone]: 'DuoTone',
+  [FontAwesomeTextStyleTypeEnum.Light]: 'Light',
+  [FontAwesomeTextStyleTypeEnum.Regular]: 'Regular',
+  [FontAwesomeTextStyleTypeEnum.SharpSolid]: 'SharpSolid',
+  [FontAwesomeTextStyleTypeEnum.Solid]: 'Solid',
+  [FontAwesomeTextStyleTypeEnum.Thin]: 'Thin',
+  [FontAwesomeTextStyleTypeEnum.Brands]: 'Brands',
 }

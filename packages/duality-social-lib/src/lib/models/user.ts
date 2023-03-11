@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
-import { AccountLoginType } from '../enumerations/accountLoginType';
-import { AccountStatusType } from '../enumerations/accountStatusType';
+import { AccountLoginTypeEnum } from '../enumerations/accountLoginType';
+import { AccountStatusTypeEnum } from '../enumerations/accountStatusType';
 import { LockType } from '../enumerations/lockType';
 import { IHasID } from '../interfaces/hasId';
 import { IUser, IUserMeta } from '../interfaces/user';
@@ -14,8 +14,8 @@ export class User implements IUser, IHasID {
     public _id?: string;
     public accountEmail?: string;
     public adminFreezeType: LockType;
-    public accountStatusType: AccountStatusType;
-    public accountType: AccountLoginType;
+    public accountStatusType: AccountStatusTypeEnum;
+    public accountType: AccountLoginTypeEnum;
     public emailVerified: boolean;
     public givenName: string;
     public surname: string;
@@ -30,7 +30,7 @@ export class User implements IUser, IHasID {
     constructor(doc?: IUser) {
         const _now = new Date();
         this.adminFreezeType = doc?.adminFreezeType ?? LockType.Unlocked;
-        this.accountStatusType = doc?.accountStatusType ?? AccountStatusType.Active;
+        this.accountStatusType = doc?.accountStatusType ?? AccountStatusTypeEnum.Active;
         this.accountType = doc?.accountType ?? AccountLoginType.LocalEmail;
         this.emailVerified = doc?.emailVerified ?? false;
         this.givenName = doc?.givenName ?? '';

@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
-import { AccountLoginType } from '../enumerations/accountLoginType';
-import { AccountStatusType } from '../enumerations/accountStatusType';
+import { AccountLoginTypeEnum } from '../enumerations/accountLoginType';
+import { AccountStatusTypeEnum } from '../enumerations/accountStatusType';
 import { LockType } from '../enumerations/lockType';
 import { IHasID } from './hasId';
 import { IHasSoftDelete } from './hasSoftDelete';
@@ -59,7 +59,7 @@ export interface IUser extends IHasID, IHasTimestamps, IHasSoftDelete {
   /**
    * Whether the login is via email/password or via external authentication.
    */
-    accountType: AccountLoginType;
+    accountType: AccountLoginTypeEnum;
   /**
    * Whether the account is under any kind of lock.
    */
@@ -68,7 +68,7 @@ export interface IUser extends IHasID, IHasTimestamps, IHasSoftDelete {
     /**
      * Current account status/standing
      */
-    accountStatusType: AccountStatusType;
+    accountStatusType: AccountStatusTypeEnum;
   /**
    * The user's email address, used for login if accountType is email/password.
    * Used for sending notifications, regardless.

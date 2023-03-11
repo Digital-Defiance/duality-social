@@ -1,4 +1,14 @@
-export enum AccountStatusType {
+export const AccountStatusTypes = [
+    'NewUnverified',
+    'Active',
+    'AdminDelete',
+    'SelfDeleteWaitPeriod',
+    'SelfDelete',
+    'AdminFreeze',
+] as const;
+export type AccountStatusType = typeof AccountStatusTypes[number];
+
+export enum AccountStatusTypeEnum {
     /**
      * The account is new and unverified.
      */
