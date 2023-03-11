@@ -4,10 +4,11 @@ import { AccountLoginType } from '../enumerations/accountLoginType';
 import { AdminLevel } from '../enumerations/adminLevel';
 import { LockType } from '../enumerations/lockType';
 
+export const UserSchemaName = 'User';
 /**
  * A user in the system.
  */
-export const userSchema = new Schema({
+export const UserSchema = new Schema({
   /**
    * Whether the login is via email/password or via external authentication.
    */
@@ -105,7 +106,6 @@ export const userSchema = new Schema({
      * The total number of impressions the user has received on their replies.
      */
     totalReplyViewsReceived: { type: Number, null: false, default: 0 },
+    updatedAt: { type: Date, null: false, default: Date.now },
   },
 },{ timestamps: true });
-
-export default userSchema;

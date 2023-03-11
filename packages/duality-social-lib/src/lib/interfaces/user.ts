@@ -3,8 +3,11 @@ import { AccountLoginType } from '../enumerations/accountLoginType';
 import { AccountStatusType } from '../enumerations/accountStatusType';
 import { LockType } from '../enumerations/lockType';
 import { IHasID } from './hasId';
+import { IHasSoftDelete } from './hasSoftDelete';
+import { IHasTimestamps } from './hasTimestamps';
+import { IHasUpdates } from './hasUpdates';
 
-export interface IUserMeta {
+export interface IUserMeta extends IHasUpdates {
   /**
    * How many posts the user has made.
    */
@@ -43,7 +46,7 @@ export interface IUserMeta {
   totalReplyViewsReceived: number;
 }
 
-export interface IUser extends IHasID {
+export interface IUser extends IHasID, IHasTimestamps, IHasSoftDelete {
   // graphql fields
     givenName: string;
     surname: string;

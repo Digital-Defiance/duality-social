@@ -24,7 +24,7 @@ import { FontAwesomeTextStyleType } from '../enumerations/fontAwesomeTextClass';
 
 // configure fontawesome
 library.add(fab, fas, far, fal, fat, fad, fass);
-export const fontAwesomeLibrary = library;
+export const FontAwesomeLibrary = library;
 
 export interface IFontAwesomeParseItem {
   colorClass: FontAwesomeTextStyleType;
@@ -39,7 +39,9 @@ export interface IFontAwesomeParseResult {
 }
 
 export const DefaultColorClass = FontAwesomeTextStyleType.Regular;
-
+export function searchFontAwesomeCompletions(search: string): IconDefinition[] {
+  library.add
+}
 export function verifyFontAwesome(
   iconPrefix: IconPrefix,
   iconName: IconName
@@ -56,14 +58,14 @@ export function verifyFontAwesome(
 
 export function makeReaction(
   reactionType: DefaultReactionsType,
-  colorClass: FontAwesomeTextStyleType
+  textStyleType: FontAwesomeTextStyleType
 ): string {
   if (!ReactionTypeIcons[reactionType]) {
     throw new Error(`Reaction type ${reactionType} is not supported.`);
   }
   const reactionTypeIcon = getReactionTypeIcon(reactionType);
 
-  return `<i class="fa-${colorClass} ${reactionTypeIcon}}"></i>`;
+  return `<i class="fa-${textStyleType} ${reactionTypeIcon}}"></i>`;
 }
 
 /**

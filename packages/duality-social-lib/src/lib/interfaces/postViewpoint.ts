@@ -1,16 +1,19 @@
 import { Schema } from 'mongoose';
 import { HumanityType } from '../enumerations/humanityType';
 import { IHasID } from './hasId';
+import { IHasSoftDelete } from './hasSoftDelete';
+import { IHasTimestamps } from './hasTimestamps';
+import { IHasUpdates } from './hasUpdates';
 
 
-export interface IPostViewpointMeta {
+export interface IPostViewpointMeta extends IHasUpdates {
   expands: number;
   impressions: number;
   reactions:  number;
   reactionsByType: { [key: string]: number };
 }
 
-export interface IPostViewpoint extends IHasID {
+export interface IPostViewpoint extends IHasID, IHasTimestamps, IHasSoftDelete {
   /**
    * Correlation id to link the dualities.
    */
@@ -24,10 +27,7 @@ export interface IPostViewpoint extends IHasID {
    */
   parentViewpointId: Schema.Types.ObjectId;
   content: string;
-  deletedAt?: Date;
-  createdAt: Date;
   createdById: Schema.Types.ObjectId;
-  updatedAt: Date;
   updatedById: Schema.Types.ObjectId;
   meta: IPostViewpointMeta;
 }

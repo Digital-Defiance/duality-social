@@ -1,20 +1,21 @@
 import { Schema } from "mongoose";
 import { IHasID } from "./hasId";
+import { IHasSoftDelete } from "./hasSoftDelete";
+import { IHasTimestamps } from "./hasTimestamps";
+import { IHasUpdates } from "./hasUpdates";
 
-export interface IInvitationMeta {
+export interface IInvitationMeta extends IHasUpdates {
     uses: number;
     views: number;
 }
 
-export interface Invitation extends IHasID {
+export interface Invitation extends IHasID, IHasTimestamps, IHasSoftDelete {
     email?: string;
     phone?: string;
     code?: string;
     maxUses?: number;
     meta: IInvitationMeta;
-    createdAt?: Date;
     createdById?: Schema.Types.ObjectId;
-    updatedAt?: Date;
     updatedById?: Schema.Types.ObjectId;
 }
 

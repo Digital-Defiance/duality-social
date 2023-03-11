@@ -1,8 +1,10 @@
 import { Schema } from 'mongoose';
 import { DefaultReactionsType } from '../enumerations/defaultReactionsType';
 import { ReactionType } from '../enumerations/reactionType';
+import { IHasCreation } from './hasCreation';
+import { IHasID } from './hasId';
 
-export interface IReaction {
+export interface IReaction extends IHasID, IHasCreation {
     /**
      * The viewpoint that the reaction is on.
      */
@@ -23,10 +25,6 @@ export interface IReaction {
      * The fontawesome reaction that was made.
      */
     fontAwesomeReaction?: string;
-    /**
-     * The date/time the reaction was created.
-     */
-    createdAt: number;
     /**
      * The user who created the reaction/reacted.
      */

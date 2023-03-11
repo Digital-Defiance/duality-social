@@ -1,16 +1,18 @@
 import { Schema } from 'mongoose';
 import { HumanityType } from '../enumerations/humanityType';
+import { IHasCreation } from '../interfaces/hasCreation';
 import { IHasID } from '../interfaces/hasId';
 import { IPostMeta } from '../interfaces/post';
 import { IPostViewpoint, IPostViewpointMeta } from '../interfaces/postViewpoint';
-import { postSchema } from '../schemas/post';
+import { PostSchema } from '../schemas/post';
+import { PostViewpointSchemaName } from '../schemas/postViewpoint';
 import { BaseModelCache } from './baseModelCache';
 import { UserPathName } from './user';
-export const PostViewpointModelName = 'PostViewpoint';
+export const PostViewpointModelName = PostViewpointSchemaName;
 export const PostViewpointPathName = '/postViewpoints/';
-export const PostViewpointCache = new BaseModelCache<PostViewpoint>(PostViewpointModelName, PostViewpointPathName, postSchema);
+export const PostViewpointCache = new BaseModelCache<PostViewpoint>(PostViewpointModelName, PostViewpointPathName, PostSchema);
 
-export class PostViewpoint implements IPostViewpoint, IHasID
+export class PostViewpoint implements IPostViewpoint, IHasID, IHasCreation
 {
   public _id?: string;
   /**
@@ -30,8 +32,6 @@ export class PostViewpoint implements IPostViewpoint, IHasID
   public parentId?: Schema.Types.ObjectId;
   public createdAt: Date;
   public createdById: Schema.Types.ObjectId;
-  public updatedAt: Date;
-  public updatedById: Schema.Types.ObjectId;
   public meta: IPostViewpointMeta;
 
   constructor(doc?: IPostViewpoint) {

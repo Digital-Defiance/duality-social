@@ -4,11 +4,11 @@ import { AccountStatusType } from '../enumerations/accountStatusType';
 import { LockType } from '../enumerations/lockType';
 import { IHasID } from '../interfaces/hasId';
 import { IUser, IUserMeta } from '../interfaces/user';
-import userSchema from '../schemas/user';
+import { UserSchema, UserSchemaName } from '../schemas/user';
 import { BaseModelCache } from './baseModelCache';
-export const UserModelName = 'User';
+export const UserModelName = UserSchemaName;
 export const UserPathName = '/users/';
-export const UserCache = new BaseModelCache<User>(UserModelName, UserPathName, userSchema);
+export const UserCache = new BaseModelCache<User>(UserModelName, UserPathName, UserSchema);
 
 export class User implements IUser, IHasID {
     public _id?: string;

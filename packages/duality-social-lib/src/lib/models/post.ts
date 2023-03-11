@@ -1,32 +1,44 @@
 import { Schema } from 'mongoose';
+import { IHasDeleter } from '../interfaces/hasDeleter';
 import { IHasID } from '../interfaces/hasId';
+import { IHasTimestampOwners } from '../interfaces/hasTimestampOwners';
+import { IHasTimestamps } from '../interfaces/hasTimestamps';
 import { IPost, IPostMeta } from '../interfaces/post';
-import { postSchema } from '../schemas/post';
+import { PostSchema } from '../schemas/post';
 import { BaseModelCache } from './baseModelCache';
 import { PostViewpointPathName } from './postViewpoint';
 import { UserPathName } from './user';
-export const PostModelName = 'Post';
+import { PostSchemaName } from '../schemas/post';
+export const PostModelName = PostSchemaName;
 export const PostPathName = '/posts/';
-export const PostCache = new BaseModelCache<Post>(PostModelName, PostPathName, postSchema);
+export const PostCache = new BaseModelCache<Post>(PostModelName, PostPathName, PostSchema);
 
-export class Post implements IPost, IHasID
+export class Post<Tids = string> implements IPost, IHasID<Tids>, IHasTimestamps, IHasTimestampOwners<Tids>, IHasDeleter<Tids>
 {
+  public _id?: Schema.Types.ObjectId;
   public inputViewpointId: Schema.Types.ObjectId;
   public aiViewpointId: Schema.Types.ObjectId;
-  public deletedAt?: Date;
+  public language: string;
   public parentId?: Schema.Types.ObjectId;
+  public parents: Schema.Types.ObjectId[] = [];
+  public viewpointParents: Schema.Types.ObjectId[] = [];
   public createdAt: Date;
-  public createdById: Schema.Types.ObjectId;
+  public createdById: Tids;
   public updatedAt: Date;
-  public updatedById: Schema.Types.ObjectId;
+  public updatedById: Tids;
   public meta: IPostMeta;
-  public _id?: string;
+  public deletedAt?: Date;
+  public get Deleted(): boolean {
+    return this.deletedAt !== undefined && this.deletedAt.getTime() > 0;
+  }
+  public deletedById?: Tids;
 
   constructor(doc?: IPost) {
     const _now = new Date();
     this._id = doc?._id;
     this.inputViewpointId = doc?.inputViewpointId ?? new Schema.Types.ObjectId(PostViewpointPathName);
     this.aiViewpointId = doc?.aiViewpointId ?? new Schema.Types.ObjectId(PostViewpointPathName);
+    this.language = doc?.language ?? 'en'; // TODO: detect?
     this.deletedAt = doc?.deletedAt;
     this.parentId = doc?.parentId;
     this.createdAt = doc?.createdAt ?? _now;

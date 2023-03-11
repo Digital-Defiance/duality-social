@@ -74,6 +74,7 @@
 - https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/samples/msal-node-samples/auth-code
 - https://learn.microsoft.com/en-us/azure/app-service/quickstart-nodejs?pivots=development-environment-vscode&tabs=linux
 - https://stackoverflow.com/questions/37969764/representing-mongoose-model-as-a-typescript-class
+- https://dev.to/remshams/derive-union-of-string-literal-types-with-lookup-types-in-typescript-1kkf
 ----
 
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
