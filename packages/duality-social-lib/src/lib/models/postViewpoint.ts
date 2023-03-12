@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose';
-import { HumanityType } from '../enumerations/humanityType';
+import { HumanityTypeEnum } from '../enumerations/humanityType';
 import { IHasCreation } from '../interfaces/hasCreation';
 import { IHasID } from '../interfaces/hasId';
 import { IPostMeta } from '../interfaces/post';
@@ -22,7 +22,7 @@ export class PostViewpoint implements IPostViewpoint, IHasID, IHasCreation
   /**
    * What type of entity created this post.
    */
-  public humanityType: HumanityType;
+  public humanityType: HumanityTypeEnum;
   /**
    * The id of the parent viewpoint if this is a reply.
    */
@@ -38,7 +38,7 @@ export class PostViewpoint implements IPostViewpoint, IHasID, IHasCreation
     const _now = new Date();
     this._id = doc?._id;
     this.postId = doc?.postId ?? new Schema.Types.ObjectId(PostViewpointPathName);
-    this.humanityType = doc?.humanityType ?? HumanityType.Human;
+    this.humanityType = doc?.humanityType ?? HumanityTypeEnum.Human;
     this.parentViewpointId = doc?.parentViewpointId ?? new Schema.Types.ObjectId(PostViewpointPathName);
     this.content = doc?.content ?? '';
     this.deletedAt = doc?.deletedAt ?? undefined;

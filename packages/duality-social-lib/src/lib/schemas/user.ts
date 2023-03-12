@@ -1,8 +1,8 @@
 import { Schema } from 'mongoose';
 import { AccountStatusTypeEnum } from '../enumerations/accountStatusType';
 import { AccountLoginTypeEnum } from '../enumerations/accountLoginType';
-import { AdminLevel } from '../enumerations/adminLevel';
-import { LockType } from '../enumerations/lockType';
+import { AdminLevelEnum } from '../enumerations/adminLevel';
+import { LockTypeEnum } from '../enumerations/lockType';
 
 export const UserSchemaName = 'User';
 /**
@@ -38,7 +38,7 @@ export const UserSchema = new Schema({
    * Backed up by a record in the adminUsers collection with their
    * sudo password hash and other admin metadata.
    */
-  adminLevel: { type: String, enum: AdminLevel, default: AdminLevel.User },
+  adminLevel: { type: String, enum: AdminLevelEnum, default: AdminLevelEnum.User },
   /**
    * Posts from this account are not included in the main feed.
    * The user sees their own posts.
@@ -68,7 +68,7 @@ export const UserSchema = new Schema({
   /**
    * Whether the account is under any kind of lock.
    */
-  adminFreezeType: { type: String, enum: LockType, default: LockType.PendingEmailVerification },
+  adminFreezeType: { type: String, enum: LockTypeEnum, default: LockTypeEnum.PendingEmailVerification },
   meta: {
     /**
      * How many posts the user has made.

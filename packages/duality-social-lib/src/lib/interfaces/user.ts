@@ -1,7 +1,7 @@
 import { Schema } from 'mongoose';
 import { AccountLoginTypeEnum } from '../enumerations/accountLoginType';
 import { AccountStatusTypeEnum } from '../enumerations/accountStatusType';
-import { LockType } from '../enumerations/lockType';
+import { LockTypeEnum } from '../enumerations/lockType';
 import { IHasID } from './hasId';
 import { IHasSoftDelete } from './hasSoftDelete';
 import { IHasTimestamps } from './hasTimestamps';
@@ -63,7 +63,7 @@ export interface IUser extends IHasID, IHasTimestamps, IHasSoftDelete {
   /**
    * Whether the account is under any kind of lock.
    */
-    adminFreezeType: LockType;
+    adminFreezeType: LockTypeEnum;
 
     /**
      * Current account status/standing

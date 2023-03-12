@@ -7,7 +7,7 @@ export type FontAwesomeIconFamily = typeof FontAwesomeIconFamilies[number];
 export const FontAwesomeIconCssStyleClasses = ["fa-solid", "fa-regular", "fa-light", "fa-thin", "fa-duotone", "fa-brands" ] as const;
 export type FontAwesomeIconCssStyleClass = typeof FontAwesomeIconCssStyleClasses[number];
 
-export enum FontAwesomeTextStyleTypeEnum {
+export const enum FontAwesomeTextStyleTypeEnum {
   Classic = 'classic',
   DuoTone = 'fa-duotone',
   Light = 'fa-light',
@@ -18,7 +18,7 @@ export enum FontAwesomeTextStyleTypeEnum {
   Brands = 'fa-brands',
 }
 
-export enum FontAwesomeTextAbbreviation {
+export const enum FontAwesomeTextAbbreviation {
   DuoTone = 'fad',
   Light = 'fal',
   Regular = 'far',

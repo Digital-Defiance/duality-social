@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose';
-import { HumanityType } from '../enumerations/humanityType';
+import { HumanityTypeEnum } from '../enumerations/humanityType';
 import { IHasID } from './hasId';
 import { IHasSoftDelete } from './hasSoftDelete';
 import { IHasTimestamps } from './hasTimestamps';
@@ -21,7 +21,7 @@ export interface IPostViewpoint extends IHasID, IHasTimestamps, IHasSoftDelete {
   /**
    * What type of entity created this post.
    */
-  humanityType: HumanityType;
+  humanityType: HumanityTypeEnum;
   /**
    * The id of the parent viewpoint if this is a reply.
    */

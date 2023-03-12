@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose';
-import { HumanityType } from '../enumerations/humanityType';
+import { HumanityTypeEnum } from '../enumerations/humanityType';
 import { UserSchemaName } from './user';
 export const PostViewpointSchemaName = 'PostViewpoint';
 export const postViewpointSchema = new Schema({
@@ -10,7 +10,7 @@ export const postViewpointSchema = new Schema({
   /**
    * What type of entity created this post.
    */
-  humanityType: { type: String, enum: HumanityType, required: true },
+  humanityType: { type: String, enum: HumanityTypeEnum, required: true },
   /**
    * The id of the parent viewpoint if this is a reply.
    */

@@ -3,7 +3,7 @@ import { IconName } from '@fortawesome/fontawesome-common-types';
 export const DefaultReactions = ['Angry', 'Celebrate', 'Hug', 'Huh?', 'Laugh', 'Like', 'Love', 'Sad', 'Wow'] as const;
 export type DefaultReactionsType = typeof DefaultReactions[number];
 
-export enum DefaultReactionsTypeEnum {
+export const enum DefaultReactionsTypeEnum {
   Angry = 'Angry',
   Celebrate = 'Celebrate',
   Hug = 'Hug',

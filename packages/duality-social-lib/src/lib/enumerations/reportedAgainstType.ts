@@ -1,4 +1,7 @@
-export enum ReportedAgainstType {
+export const ReportedAgainstTypes = ['HumanContent', 'AiContent'] as const;
+export type ReportedAgainstType = typeof ReportedAgainstTypes[number];
+
+export const enum ReportedAgainstTypeEnum {
     /**
      * A report against content that was created by a human.
      */

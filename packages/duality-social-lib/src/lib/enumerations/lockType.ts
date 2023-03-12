@@ -1,4 +1,7 @@
-export enum LockType {
+export const LockTypes = ['PendingEmailVerification', 'Unlocked', 'Admin', 'UserPending', 'UserConfirmed', 'AdminPermanent'] as const;
+export type LockType = typeof LockTypes[number];
+
+export const enum LockTypeEnum {
     /**
      * The user has not yet verified their email address.
      */

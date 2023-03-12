@@ -8,7 +8,7 @@ export const AccountStatusTypes = [
 ] as const;
 export type AccountStatusType = typeof AccountStatusTypes[number];
 
-export enum AccountStatusTypeEnum {
+export const enum AccountStatusTypeEnum {
     /**
      * The account is new and unverified.
      */
