@@ -4,12 +4,13 @@ export const FontAwesomeIconStyle = ["solid", "regular", "light", "thin", "duoto
 export type FontAwesomeIconStyle = typeof FontAwesomeIconStyle[number];
 export const FontAwesomeIconFamilies = ["classic", "sharp", "duotone"] as const;
 export type FontAwesomeIconFamily = typeof FontAwesomeIconFamilies[number];
-export const FontAwesomeIconCssStyleClasses = ["fa-solid", "fa-regular", "fa-light", "fa-thin", "fa-duotone", "fa-brands" ] as const;
+export const FontAwesomeIconCssStyleClasses = ["fa-solid", "fa-regular", "fa-kit", "fa-light", "fa-thin", "fa-duotone", "fa-brands" ] as const;
 export type FontAwesomeIconCssStyleClass = typeof FontAwesomeIconCssStyleClasses[number];
 
 export const enum FontAwesomeTextStyleTypeEnum {
   Classic = 'classic',
   DuoTone = 'fa-duotone',
+  Kit = 'fa-kit',
   Light = 'fa-light',
   Regular = 'fa-regular',
   SharpSolid = 'fa-sharp fa-solid',
@@ -20,6 +21,7 @@ export const enum FontAwesomeTextStyleTypeEnum {
 
 export const enum FontAwesomeTextAbbreviation {
   DuoTone = 'fad',
+  Kit = 'fak',
   Light = 'fal',
   Regular = 'far',
   SharpSolid = 'fass',
@@ -30,6 +32,7 @@ export const enum FontAwesomeTextAbbreviation {
 
 export const FontAbbreviationToClassTable = {
   [FontAwesomeTextAbbreviation.DuoTone]: FontAwesomeTextStyleTypeEnum.DuoTone,
+  [FontAwesomeTextAbbreviation.Kit]: FontAwesomeTextStyleTypeEnum.Kit,
   [FontAwesomeTextAbbreviation.Light]: FontAwesomeTextStyleTypeEnum.Light,
   [FontAwesomeTextAbbreviation.Regular]: FontAwesomeTextStyleTypeEnum.Regular,
   [FontAwesomeTextAbbreviation.SharpSolid]: FontAwesomeTextStyleTypeEnum.SharpSolid,
@@ -40,6 +43,7 @@ export const FontAbbreviationToClassTable = {
 
 export const FontClassToAbbreviationNameTable = {
   [FontAwesomeTextStyleTypeEnum.DuoTone]: FontAwesomeTextAbbreviation.DuoTone,
+  [FontAwesomeTextStyleTypeEnum.Kit]: FontAwesomeTextAbbreviation.Kit,
   [FontAwesomeTextStyleTypeEnum.Light]: FontAwesomeTextAbbreviation.Light,
   [FontAwesomeTextStyleTypeEnum.Regular]: FontAwesomeTextAbbreviation.Regular,
   [FontAwesomeTextStyleTypeEnum.SharpSolid]: FontAwesomeTextAbbreviation.SharpSolid,
@@ -50,6 +54,7 @@ export const FontClassToAbbreviationNameTable = {
 
 export const FontClassToNameTable = {
   [FontAwesomeTextStyleTypeEnum.DuoTone]: 'DuoTone',
+  [FontAwesomeTextStyleTypeEnum.Kit]: 'Kit',
   [FontAwesomeTextStyleTypeEnum.Light]: 'Light',
   [FontAwesomeTextStyleTypeEnum.Regular]: 'Regular',
   [FontAwesomeTextStyleTypeEnum.SharpSolid]: 'SharpSolid',
