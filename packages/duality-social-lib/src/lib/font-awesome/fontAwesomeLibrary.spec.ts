@@ -44,9 +44,9 @@ describe('FontAwesomeLirary', () => {
 
     library.add(icon1, icon2, iconPack);
 
-    expect(library.search('faIcon1')).toContain(icon1);
-    expect(library.search('far faIcon2')).toContain(icon2);
-    expect(library.search('faIcon3')).toContain(iconPack.faIcon3);
-    expect(library.search('faIcon5')).toEqual([]);
+    expect(library.search('face')).toContain(icon1);
+    expect(library.search('tw')).toContain(icon2);
+    expect(library.search('link')).toContain(iconPack.faIcon3);
+    expect(library.search('volkswagen')).toEqual([]);
   });
 });
