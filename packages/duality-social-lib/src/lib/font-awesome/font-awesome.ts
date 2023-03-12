@@ -24,14 +24,17 @@ import {
   ReactionTypeIcons,
 } from '../enumerations/defaultReactionsType';
 import { FontAwesomeTextStyleTypeEnum } from '../enumerations/fontAwesomeTextClass';
-
+import { FontAwesomeLibrary } from './fontAwesomeLibrary';
 // configure fontawesome
+export const fontAwesomeLibrary = new FontAwesomeLibrary();
+/**
+ * Add all the font awesome icons to the global library
+ */
 library.add(fab, fas, far, fal, fat, fad, fass);
-export const FontAwesomeLibrary = library;
-
-interface IFontAwesomeLibrary {
-  definitions: IconDefinition[];
-}
+/**
+ * Add all the font awesome icons to the searchable library
+ */
+fontAwesomeLibrary.add(fab, fas, far, fal, fat, fad, fass);
 
 export interface IFontAwesomeParseItem {
   colorClass: FontAwesomeTextStyleTypeEnum;
@@ -46,17 +49,6 @@ export interface IFontAwesomeParseResult {
 }
 
 export const DefaultColorClass = FontAwesomeTextStyleTypeEnum.Regular;
-export function searchFontAwesomeCompletions(search: string): IconDefinition[] {
-  const results: IconDefinition[] = [];
-  const searchLower = search.toLowerCase();
-  const library: IFontAwesomeLibrary = FontAwesomeLibrary as unknown as IFontAwesomeLibrary;
-  for (const icon of library.definitions) {
-    if (icon.iconName.toLowerCase().indexOf(searchLower) >= 0) {
-      results.push(icon);
-    }
-  }
-  return results;
-}
 
 export function verifyFontAwesome(
   iconPrefix: IconPrefix,
