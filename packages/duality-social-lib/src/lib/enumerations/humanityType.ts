@@ -1,18 +1,18 @@
-export const HumanityTypes = ['Bot', 'Human', 'AI'] as const;
+export const HumanityTypes = ['Ai', 'Bot', 'Human'] as const;
 export type HumanityType = typeof HumanityTypes[number];
 
-export const enum HumanityTypeEnum {
+export enum HumanityTypeEnum {
     /**
-     * The viewpoint seems to be from a bot
+     * The viewpoint is from an AI
+     */
+    Ai = 'Ai',
+    /**
+     * The viewpoint is from a bot
      * (e.g. an account run by a 3rd party bot/outside actor)
      */
     Bot = 'Bot',
     /**
-     * The viewpoint seems to be from a human
+     * The viewpoint is from a human
      */
     Human = 'Human',
-    /**
-     * The viewpoint seems to be from an AI
-     */
-    AI = 'AI',
 }

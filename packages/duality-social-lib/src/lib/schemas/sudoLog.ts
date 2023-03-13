@@ -1,10 +1,11 @@
 import { Schema } from 'mongoose';
+import { UserSchemaName } from './user';
 
 export const sudoLogSchema = new Schema({
     /**
      * The id of the user attempting sudo.
      */
-    userId: { type: Schema.Types.ObjectId, required: true, readonly: true },
+    userId: { type: Schema.Types.ObjectId, ref: UserSchemaName, required: true, readonly: true },
     /**
      * The id of the admin user if the sudo attempt was successful.
      */

@@ -22,7 +22,7 @@ export * from './lib/schemas/postExpand';
 export * from './lib/schemas/postImpression';
 export * from './lib/schemas/postViewpoint';
 export * from './lib/schemas/profile';
-export * from './lib/schemas/reaction';
+export * from './lib/schemas/viewpointReaction';
 export * from './lib/schemas/sudoLog';
 export * from './lib/schemas/user';
 export * from './lib/schemas/userNameChange';

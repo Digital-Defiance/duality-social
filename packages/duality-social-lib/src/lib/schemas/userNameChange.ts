@@ -4,11 +4,11 @@ export const userNameChangeSchema = new Schema({
     /**
      * The old name of the user.
      */
-    oldName: { type: String, required: true, null: false },
+    oldName: { type: String, required: true, null: false, readonly: true },
     /**
      * The new name of the user.
      */
-    newName: { type: String, required: true, null: false },
+    newName: { type: String, required: true, null: false, readonly: true },
     /**
      * The date the name was changed.
      */

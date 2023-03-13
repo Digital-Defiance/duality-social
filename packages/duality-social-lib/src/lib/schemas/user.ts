@@ -12,7 +12,7 @@ export const UserSchema = new Schema({
   /**
    * Whether the login is via email/password or via external authentication.
    */
-  accountType: { type: String, enum: AccountLoginType, default: AccountLoginType.Microsoft, required: true},
+  accountType: { type: String, enum: AccountLoginTypeEnum, default: AccountLoginTypeEnum.Microsoft, required: true},
   accountStatusType: { type: String, enum: AccountStatusTypeEnum, default: AccountStatusTypeEnum.Active, required: true, null: false },
   /**
    * The user's email address, used for login if accountType is email/password.
@@ -23,7 +23,7 @@ export const UserSchema = new Schema({
    * Whether the user has verified their email address.
    * See also a record in the email verification collection.
    */
-  emailVerified: Boolean,
+  emailVerified: { type: Boolean, default: false, required: true, null: false },
   /**
    * The user's password hash, used for login if accountType is email/password.
    */
@@ -43,11 +43,11 @@ export const UserSchema = new Schema({
    * Posts from this account are not included in the main feed.
    * The user sees their own posts.
    */
-  shadowBan: Boolean,
+  shadowBan: { type: Boolean, default: false, required: true, null: false },
   /**
    * The user's profile is not visible to other users (appears deleted).
    */
-  userHidden: Boolean,
+  userHidden: { type: Boolean, default: false, required: true, null: false },
   /**
    * User's last login date/time.
    * See also logins collection.
@@ -56,7 +56,7 @@ export const UserSchema = new Schema({
   /**
    * The user who last updated the user.
    */
-  updatedById: Schema.Types.ObjectId,
+  updatedById: { type: Schema.Types.ObjectId, ref: UserSchemaName, null: true, default: null },
   /**
    * The date/time the user was deleted.
    */
@@ -64,7 +64,7 @@ export const UserSchema = new Schema({
   /**
    * The user who deleted the user.
    */
-  deletedById: { type: Schema.Types.ObjectId, null: true, default: null },
+  deletedById: { type: Schema.Types.ObjectId, ref: UserSchemaName, null: true, default: null },
   /**
    * Whether the account is under any kind of lock.
    */
