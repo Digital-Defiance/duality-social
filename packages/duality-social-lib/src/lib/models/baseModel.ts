@@ -1,18 +1,21 @@
 import { model as makeModel, Model as MongooseModel, Schema as MongooseSchema } from "mongoose";
 import { IHasID } from "../interfaces/hasId";
 
-class Base {
+abstract class Base {
     protected static ModelRegistry: Map<string, MongooseModel<unknown>> = new Map<string, MongooseModel<unknown>>();
     public readonly Name: string;
     constructor(name: string, model: MongooseModel<unknown>) {
-        if (this.constructor === Base) {
-            throw new TypeError("Cannot construct Base instances directly");
-        }
         this.Name = name;
         if (BaseModel.ModelRegistry.has(name)) {
             throw new Error(`Model ${name} already exists`);
         }
         BaseModel.ModelRegistry.set(name, model);
+    }
+    public static getModel<T>(model: string): MongooseModel<T&Document> {
+        if (!BaseModel.ModelRegistry.has(model)) {
+            throw new Error(`Model ${model} does not exist`);
+        }
+        return BaseModel.ModelRegistry.get(model) as MongooseModel<T&Document>;
     }
 }
 
