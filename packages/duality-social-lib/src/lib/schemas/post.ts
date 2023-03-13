@@ -12,9 +12,9 @@ export const PostSchema = new Schema({
      */
     parentPostId:  { type: Schema.Types.ObjectId, ref: PostSchemaName, null: true, default: null, readonly: true },
     inputViewpointId: { type: Schema.Types.ObjectId, ref: PostViewpointSchemaName, required: false, readonly: true },
-    inputViewpointTranslationIds: [{ type: Schema.Types.ObjectId, ref: PostViewpointSchemaName, required: false }],
-    aiViewpointId: { type: Schema.Types.ObjectId, ref: PostViewpointSchemaName, required: false },
-    aiViewpointTranslationIds: [{ type: Schema.Types.ObjectId, ref: PostViewpointSchemaName, required: false }],
+    inputViewpointTranslationIds: [{ type: Schema.Types.ObjectId, ref: PostViewpointSchemaName, required: true }],
+    aiViewpointId: { type: Schema.Types.ObjectId, ref: PostViewpointSchemaName, required: false, null: true, default: null },
+    aiViewpointTranslationIds: [{ type: Schema.Types.ObjectId, ref: PostViewpointSchemaName, required: true }],
     hidden: { type: Boolean, default: false, required: true, null: false },
     deletedAt: {type: Date, null: true, default: null },
     createdById: { type: Schema.Types.ObjectId, ref: UserSchemaName, required: true, readonly: true },
