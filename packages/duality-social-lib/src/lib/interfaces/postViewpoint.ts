@@ -13,7 +13,7 @@ export interface IPostViewpointMeta extends IHasUpdates {
   reactionsByType: { [key: string]: number };
 }
 
-export interface IPostViewpoint extends IHasID, IHasTimestamps, IHasSoftDelete {
+export interface IPostViewpoint extends IHasID<Schema.Types.ObjectId>, IHasTimestamps, IHasSoftDelete {
   /**
    * Correlation id to link the dualities.
    */

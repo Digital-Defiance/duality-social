@@ -10,11 +10,11 @@ import { BaseModelCache } from './baseModelCache';
 import { UserPathName } from './user';
 export const PostViewpointModelName = PostViewpointSchemaName;
 export const PostViewpointPathName = '/postViewpoints/';
-export const PostViewpointCache = new BaseModelCache<PostViewpoint>(PostViewpointModelName, PostViewpointPathName, PostSchema);
+export const PostViewpointCache = new BaseModelCache<PostViewpoint, Schema.Types.ObjectId>(PostViewpointModelName, PostViewpointPathName, PostSchema);
 
-export class PostViewpoint implements IPostViewpoint, IHasID, IHasCreation
+export class PostViewpoint implements IPostViewpoint, IHasID<Schema.Types.ObjectId>, IHasCreation
 {
-  public _id?: string;
+  public _id?: Schema.Types.ObjectId;
   /**
    * Correlation id to link the dualities.
    */
@@ -29,9 +29,14 @@ export class PostViewpoint implements IPostViewpoint, IHasID, IHasCreation
   public parentViewpointId: Schema.Types.ObjectId;
   public content: string;
   public deletedAt?: Date;
+  public get deleted(): boolean {
+    return this.deletedAt !== undefined && this.deletedAt.getTime() > 0;
+  }
   public parentId?: Schema.Types.ObjectId;
   public createdAt: Date;
   public createdById: Schema.Types.ObjectId;
+  public updatedAt: Date;
+  public updatedById: Schema.Types.ObjectId;
   public meta: IPostViewpointMeta;
 
   constructor(doc?: IPostViewpoint) {
