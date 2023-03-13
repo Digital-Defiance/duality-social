@@ -1,8 +1,8 @@
-import { Schema as MongooseSchema } from "mongoose";
+import { Schema as MongooseSchema, Schema } from "mongoose";
 import { IHasID } from "../interfaces/hasId";
 import { BaseModel } from "./baseModel";
 
-export class BaseModelCache<T extends IHasID<U>, U = string> extends BaseModel<T,U> {
+export class BaseModelCache<T extends IHasID<U>, U = Schema.Types.ObjectId> extends BaseModel<T,U> {
     public readonly _cache: Map<U, T&Document> = new Map<U, T&Document>();
     constructor(name: string, path: string, schema: MongooseSchema, collection?: string) {
         super(name, path, schema, collection);
