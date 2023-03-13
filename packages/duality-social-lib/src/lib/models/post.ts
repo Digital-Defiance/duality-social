@@ -11,9 +11,9 @@ import { UserPathName } from './user';
 import { PostSchemaName } from '../schemas/post';
 export const PostModelName = PostSchemaName;
 export const PostPathName = '/posts/';
-export const PostCache = new BaseModelCache<Post>(PostModelName, PostPathName, PostSchema);
+export const PostCache = new BaseModelCache<Post, Schema.Types.ObjectId>(PostModelName, PostPathName, PostSchema);
 
-export class Post<Tids = string> implements IPost, IHasID<Tids>, IHasTimestamps, IHasTimestampOwners<Tids>, IHasDeleter<Tids>
+export class Post implements IPost, IHasID<Schema.Types.ObjectId>, IHasTimestamps, IHasTimestampOwners<Schema.Types.ObjectId>, IHasDeleter<Schema.Types.ObjectId>
 {
   public _id?: Schema.Types.ObjectId;
   public inputViewpointId: Schema.Types.ObjectId;
@@ -23,15 +23,15 @@ export class Post<Tids = string> implements IPost, IHasID<Tids>, IHasTimestamps,
   public parents: Schema.Types.ObjectId[] = [];
   public viewpointParents: Schema.Types.ObjectId[] = [];
   public createdAt: Date;
-  public createdById: Tids;
+  public createdById: Schema.Types.ObjectId;
   public updatedAt: Date;
-  public updatedById: Tids;
+  public updatedById: Schema.Types.ObjectId;
   public meta: IPostMeta;
   public deletedAt?: Date;
   public get Deleted(): boolean {
     return this.deletedAt !== undefined && this.deletedAt.getTime() > 0;
   }
-  public deletedById?: Tids;
+  public deletedById?: Schema.Types.ObjectId;
 
   constructor(doc?: IPost) {
     const _now = new Date();

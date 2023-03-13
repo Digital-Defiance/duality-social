@@ -17,7 +17,7 @@ export interface IPostMeta extends IHasUpdates {
  * This interface represents a post, which is a piece of content that a user can create.
  * It inherits from IHasID, which provides the id property, IHasCreation, which provides the createdAt and updatedAt properties, and IHasSoftDelete, which provides the deletedAt property.
  */
-export interface IPost extends IHasID, IHasTimestamps, IHasSoftDelete, IHasTimestampOwners, IHasDeleter {
+export interface IPost extends IHasID<Schema.Types.ObjectId>, IHasTimestamps, IHasSoftDelete, IHasTimestampOwners<Schema.Types.ObjectId>, IHasDeleter<Schema.Types.ObjectId> {
     // graphql fields
 
     // duality social specific fields
