@@ -1,0 +1,11 @@
+{
+  "name": "duality-social-queue-worker",
+  "version": "0.0.0",
+  "description": "A worker for the duality social network that generates the ai responses",
+  "dependencies": {
+    "mongoose": "^7.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.1"
+  }
+}
