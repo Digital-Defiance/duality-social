@@ -1,15 +1,15 @@
-import { randomBytes } from 'crypto';
+import { v4 as uuidv4 } from 'uuid';
 import { Schema } from 'mongoose';
 import validator from 'validator';
-import ModelName from '../enumerations/modelName';
-import { IInvitation } from '../interfaces/invitation';
+import ModelName from '../enumerations/model-name';
+import { IInvitationDocument } from '../documents/invitation';
 
-const generateRandomCode = () => {
-  return randomBytes(32).toString('hex');
+
+const generateRandomToken = () => {
+  return uuidv4();
 }
 
-
-export const InvitationSchema = new Schema<IInvitation>(
+export const InvitationSchema = new Schema<IInvitationDocument>(
   {
     email: {
       type: String,
@@ -33,7 +33,7 @@ export const InvitationSchema = new Schema<IInvitation>(
           return true;
         }
     } },
-    code: { type: String, default: generateRandomCode, required: true, immutable: true },
+    token: { type: String, default: generateRandomToken, required: true, immutable: true },
     maxUses: { type: Number, required: true, immutable: true },
     metadata: {
       uses: { type: Number, required: true },

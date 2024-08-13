@@ -1,11 +1,11 @@
 import { Schema } from 'mongoose';
-import { ILogin } from '../interfaces/login';
-import ModelName from '../enumerations/modelName';
+import ModelName from '../enumerations/model-name';
+import { ILoginDocument } from '../documents/login';
 
 /**
  * Represents a user logging in.
  */
-export const LoginSchema = new Schema<ILogin>({
+export const LoginSchema = new Schema<ILoginDocument>({
   userId: {
     type: Schema.Types.ObjectId,
     ref: ModelName.User,

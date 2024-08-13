@@ -1,11 +1,11 @@
-import { IHasSoftDelete } from "./hasSoftDelete";
-import { IHasTimestampOwners } from "./hasTimestampOwners";
-import { IHasTimestamps } from "./hasTimestamps";
+import { IHasSoftDelete } from "./has-soft-delete";
+import { IHasTimestampOwners } from "./has-timestamp-owners";
+import { IHasTimestamps } from "./has-timestamps";
 
 export interface IInvitation extends IHasTimestamps, IHasSoftDelete, IHasTimestampOwners {
     email?: string;
     phone?: string;
-    code?: string;
+    token?: string;
     maxUses?: number;
     metadata: {
         uses: number;

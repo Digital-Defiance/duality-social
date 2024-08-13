@@ -1,21 +1,15 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 /* eslint-disable @typescript-eslint/no-namespace */
-import { AccountStatusTypeEnum } from '../enumerations/accountStatusType';
-import { LockTypeEnum } from '../enumerations/lockType';
-import { IHasSoftDelete } from './hasSoftDelete';
-import { IHasTimestampOwners } from './hasTimestampOwners';
-import { IHasTimestamps } from './hasTimestamps';
-import { HumanityTypeEnum } from '../enumerations/humanityType';
-import { IHasDeleter } from './hasDeleter';
-
-export const PasswordRounds = 10;
+import { AccountStatusTypeEnum } from '../enumerations/account-status-type';
+import { LockTypeEnum } from '../enumerations/lock-type';
+import { IHasSoftDelete } from './has-soft-delete';
+import { IHasTimestampOwners } from './has-timestamp-owners';
+import { IHasTimestamps } from './has-timestamps';
+import { HumanityTypeEnum } from '../enumerations/humanity-type';
+import { IHasDeleter } from './has-deleter';
 
 export interface IUser extends IHasTimestamps, IHasTimestampOwners, IHasSoftDelete, IHasDeleter {
   username: string;
-  givenName: string;
-  surname: string;
-  userPrincipalName: string;
-  // duality social specific fields
   languages: string[];
   /**
    * Whether the account is under any kind of lock.
@@ -33,14 +27,31 @@ export interface IUser extends IHasTimestamps, IHasTimestampOwners, IHasSoftDele
    * Current account status/standing
    */
   accountStatusType: AccountStatusTypeEnum;
+  /**
+   * Whether the user is a human or a bot.
+   */
   humanityType: HumanityTypeEnum,
   /**
    * The user's email address, used for login if accountType is email/password.
    * Used for sending notifications, regardless.
    */
   email: string;
+  /**
+   * Whether the user has verified their email address.
+   */
+  emailVerified: boolean;
+  /**
+   * The date of the last successful login.
+   */
   lastLogin?: Date;
-  passwordHash: string;
+  /**
+   * The user's password, hashed.
+   */
+  password: string;
+  /**
+   * The user's timezone.
+   */
+  timezone: string;
   // metadata
   metadata: {
     /**

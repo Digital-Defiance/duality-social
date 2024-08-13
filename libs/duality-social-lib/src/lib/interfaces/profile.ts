@@ -1,5 +1,5 @@
-import { IHasTimestamps } from "./hasTimestamps";
-import { IHasSoftDelete } from "./hasSoftDelete";
+import { IHasTimestamps } from "./has-timestamps";
+import { IHasSoftDelete } from "./has-soft-delete";
 import { ObjectId } from "mongoose";
 
 /**
@@ -23,7 +23,6 @@ export interface IProfile extends IHasTimestamps, IHasSoftDelete {
     profileImageUrl?: string;
     socialUrls: string[];
     website?: string;
-    defaultDepth: number;
     verified: boolean;
     verifiedBy?: ObjectId;
   };

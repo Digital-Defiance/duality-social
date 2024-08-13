@@ -1,4 +1,4 @@
-import { ReportTypeEnum } from "../enumerations/reportType";
+import { ReportTypeEnum } from "../enumerations/report-type";
 import { ObjectId } from "mongoose";
 
 export interface IReport {

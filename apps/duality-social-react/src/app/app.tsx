@@ -1,72 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import styles from './app.module.scss';
-import LoginLink from '../components/LoginLink';
-import UserProfile from '../components/UserProfile';
-import { Route, Routes, Link } from 'react-router-dom';
-import { getToken, verifyToken } from '../utils/auth';
-import LoginPage from '../components/LoginPage';
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import DashboardPage from '../components/dashboard-page';
+import { MenuProvider } from '../menu-context';
+import TopMenu from '../components/top-menu';
+import SplashPage from '../components/splash-page';
+import RegisterPage from '../components/register-page';
+import LoginPage from '../components/login-page';
+import PrivateRoute from '../components/private-route';
+import VerifyEmailPage from '../components/verify-email-page';
+import ChangePasswordPage from '../components/change-password-page';
+import ForgotPasswordPage from '../components/forgot-password-page';
 
-export function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  useEffect(() => {
-    const token = getToken();
-    if (token && verifyToken(token)) {
-      setIsAuthenticated(true);
-    }
-  }, []);
-
+function App() {
   return (
-    <div>
-      {/* START: routes */}
-      {/* These routes and navigation have been generated for you */}
-      {/* Feel free to move and update them to fit your needs */}
-      <br />
-      <hr />
-      <br />
-      <div role="navigation">
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/page-2">Page 2</Link>
-          </li>
-          {!isAuthenticated && (
-            <li>
-              <LoginLink />
-            </li>
-          )}
-        </ul>
-      </div>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <div>
-              This is the generated root route.{' '}
-              <Link to="/page-2">Click here for page 2.</Link>
-            </div>
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <div>
-              <UserProfile />
-            </div>
-          }
-        />
-        <Route
-          path="/login"
-          element={
-            <div>
-              <LoginPage />
-            </div>
-          }
-        />
-      </Routes>
-      {/* END: routes */}
+    <div className="app-container">
+      <MenuProvider>
+        <TopMenu />
+        <Routes>
+          <Route path="/" element={<SplashPage />} />
+          <Route
+            path="/change-password"
+            element={
+              <PrivateRoute>
+                <ChangePasswordPage />
+              </PrivateRoute>
+            }
+          />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                <DashboardPage />
+              </PrivateRoute>
+            }
+          />
+          <Route path="/verify-email" element={<VerifyEmailPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        </Routes>
+      </MenuProvider>
     </div>
   );
 }

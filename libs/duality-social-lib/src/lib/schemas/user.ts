@@ -1,20 +1,24 @@
-import { Model, Schema } from 'mongoose';
+import { Schema } from 'mongoose';
 import validator from 'validator';
-import { AccountStatusTypeEnum } from '../enumerations/accountStatusType';
-import { LockTypeEnum } from '../enumerations/lockType';
-import { IUser } from '../interfaces/user';
-import ModelName from '../enumerations/modelName';
-import { UserDocument } from '../documents/user';
-import { HumanityTypeEnum } from '../enumerations/humanityType';
+import { AccountStatusTypeEnum } from '../enumerations/account-status-type';
+import { LockTypeEnum } from '../enumerations/lock-type';
+import ModelName from '../enumerations/model-name';
+import { HumanityTypeEnum } from '../enumerations/humanity-type';
+import { AppConstants } from '../constants';
+import { IUserDocument } from '../documents/user';
+import { isValidTimezone } from '../duality-social-lib';
 
 /**
  * A user in the system.
  */
-export const UserSchema = new Schema<IUser>(
+export const UserSchema = new Schema<IUserDocument>(
   {
+    /**
+     * The account status/standing
+     */
     accountStatusType: {
       type: String,
-      enum: AccountStatusTypeEnum,
+      enum: Object.values(AccountStatusTypeEnum),
       default: AccountStatusTypeEnum.Active,
       required: true,
       null: false,
@@ -31,22 +35,18 @@ export const UserSchema = new Schema<IUser>(
       required: true,
       trim: true,
       validate: {
-        validator: async function (value: any) {
-          if (!validator.isEmail(value)) {
-            return false;
-          }
-          const userModel = this.constructor as Model<UserDocument>;
-          const user = await userModel.findOne({ email: value });
-          if (user) {
-            const currentDocument = this as UserDocument;
-            if (user._id === currentDocument._id) {
-              return true;
-            }
-            return false;
-          }
-          return true;
-        },
+        validator: (v: string) => validator.isEmail(v),
+        message: props => `${props.value} is not a valid email address!`
       },
+    },
+    /**
+     * Whether the user has verified their email address.
+     */
+    emailVerified: {
+      type: Boolean,
+      default: false,
+      required: true,
+      null: false,
     },
     /**
      * The unique @username of the user.
@@ -61,22 +61,22 @@ export const UserSchema = new Schema<IUser>(
       minlength: 3,
       maxlength: 20,
       validate: {
-        validator: async function (value: any) {
-          const userModel = this.constructor as Model<UserDocument>;
-          const user = await userModel.findOne({ username: value });
-          if (user) {
-            const currentDocument = this as UserDocument;
-            if (user._id === currentDocument._id) {
-              return true;
-            }
-            return false;
-          }
-          return true;
-        },
-        message: 'The username is already in use.',
+        validator: (v: string) => AppConstants.UsernameRegex.test(v),
+        message: props => AppConstants.UsernameRegexError
       },
     },
-    passwordHash: { type: String, required: true },
+    /**
+     * The user's password, hashed.
+     */
+    password: {
+      type: String, required: true, validate: {
+        validator: (v: string) => AppConstants.PasswordRegex.test(v),
+        message: props => AppConstants.PasswordRegexError
+      }
+    },
+    /**
+     * Whether the user is a human or a bot.
+     */
     humanityType: {
       type: String,
       required: true,
@@ -91,7 +91,7 @@ export const UserSchema = new Schema<IUser>(
      */
     lockStatus: {
       type: String,
-      enum: LockTypeEnum,
+      enum: Object.values(LockTypeEnum),
       default: LockTypeEnum.PendingEmailVerification,
     },
     /**
@@ -108,6 +108,20 @@ export const UserSchema = new Schema<IUser>(
      * See also logins collection.
      */
     lastLogin: { type: Date, optional: true },
+    /**
+     * The user's timezone.
+     */
+    timezone: {
+      type: String,
+      required: true,
+      default: 'UTC',
+      validate: {
+        validator: function(v: string) {
+          return isValidTimezone(v);
+        },
+        message: props => `${props.value} is not a valid timezone!`
+      }
+    },
     /**
      * The user who last updated the user.
      */

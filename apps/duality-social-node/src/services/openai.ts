@@ -1,15 +1,14 @@
 
 import {
-  BaseModel,
   closestImageSize,
   HumanityTypeEnum,
   imageDataUrlToFile,
   IPost,
-  IPostViewpoint,
   makeDataUrl,
-  ModelName,
-  PostDocument,
-  PostViewpointDocument
+  IPostDocument,
+  SchemaModels,
+  PostModel,
+  PostViewpointModel
 } from '@duality-social/duality-social-lib';
 import {
     Configuration,
@@ -21,8 +20,8 @@ import {
   } from 'openai';
   import {
     OpenAIGenerationResult,
-  } from '../models/openAiGenerationResult';
-import { promptResultParser } from '../models/promptResultParser';
+  } from '../models/open-ai-generation-result';
+import { promptResultParser } from '../models/prompt-result-parser';
 import { decode, encode } from 'fast-png';
 import { ImageData } from 'fast-png/lib/types';
 import { environment } from '../environment';
@@ -30,9 +29,6 @@ import { ObjectId } from "mongoose";
 import { ObjectId as BsonObjectId } from 'bson';
 export const DevilsAdvocatePrompt = "Given the following post by a human, rewrite it, taking an opposite position, like playing Devil's Advocate, using a similar tone and style:";
 export const DevilsAdvocateImagePrompt = "Given the following position text, and a supplied image, generate an image that depicts the position:";
-
-const PostModel = BaseModel.getModel<PostDocument>(ModelName.Post);
-const PostViewpointModel = BaseModel.getModel<PostViewpointDocument>(ModelName.PostViewpoint);
 
 const openAiConfig: ConfigurationParameters = {
   basePath: environment.openai.type === 'azure' ? 'https://api.openai.com/v1' : 'https://api.openai.com/v1',
@@ -233,7 +229,7 @@ export async function imageDataUrlToSizeAndFile(imageDataUrl: string): Promise<{
       updatedById: createdById,
   });
    ;
-    const savedPost: PostDocument = await PostModel.create(post);
+    const savedPost: IPostDocument = await post.save();
     const postId = savedPost._id;
     if (!postId) {
       throw new Error('Post id not saved');
@@ -257,7 +253,8 @@ export async function imageDataUrlToSizeAndFile(imageDataUrl: string): Promise<{
         reactionsByType: {},
       }
     });
-    const firstViewpointId = (await PostViewpointModel.create(firstViewpoint))._id;
+    const firstViewpointModel = await firstViewpoint.save();
+    const firstViewpointId = firstViewpointModel._id;
     if (!firstViewpointId) {
       throw new Error('First viewpoint id not saved');
     }
@@ -273,7 +270,7 @@ export async function imageDataUrlToSizeAndFile(imageDataUrl: string): Promise<{
       content: aiResponse.aiResponse,
       createdById: createdById,
     });
-    const aiViewpointModel = new PostViewpointModel(await PostViewpointModel.create(aiViewpoint));
+    const aiViewpointModel = await aiViewpoint.save();
     const aiViewpointId = aiViewpointModel._id;
     if (!aiViewpointId) {
       throw new Error('AI viewpoint id not saved');

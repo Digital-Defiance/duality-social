@@ -1,1 +1,33 @@
-/* You can add global styles to this file, and also import other style files */
+// Variables
+$primary-color: #2e007f;
+$secondary-color: #fff;
+$hover-color: lighten($primary-color, 10%);
+$text-color: #fff;
+
+@font-face {
+  font-family: 'Dharma Gothic E';
+  src: url('~/assets/DharmaGothicE-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Eurostile Extended';
+  src: url('~/assets/EurostileExtended-Roman.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Euro Style';
+  src: url('~/assets/EuroStyleNormal.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Nudista';
+  src: url('~/assets/nudista-thin.woff2') format('woff2');
+  font-weight: 100;
+  font-style: normal;
+}

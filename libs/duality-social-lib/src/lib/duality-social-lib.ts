@@ -1,6 +1,7 @@
 import { CreateImageRequestSizeEnum } from 'openai';
 import sanitizeHtml from 'sanitize-html';
 import { parseIconMarkup, stripIconMarkup } from './font-awesome/font-awesome';
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const MarkdownIt = require('markdown-it');
 
@@ -12,6 +13,11 @@ export function makeDataUrl(imageBase64Json: string): string {
   return `data:image/png;base64,${imageBase64Json}`;
 }
 
+/**
+ * Given an input image size, return the closest image size our AI can process
+ * @param size 
+ * @returns 
+ */
 export function closestImageSize(size: number): CreateImageRequestSizeEnum {
   // If size is greater than or equal to 1024, return 1024
   // If size is greater than or equal to 768, return 1024 (round up)
@@ -26,6 +32,12 @@ export function closestImageSize(size: number): CreateImageRequestSizeEnum {
   return CreateImageRequestSizeEnum._256x256;
 }
 
+/**
+ * Converts an image data url to a File object
+ * @param imageDataUrl 
+ * @param filename 
+ * @returns 
+ */
 export function imageDataUrlToFile(imageDataUrl: string, filename = 'image.png'): File {
   if (!imageDataUrl.startsWith('data:image/png;base64,')) {
     throw new Error('Invalid image data URL');
@@ -46,6 +58,11 @@ export function imageDataUrlToFile(imageDataUrl: string, filename = 'image.png')
   return imageFile;
 }
 
+/**
+ * Strips HTML tags/attributes, parses markdown, then parses our custom icon markup
+ * @param content 
+ * @returns 
+ */
 export function parsePostContent(content: string): string {
   // Phase 1: Strip HTML
   // we strip the html first because we don't really support HTML in posts,
@@ -72,13 +89,50 @@ export function parsePostContent(content: string): string {
   return content;
 }
 
+/**
+ * Sanitizes whitespace in a string by replacing sequential whitespace with single space
+ * @param input 
+ * @returns 
+ */
 export function sanitizeWhitespace(input: string): string {
   // replace all whitespace with a single space
   return input.replace(/\s+/g, ' ').trim();
 }
 
+/**
+ * Sanitized whitespace and strips icon markup prior to submission to AI
+ * @param input 
+ * @returns 
+ */
 export function sanitizeForAi(input: string): string {
   const sanitized = sanitizeWhitespace(input);
   const stripped = stripIconMarkup(sanitized);
   return stripped;
+}
+
+/**
+ * Gets the timezone offset in minutes for a given timezone.
+ * @param timezone 
+ * @returns 
+ */
+export function getTimezoneOffset(timezone: string): number {
+  const date = new Date();
+  const utcDate = new Date(date.toLocaleString('en-US', { timeZone: 'UTC' }));
+  const tzDate = new Date(date.toLocaleString('en-US', { timeZone: timezone }));
+  return (utcDate.getTime() - tzDate.getTime()) / 60000;
+}
+
+/**
+ * Checks if a timezone is valid
+ * @param timezone 
+ * @returns 
+ */
+export function isValidTimezone(timezone: string): boolean {
+  try {
+    // If the timezone is invalid, getTimezoneOffset will throw an error
+    getTimezoneOffset(timezone);
+    return true;
+  } catch (error) {
+    return false;
+  }
 }

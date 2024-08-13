@@ -36,7 +36,8 @@
 				"rangav.vscode-thunder-client",
 				"Greptile.greptile-vscode",
 				"GitHub.remotehub",
-				"ms-vscode-remote.remote-containers"
+				"ms-vscode-remote.remote-containers",
+				"TabNine.tabnine-vscode"
 			],
 			// Set *default* container specific settings.json values on container create.
 			"settings": {

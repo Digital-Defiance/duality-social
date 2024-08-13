@@ -7,5 +7,5 @@
     "typeRoots": ["./node_modules/@types", "./src/types"]
   },
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "src/types/express.d.ts"]
 }

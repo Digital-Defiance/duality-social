@@ -1,22 +1,50 @@
-import { Request, Response, Router } from 'express';
+import { Request, Response } from 'express';
 import { FeedService } from '../../services/feed';
-import { requireAuth } from '../../middlewares/requireAuth';
+import { requireAuth } from '../../middlewares/require-auth';
+import { BaseController } from '../base';
+import { RouteConfig } from '../../interfaces/route-config';
 
-export class FeedController {
-    public router: Router;
+export class FeedController extends BaseController {
     private feedService: FeedService;
 
     constructor() {
-        this.router = Router();
+        super();
         this.feedService = new FeedService();
-        this.initializeRoutes();
     }
 
-    private initializeRoutes() {
-        this.router.post('/', requireAuth, this.newPost.bind(this));
-        this.router.post('/preview', requireAuth, this.newReply.bind(this));
-        this.router.post('/react', requireAuth, this.reactToViewpoint.bind(this));
-        this.router.post('/rate', requireAuth, this.rateViewpoint.bind(this));
+    protected getRoutes(): RouteConfig[] {
+        return [
+            {
+                method: 'get',
+                path: '/',
+                handler: this.getFeed,
+                useAuthentication: true,
+            },
+            {
+                method: 'post',
+                path: '/',
+                handler: this.newPost,
+                useAuthentication: true,
+            },
+            {
+                method: 'post',
+                path: '/preview',
+                handler: this.newReply,
+                useAuthentication: true,
+            },
+            {
+                method: 'post',
+                path: '/react',
+                handler: this.reactToViewpoint,
+                useAuthentication: true,
+            },
+            {
+                method: 'post',
+                path: '/rate',
+                handler: this.rateViewpoint,
+                useAuthentication: true,
+            },
+        ];
     }
 
     async getFeed(req: Request, res: Response) {
@@ -25,7 +53,7 @@ export class FeedController {
             res.status(200).json(feed);
         } catch (error) {
             console.error('Error fetching feed:', error);
-            res.status(500).send('An error occurred while fetching the feed');
+            this.sendApiErrorResponse(500, 'An error occurred while fetching the feed', error, res);
         }
     }
 
@@ -35,7 +63,7 @@ export class FeedController {
             res.status(200).json(post);
         } catch (error) {
             console.error('Error creating new post:', error);
-            res.status(500).send('An error occurred while creating the post');
+            this.sendApiErrorResponse(500, 'An error occurred while creating the post', error, res);
         }
     }
 
@@ -45,7 +73,7 @@ export class FeedController {
             res.status(201).json(reply);
         } catch (error) {
             console.error('Error creating new reply:', error);
-            res.status(500).send('An error occurred while creating the reply');
+            this.sendApiErrorResponse(500, 'An error occurred while creating the reply', error, res);
         }
     }
 
@@ -55,7 +83,7 @@ export class FeedController {
             res.status(200).json(viewpoint);
         } catch (error) {
             console.error('Error reacting to viewpoint:', error);
-            res.status(500).send('An error occurred while reacting to the viewpoint');
+            this.sendApiErrorResponse(500, 'An error occurred while reacting to the viewpoint', error, res);
         }
     }
 
@@ -65,9 +93,9 @@ export class FeedController {
             res.status(200).json(viewpoint);
         } catch (error) {
             console.error('Error rating viewpoint:', error);
-            res.status(500).send('An error occurred while rating the viewpoint');
+            this.sendApiErrorResponse(500, 'An error occurred while rating the viewpoint', error, res);
         }
     }
 }
 
-export default FeedController;
+export default new FeedController().router;

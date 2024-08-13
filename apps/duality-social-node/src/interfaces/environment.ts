@@ -2,12 +2,15 @@ export type OpenAiProvider = 'azure' | 'openai';
 
 export interface IEnvironment {
     production: boolean;
-    siteUrl: string;
+    emailSender: string;
+    serverUrl: string;
+    jwtSecret: string;
+    jwtExpiration: string;
+    sendgridKey: string;
     developer: {
       reactDir: string;
       host: string;
       port: number;
-      sslEnabled: boolean;
     };
     openai: {
       type: OpenAiProvider;
@@ -23,15 +26,10 @@ export interface IEnvironment {
       enabled: boolean;
       secret: string;
     };
-    pusher: {
-      appId: number;
-      key: string;
-      secret?: string; // only populated after the server is started
-    }
   };
 
   
-export function validateEnvironment(environment: IEnvironment, then: (environment: IEnvironment) => void) {
+export function validateEnvironment(environment: IEnvironment, then: () => void) {
   // ensure all required environment variables are set
   if (!environment.openai.accessToken) {
     throw new Error('OPENAI_API_KEY is not set');
@@ -42,5 +40,11 @@ export function validateEnvironment(environment: IEnvironment, then: (environmen
   if (!environment.mongo.uri) {
     throw new Error('MONGO_URI is not set');
   }
-  then(environment);
+  if (!environment.sendgridKey) {
+    throw new Error('SENDGRID_API_KEY is not set');
+  }
+  if (!environment.sendgridKey.startsWith('SG')) {
+    throw new Error(`SENDGRID_API_KEY does not start with "SG": ${environment.sendgridKey}`);
+  }
+  then();
 }

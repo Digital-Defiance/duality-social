@@ -1,9 +1,9 @@
 import { Schema } from 'mongoose';
-import { ReportTypeEnum } from '../enumerations/reportType';
-import { IReport } from '../interfaces/report';
-import ModelName from '../enumerations/modelName';
+import { ReportTypeEnum } from '../enumerations/report-type';
+import ModelName from '../enumerations/model-name';
+import { IReportDocument } from '../documents/report';
 
-export const ReportSchema = new Schema<IReport>({
+export const ReportSchema = new Schema<IReportDocument>({
   /**
    * The id of the post being reported.
    * This is the id of the post, not the viewpoint.
@@ -31,7 +31,7 @@ export const ReportSchema = new Schema<IReport>({
    */
   reportType: {
     type: String,
-    enum: ReportTypeEnum,
+    enum: Object.values(ReportTypeEnum),
     required: true,
     immutable: true,
   },

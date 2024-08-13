@@ -1,14 +1,14 @@
 import { Schema } from 'mongoose';
-import { IPost } from '../interfaces/post';
-import ModelName from '../enumerations/modelName';
+import ModelName from '../enumerations/model-name';
+import { IPostDocument } from '../documents/post';
+import { DefaultReactionsTypeEnum } from '../enumerations/default-reactions-type';
 
 /**
  * Toplevel object represents a post with its two viewpoints
  */
-export const PostSchema = new Schema<IPost>(
+export const PostSchema = new Schema<IPostDocument>(
   {
     depth: { type: Number, required: true },
-    replies: { type: Number, default: 0, required: true },
     lastReplyAt: { type: Date },
     lastReplyBy: { type: Schema.Types.ObjectId, ref: ModelName.User },
     /**
@@ -74,17 +74,29 @@ export const PostSchema = new Schema<IPost>(
       required: true,
     },
     metadata: {
-      expands: Number,
-      impressions: Number,
-      reactions: Number,
+      replies: { type: Number, default: 0, required: true },
+      expands: { type: Number, default: 0, required: true },
+      impressions: { type: Number, default: 0, required: true },
+      reactions: { type: Number, default: 0, required: true },
       reactionsByType: {
         type: Map,
         of: Number,
         required: true,
+        default: () => Object.fromEntries(Object.values(DefaultReactionsTypeEnum).map(type => [type, 0])),
       },
+      votes: { type: Number, default: 0, required: true },
     },
-    procLockId: { type: String, required: false },
-    procLockDate: { type: Date, required: false },
+    procLock: {
+      type: {
+        id: {
+          type: String,
+        },
+        date: {
+          type: Date,
+        },
+      },
+      required: false,
+    }
   },
   { timestamps: true }
 );

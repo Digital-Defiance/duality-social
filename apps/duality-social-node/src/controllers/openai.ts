@@ -3,14 +3,9 @@ import {
     DevilsAdvocateImagePrompt,
     getOppositeResponseFromOpenAI
 } from '../services/openai';
-import { IDevilsAdvocateRequest, IDevilsAdvocateResponse, HumanityTypeEnum, BaseModel, ModelName, PostDocument, PostViewpointDocument } from '@duality-social/duality-social-lib';
-import { ObjectId as MongooseObjectId } from 'mongoose';
+import { IDevilsAdvocateRequest, IDevilsAdvocateResponse, HumanityTypeEnum, IRequestUser, PostViewpointModel, PostModel, IPostDocument } from '@duality-social/duality-social-lib';
 import { ObjectId as BsonObjectId } from 'bson';
-import { ViewpointTypeEnum, IUser } from '@duality-social/duality-social-lib';
-
-const PostModel = BaseModel.getModel<PostDocument>(ModelName.Post);
-const PostViewpointModel = BaseModel.getModel<PostViewpointDocument>(ModelName.PostViewpoint);
-const PostViewpointModelData = BaseModel.getModelData(ModelName.PostViewpoint);
+import { ViewpointTypeEnum } from '@duality-social/duality-social-lib';
 
 class OpenAIController {
     public router: Router;
@@ -25,7 +20,7 @@ class OpenAIController {
     }
 
     private async devilsAdvocate(req: Request, res: Response): Promise<void> {
-        const user: IUser = req.user as IUser; // Assuming user is attached to the request
+        const user: IRequestUser = req.user as IRequestUser;
         const body = req.body;
         const parentId: BsonObjectId | undefined = new BsonObjectId(req.params.parentId) ?? undefined;
         const userId = new BsonObjectId(new BsonObjectId().toString()); // TODO: get from auth
@@ -53,7 +48,7 @@ class OpenAIController {
             });
             return;
         }
-        const post = await PostModel.create({
+        const post: IPostDocument = await PostModel.create({
             _id: postId,
             inVpId: humanViewpointId,
             imageUrls: [],

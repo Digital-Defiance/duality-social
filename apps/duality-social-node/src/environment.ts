@@ -1,31 +1,31 @@
 import { dirname } from 'path';
 import { IEnvironment } from './interfaces/environment';
 import 'dotenv/config'
+import { randomBytes } from 'crypto';
 
 const host = process.env.SERVER_HOST ?? 'localhost';
 const port = Number(process.env.PORT ?? 3000);
 const production = process.env.NODE_ENV === 'production';
-const sslEnabled = process.env.SSL_ENABLED === 'true';
 
-function getSiteUrl() {
-  const proto = sslEnabled ? 'https' : 'http';
-  if (sslEnabled && port === 443) {
-      return `${proto}://${host}`;
-  } else if (!sslEnabled && port === 80) {
-      return `${proto}://${host}`;
+function getServerUrl() {
+  if (port === 80) {
+      return `http://${host}`;
   } else {
-      return `${proto}://${host}:${port}`;
+      return `http://${host}:${port}`;
   }
 }
 
 export const environment: IEnvironment = {
   production: production,
-  siteUrl: process.env.SITE_URL ?? getSiteUrl(),
+  serverUrl: process.env.SITE_URL ?? getServerUrl(),
+  emailSender: process.env.EMAIL_SENDER ?? 'noreply@duality.social',
+  jwtSecret: process.env.JWT_SECRET ?? randomBytes(32).toString('hex'),
+  jwtExpiration: process.env.JWT_EXPIRATION ?? '1h',
+  sendgridKey: process.env.SENDGRID_API_KEY ?? '',
   developer: {
     reactDir: dirname(dirname(__filename)) + '/duality-social-react/',
     host: host,
     port: port,
-    sslEnabled: sslEnabled,
   },
   openai: {
     type: process.env.OPENAI_PROVIDER === 'azure' ? 'azure' : 'openai',
@@ -47,10 +47,5 @@ export const environment: IEnvironment = {
      * arbitrarily generated string, arbitrarily 100 characters long
      */
     secret: process.env.EXPRESS_SESSION_SECRET ?? '',
-  },
-  pusher: {
-    appId: Number.parseInt(process.env.PUSHER_APP_ID ?? '1592034'),
-    key: process.env.PUSHER_KEY ?? 'eeb22df2aaa65ce1ede4',
-    secret: process.env.PUSHER_SECRET ?? undefined,
   },
 };

@@ -1,28 +1,9 @@
 /// file: font-awesome.ts
 /// description: Font Awesome helper functions to look up icons and parse markup
 
-import {
-  DefaultReactionsTypeEnum,
-} from '../enumerations/defaultReactionsType';
-import { DefaultReactionsIconMap } from '../reactions';
-import { FontAwesomeTextStyleTypeEnum } from '../enumerations/fontAwesomeTextClass';
+import { FontAwesomeTextStyleTypeEnum } from '../enumerations/font-awesome-text-class';
 
 export const DefaultColorClass = FontAwesomeTextStyleTypeEnum.Regular;
-
-export function makeReaction(
-  reactionType: DefaultReactionsTypeEnum,
-  textStyleType: FontAwesomeTextStyleTypeEnum,
-  style?: string
-): string {
-  const reactionTypeIcon = DefaultReactionsIconMap.get(reactionType);
-  if (!reactionTypeIcon) {
-    throw new Error(`Reaction type ${reactionType} not found`);
-  }
-  if (style) {
-    return `<i class="fa-${textStyleType} ${reactionTypeIcon}" style="${style}"></i>`;
-  }
-  return `<i class="fa-${textStyleType} ${reactionTypeIcon}}"></i>`;
-}
 
 /**
  * This function takes the input and looks for several cases of the following syntax:

@@ -1,8 +1,9 @@
 import { ObjectId } from 'mongoose';
-import { IHasDeleter } from './hasDeleter';
-import { IHasSoftDelete } from './hasSoftDelete';
-import { IHasTimestampOwners } from './hasTimestampOwners';
-import { IHasTimestamps } from './hasTimestamps';
+import { IHasDeleter } from './has-deleter';
+import { IHasSoftDelete } from './has-soft-delete';
+import { IHasTimestampOwners } from './has-timestamp-owners';
+import { IHasTimestamps } from './has-timestamps';
+import { DefaultReactionsTypeEnum } from '../enumerations/default-reactions-type';
 
 /**
  * This interface represents a post, which is a piece of content that a user can create.
@@ -17,9 +18,14 @@ import { IHasTimestamps } from './hasTimestamps';
  * It inherits from IHasID, which provides the id property, IHasCreation, which provides the createdAt and updatedAt properties, and IHasSoftDelete, which provides the deletedAt property.
  */
 export interface IPost extends IHasTimestamps, IHasSoftDelete, IHasTimestampOwners, IHasDeleter {
+    /**
+     * Whether the post is hidden from the feed.
+     */
     hidden: boolean;
+    /**
+     * The reply depth
+     */
     depth: number;
-    replies: number;
     lastReplyAt?: Date;
     lastReplyBy?: ObjectId;
     /**
@@ -42,13 +48,25 @@ export interface IPost extends IHasTimestamps, IHasSoftDelete, IHasTimestampOwne
      * The id of the viewpoint that the user inputted.
      */
     inVpId?: ObjectId;
+    /**
+     * The ids of translations of the user viewpoint
+     */
     inVpTransIds: ObjectId[];
+    /**
+     * The languages that users have requested translations for.
+     */
     reqTransLangs: string[];
     /**
      * The id of the viewpoint that the AI generated.
      */
     aiVpId?: ObjectId;
+    /**
+     * The ids of translations of the ai viewpoint
+     */
     aiVpTransIds: ObjectId[];
+    /**
+     * The languages that the AI has requested translations for.
+     */
     aiReqTransLangs: string[];
     /**
      * URLs of embedded images
@@ -56,12 +74,35 @@ export interface IPost extends IHasTimestamps, IHasSoftDelete, IHasTimestampOwne
     imageUrls: string[];
     //metadata
     metadata: {
-        expands: number,
-        impressions: number,
-        reactions: number,
-        reactionsByType: { [key: string]: number };
+        /**
+         * The total number of replies to both post viewpoints
+         */
+        replies: number;
+        /**
+         * The total number of expand clicks to both post viewpoints
+         */
+        expands: number;
+        /**
+         * The total number of views to both post viewpoints
+         */
+        impressions: number;
+        /**
+         * The total number of reactions to both post viewpoints
+         */
+        reactions: number;
+        /**
+         * The total number of humanity votes to both viewpoints
+         */
+        votes: number;
     };
-    // the id of the service that is processing the post
-    procLockId?: string;
-    procLockDate?: Date;
+    procLock?: {
+        /**
+         * the id of the service that is processing the post
+         */
+        id: string;
+        /**
+         * the date that the service started processing the post
+         */
+        date: Date;
+    }
 }

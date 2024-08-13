@@ -4,6 +4,7 @@
   "sourceRoot": "apps/duality-social-react/src",
   "projectType": "application",
   "tags": [],
+  "implicitDependencies": ["duality-social-lib", "duality-social-node"],
   "targets": {
     "build": {
       "executor": "@nx/webpack:webpack",

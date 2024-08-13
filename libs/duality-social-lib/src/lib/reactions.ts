@@ -1,7 +1,7 @@
 import { IconName } from "@fortawesome/fontawesome-common-types";
-import { DefaultReactionsIcons } from "./enumerations/defaultReactionsIcons";
-import { DefaultReactionsTypeEnum } from "./enumerations/defaultReactionsType";
-import { IDefaultReactions } from "./interfaces/defaultReactions";
+import { DefaultReactionsIcons } from "./enumerations/default-reactions-icons";
+import { DefaultReactionsTypeEnum } from "./enumerations/default-reactions-type";
+import { IDefaultReactions } from "./interfaces/default-reactions";
 
 export const DefaultReactions: IDefaultReactions = {
     Angry: {

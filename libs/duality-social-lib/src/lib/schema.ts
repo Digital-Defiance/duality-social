@@ -1,45 +1,39 @@
 // file: schema.ts
 // description: This file contains the schema for all models in the system
 // ---------------------------------------------------------------------------------------------
-import { ModelName } from './enumerations/modelName';
-import { ISudoLog } from './interfaces/sudoLog';
-import { IUsernameChange } from './interfaces/usernameChange';
-import { BaseModel } from './models/baseModel';
-import { ISchemaModels } from './interfaces/schemaModels';
-import { ModelData} from './schemaModelData';
-import { IPostViewpointHumanity } from './interfaces/postViewpointHumanity';
-import { UserDocument } from './documents/user';
-import { AdminUserDocument } from './documents/adminUser';
-import { EmailChangeDocument } from './documents/emailChange';
-import { InvitationDocument } from './documents/invitation';
-import { LoginDocument } from './documents/login';
-import { PostDocument } from './documents/post';
-import { PostExpandDocument } from './documents/postExpand';
-import { PostImpressionDocument } from './documents/postImpression';
-import { PostViewpointDocument } from './documents/postViewpoint';
-import { PostViewpointReactionDocument } from './documents/postViewpointReaction';
-import { ProfileDocument } from './documents/profile';
-import { ReportDocument } from './documents/report';
-import { SudoLogDocument } from './documents/sudoLog';
-import { UsernameChangeDocument } from './documents/usernameChange';
-import { PostViewpointHumanityDocument } from './documents/postViewpointHumanity';
+import { ISchemaModels } from './interfaces/schema-models';
+import { AdminUserModel } from './models/admin-user';
+import { EmailTokenModel } from './models/email-token';
+import { InvitationModel } from './models/invitation';
+import { LoginModel } from './models/login';
+import { PostModel } from './models/post';
+import { PostExpandModel } from './models/post-expand';
+import { PostImpressionModel } from './models/post-impression';
+import { PostViewpointModel } from './models/post-viewpoint';
+import { PostViewpointReactionModel } from './models/post-viewpoint-reaction';
+import { PostViewpointHumanityModel } from './models/post-viewpoint-humanity';
+import { ProfileModel } from './models/profile';
+import { ReportModel } from './models/report';
+import { RoleModel } from './models/role';
+import { SudoLogModel } from './models/sudo-log';
+import { UserModel } from './models/user';
+import { UsernameChangeModel } from './models/username-change';
 
 export const SchemaModels: ISchemaModels = {
-  AdminUser: BaseModel.create<AdminUserDocument>(ModelData[ModelName.AdminUser]).Model,
-  EmailChange: BaseModel.create<EmailChangeDocument>(ModelData[ModelName.EmailChange]).Model,
-  Invitation: BaseModel.create<InvitationDocument>(ModelData[ModelName.Invitation]).Model,
-  Login: BaseModel.create<LoginDocument>(ModelData[ModelName.Login]).Model,
-  Post: BaseModel.create<PostDocument>(ModelData[ModelName.Post]).Model,
-  PostExpand: BaseModel.create<PostExpandDocument>(ModelData[ModelName.PostExpand]).Model,
-  PostImpression: BaseModel.create<PostImpressionDocument>(ModelData[ModelName.PostImpression]).Model,
-  PostViewpoint: BaseModel.create<PostViewpointDocument>(ModelData[ModelName.PostViewpoint]).Model,
-  PostViewpointReaction: BaseModel.create<PostViewpointReactionDocument>(
-    ModelData[ModelName.PostViewpointReaction]
-  ).Model,
-  PostViewpointHumanity: BaseModel.create<PostViewpointHumanityDocument>(ModelData[ModelName.PostViewpointHumanity]).Model,
-  Profile: BaseModel.create<ProfileDocument>(ModelData[ModelName.Profile]).Model,
-  Report: BaseModel.create<ReportDocument>(ModelData[ModelName.Report]).Model,
-  SudoLog: BaseModel.create<SudoLogDocument>(ModelData[ModelName.SudoLog]).Model,
-  User: BaseModel.create<UserDocument>(ModelData[ModelName.User]).Model,
-  UsernameChange: BaseModel.create<UsernameChangeDocument>(ModelData[ModelName.UsernameChange]).Model,
+  AdminUser: AdminUserModel,
+  EmailToken: EmailTokenModel,
+  Invitation: InvitationModel,
+  Login: LoginModel,
+  Post: PostModel,
+  PostExpand: PostExpandModel,
+  PostImpression: PostImpressionModel,
+  PostViewpoint: PostViewpointModel,
+  PostViewpointReaction: PostViewpointReactionModel,
+  PostViewpointHumanity: PostViewpointHumanityModel,
+  Profile: ProfileModel,
+  Report: ReportModel,
+  Role: RoleModel,
+  SudoLog: SudoLogModel,
+  User: UserModel,
+  UsernameChange: UsernameChangeModel,
 };
