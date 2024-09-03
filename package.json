@@ -60,7 +60,7 @@
     "clsx": "^1.2.1",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
-    "express": "~4.18.1",
+    "express": "~4.19.2",
     "express-jwt": "^8.4.1",
     "fast-png": "^6.1.0",
     "formik": "^2.4.6",
