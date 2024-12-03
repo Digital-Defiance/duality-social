@@ -68,7 +68,7 @@
     "jwt-decode": "^4.0.0",
     "linkify-it": "^4.0.1",
     "markdown-it": "^13.0.1",
-    "mongoose": "^8.5.1",
+    "mongoose": "^8.8.3",
     "mongoose-browser": "^5.2.8-pre-2",
     "morgan": "^1.10.0",
     "ngx-logger": "^5.0.12",
