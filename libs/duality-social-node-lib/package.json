@@ -3,6 +3,6 @@
   "version": "0.0.1",
   "license": "MIT",
   "dependencies": {
-    "mongoose": "^8.6.3"
+    "mongoose": "^8.9.5"
   }
 }
