@@ -1,7 +1,5 @@
 // file: user-profile.tsx
-import { faCheckCircle } from '@awesome.me/kit-89ec609b07/icons/classic/regular';
 import { IApiUserProfileResponse } from '@duality-social/duality-social-lib';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   Box,
   Chip,
@@ -156,7 +154,7 @@ const UserProfilePage = () => {
               <Chip
                 label="Verified"
                 color="primary"
-                icon={<FontAwesomeIcon icon={faCheckCircle} />}
+                icon={<i className="fa-solid fa-check-circle" />}
                 sx={{ mt: 2 }}
               />
             )}

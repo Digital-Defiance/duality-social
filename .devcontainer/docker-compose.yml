@@ -5,6 +5,7 @@ services:
     volumes:
       - ..:/workspace:cached
     command: /bin/sh -c "while sleep 1000; do :; done"
+    env_file: ./.env
     environment:
       NODE_ENV: development
       FONTAWESOME_KEY: ${FONTAWESOME_KEY}
@@ -13,21 +14,38 @@ services:
     networks:
       - node-gitdb
 
-  mongo:
-    restart: always
-    image: mongo:6.0.7
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=${MONGO_DB_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_DB_PASSWORD}
-    volumes:
-      - mongo_data:/data/db
-    networks:
-      - node-gitdb
+  db:
+    build:
+      context: .
+      dockerfile: ./Mongo.Dockerfile
+    env_file: ./.env
+    container_name: db # Ensures the container name is 'db'
+    hostname: db # Sets the internal hostname to 'db'
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "bash", "/usr/local/bin/mongodb_healthcheck.sh" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
     ports:
-      - 27017:27017
+      - "27017:27017"
+    volumes:
+      - mongodb-data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
+      - MONGO_REPLICA_SET_NAME=${MONGO_REPLICA_SET_NAME}
+      - MONGO_PORT=${MONGO_PORT}
+      - MONGO_KEYFILE=${MONGO_KEYFILE}
+      - MONGO_DB_PATH=${MONGO_DB_PATH}
+      - DB_HOST=127.0.0.1:27017
+    network_mode: host
 
 volumes:
-  mongo_data:
+  mongodb-data:
+
 
 networks:
   node-gitdb:

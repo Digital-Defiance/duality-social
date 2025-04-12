@@ -1,10 +1,4 @@
 import {
-  faComment,
-  faQuestionCircle,
-  faUser,
-} from '@awesome.me/kit-89ec609b07/icons/classic/regular';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
   AppBar,
   Box,
   Button,
@@ -92,7 +86,7 @@ const TopMenu: React.FC = () => {
                   onClick={handleCommentsMenu}
                   color="inherit"
                 >
-                  <FontAwesomeIcon icon={faComment} />
+                  <i className="fa-solid fa-comment" />
                 </IconButton>
                 <Menu
                   id="comments-menu"
@@ -134,7 +128,7 @@ const TopMenu: React.FC = () => {
                 onClick={handleMenu}
                 color="inherit"
               >
-                <FontAwesomeIcon icon={faUser} />
+                <i className="fa-solid fa-user" />
               </IconButton>
               <Menu
                 id="menu-appbar"
@@ -178,7 +172,7 @@ const TopMenu: React.FC = () => {
                 onClick={handleHelpMenu}
                 color="inherit"
               >
-                <FontAwesomeIcon icon={faQuestionCircle} />
+                <i className="fa-solid fa-question-circle" />
               </IconButton>
               <Menu
                 id="help-menu"

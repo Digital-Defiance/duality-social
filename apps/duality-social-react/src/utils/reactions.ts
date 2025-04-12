@@ -1,17 +1,3 @@
-import { IconDefinition } from '@awesome.me/kit-89ec609b07/icons';
-import {
-  faFaceAngry,
-  faFaceConfused,
-  faFaceDizzy,
-  faFaceHushed,
-  faFaceLaugh,
-  faFaceSadTear,
-  faFaceSmilingHands,
-  faHandsHoldingHeart,
-  faHeart,
-  faPartyHorn,
-  faThumbsUp,
-} from '@awesome.me/kit-89ec609b07/icons/classic/regular';
 import {
   DefaultReactionsEmoji,
   DefaultReactionsTypeEnum,
@@ -32,17 +18,17 @@ export const reactionEmojis: { [type in DefaultReactionsTypeEnum]: string } = {
 };
 
 export const reactionFontAwesomeIcons: {
-  [type in DefaultReactionsTypeEnum]: IconDefinition;
+  [type in DefaultReactionsTypeEnum]: string;
 } = {
-  [DefaultReactionsTypeEnum.Angry]: faFaceAngry,
-  [DefaultReactionsTypeEnum.Care]: faHandsHoldingHeart,
-  [DefaultReactionsTypeEnum.Celebrate]: faPartyHorn,
-  [DefaultReactionsTypeEnum.Hug]: faFaceSmilingHands,
-  [DefaultReactionsTypeEnum['Huh?']]: faFaceConfused,
-  [DefaultReactionsTypeEnum.Laugh]: faFaceLaugh,
-  [DefaultReactionsTypeEnum.Like]: faThumbsUp,
-  [DefaultReactionsTypeEnum.Love]: faHeart,
-  [DefaultReactionsTypeEnum.Sad]: faFaceSadTear,
-  [DefaultReactionsTypeEnum.Wow]: faFaceHushed,
-  [DefaultReactionsTypeEnum.Yuck]: faFaceDizzy,
+  [DefaultReactionsTypeEnum.Angry]: 'fa-solid fa-face-angry',
+  [DefaultReactionsTypeEnum.Care]: 'fa-solid fa-hands-holding-heart',
+  [DefaultReactionsTypeEnum.Celebrate]: 'fa-solid fa-party-horn',
+  [DefaultReactionsTypeEnum.Hug]: 'fa-solid fa-face-smiling-hands',
+  [DefaultReactionsTypeEnum['Huh?']]: 'fa-solid fa-face-confused',
+  [DefaultReactionsTypeEnum.Laugh]: 'fa-solid fa-face-laugh',
+  [DefaultReactionsTypeEnum.Like]: 'fa-solid fa-thumbs-up',
+  [DefaultReactionsTypeEnum.Love]: 'fa-solid fa-heart',
+  [DefaultReactionsTypeEnum.Sad]: 'fa-solid fa-face-sad-tear',
+  [DefaultReactionsTypeEnum.Wow]: 'fa-solid fa-face-hushed',
+  [DefaultReactionsTypeEnum.Yuck]: 'fa-solid fa-face-dizzy',
 };

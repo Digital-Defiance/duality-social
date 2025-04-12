@@ -17,9 +17,15 @@
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 	"forwardPorts": [3000],
+	"remoteEnv": {
+    "DOTENV_CONFIG_PATH": "/workspace/.devcontainer/.env"
+  },
+  "mounts": [
+    "source=${localWorkspaceFolder}/.devcontainer/.env,target=/workspace/.devcontainer/.env,type=bind,consistency=cached"
+  ],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "./setup-nvm.sh && ./fontawesome-npmrc.sh && ./do-yarn.sh && git config --global --add safe.directory /workspace && cd /workspace && yarn build:all:dev",
+	"postCreateCommand": "./setup-nvm.sh && ./fontawesome-npmrc.sh && ./recover-yarn.sh && ./ensure-yarnrc.sh && ./do-yarn.sh && ./ensure-git-globals.sh && git config --global --add safe.directory /workspace && cd /workspace && yarn build:all:dev",
 
 	// Configure tool-specific properties.
 	// "customizations": {},
@@ -36,8 +42,8 @@
 				"rangav.vscode-thunder-client",
 				"GitHub.remotehub",
 				"ms-vscode-remote.remote-containers",
-				"TabNine.tabnine-vscode",
-				"nrwl.angular-console"
+				"nrwl.angular-console",
+				"saoudrizwan.claude-dev"
 			],
 			// Set *default* container specific settings.json values on container create.
 			"settings": {

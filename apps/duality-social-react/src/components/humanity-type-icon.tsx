@@ -1,10 +1,4 @@
-import {
-  faDesktop,
-  faRobot,
-  faUser,
-} from '@awesome.me/kit-89ec609b07/icons/classic/regular';
 import { HumanityTypeEnum } from '@duality-social/duality-social-lib';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 
 interface HumanityTypeIconProps {
@@ -14,22 +8,22 @@ interface HumanityTypeIconProps {
 const HumanityTypeIcon: React.FC<HumanityTypeIconProps> = ({
   humanityType,
 }) => {
-  let icon;
+  let icon = null;
   switch (humanityType) {
     case HumanityTypeEnum.Human:
-      icon = faUser;
+      icon = <i className="fa-solid fa-user"></i>;
       break;
     case HumanityTypeEnum.Ai:
-      icon = faRobot;
+      icon = <i className="fa-solid fa-robot"></i>;
       break;
     case HumanityTypeEnum.Bot:
-      icon = faDesktop;
+      icon = <i className="fa-solid fa-desktop"></i>;
       break;
     default:
-      icon = faUser;
+      icon = <i className="fa-solid fa-user"></i>;
   }
 
-  return <FontAwesomeIcon icon={icon} />;
+  return icon;
 };
 
 export default HumanityTypeIcon;

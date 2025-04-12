@@ -1,6 +1,3 @@
-import { faHeart as faHeartRegular } from '@awesome.me/kit-89ec609b07/icons/classic/regular';
-import { faHeart as faHeartSolid } from '@awesome.me/kit-89ec609b07/icons/classic/solid';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   Box,
   List,
@@ -27,7 +24,7 @@ const IconMarkupGuide: React.FC = () => {
       <List>
         <ListItem>
           <ListItemIcon>
-            <FontAwesomeIcon icon={faHeartRegular} />
+            <i className="fa-regular fa-heart" />
           </ListItemIcon>
           <ListItemText
             primary="Basic Icon"
@@ -36,7 +33,7 @@ const IconMarkupGuide: React.FC = () => {
         </ListItem>
         <ListItem>
           <ListItemIcon>
-            <FontAwesomeIcon icon={faHeartSolid} />
+            <i className="fa-regular fa-heart" />
           </ListItemIcon>
           <ListItemText
             primary="Styled Icon"
@@ -57,7 +54,7 @@ const IconMarkupGuide: React.FC = () => {
         </ListItem>
         <ListItem>
           <ListItemIcon>
-            <FontAwesomeIcon icon={faHeartSolid} size="lg" />
+            <i className="fa-solid fa-heart fa-lg" />
           </ListItemIcon>
           <ListItemText
             primary="Size Example"
@@ -72,7 +69,7 @@ const IconMarkupGuide: React.FC = () => {
         </ListItem>
         <ListItem>
           <ListItemIcon>
-            <FontAwesomeIcon icon={faHeartSolid} spin />
+            <i className="fa-solid fa-heart fa-spin" />
           </ListItemIcon>
           <ListItemText
             primary="Animation Example"
@@ -81,7 +78,7 @@ const IconMarkupGuide: React.FC = () => {
         </ListItem>
         <ListItem>
           <ListItemIcon>
-            <FontAwesomeIcon icon={faHeartSolid} size="lg" spin />
+            <i className="fa-solid fa-heart fa-lg fa-spin" />
           </ListItemIcon>
           <ListItemText
             primary="Combined Usage"
@@ -90,8 +87,8 @@ const IconMarkupGuide: React.FC = () => {
         </ListItem>
         <ListItem>
           <ListItemIcon>
-            <FontAwesomeIcon
-              icon={faHeartSolid}
+            <i
+              className="fa-solid fa-heart"
               style={{ color: 'red', fontSize: '20px' }}
             />
           </ListItemIcon>
@@ -134,26 +131,26 @@ const IconMarkupGuide: React.FC = () => {
                   <List dense>
                     <ListItem>
                       <ListItemIcon>
-                        <FontAwesomeIcon icon={faHeartRegular} />
+                        <i className="fa-regular fa-heart" />
                       </ListItemIcon>
                       <ListItemText primary="Basic: {{heart}}" />
                     </ListItem>
                     <ListItem>
                       <ListItemIcon>
-                        <FontAwesomeIcon icon={faHeartSolid} />
+                        <i className="fa-solid fa-heart" />
                       </ListItemIcon>
                       <ListItemText primary="With style: {{solid heart}}" />
                     </ListItem>
                     <ListItem>
                       <ListItemIcon>
-                        <FontAwesomeIcon icon={faHeartSolid} size="lg" spin />
+                        <i className="fa-solid fa-heart fa-lg fa-spin" />
                       </ListItemIcon>
                       <ListItemText primary="With properties: {{heart lg spin}}" />
                     </ListItem>
                     <ListItem>
                       <ListItemIcon>
-                        <FontAwesomeIcon
-                          icon={faHeartSolid}
+                        <i
+                          className="fa-solid fa-heart"
                           style={{ color: 'red', fontSize: '20px' }}
                         />
                       </ListItemIcon>
@@ -161,10 +158,8 @@ const IconMarkupGuide: React.FC = () => {
                     </ListItem>
                     <ListItem>
                       <ListItemIcon>
-                        <FontAwesomeIcon
-                          icon={faHeartSolid}
-                          size="lg"
-                          spin
+                        <i
+                          className="fa-solid fa-heart fa-lg fa-spin"
                           style={{ color: 'red', fontSize: '20px' }}
                         />
                       </ListItemIcon>

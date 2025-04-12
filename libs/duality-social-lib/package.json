@@ -4,7 +4,6 @@
   "version": "0.0.1",
   "license": "MIT",
   "dependencies": {
-    "@awesome.me/kit-89ec609b07": "^1.0.4",
     "@fortawesome/fontawesome-common-types": "^6.6.0",
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
     "bson": "^6.8.0",
