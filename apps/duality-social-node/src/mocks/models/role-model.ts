@@ -73,7 +73,7 @@ export const RoleModel: MockedRoleModel = Object.assign(
 
       // Return a mocked document with full Mongoose properties/methods
       return createMockDocument<IRoleDocument>(
-        () => updatedRole as IRoleDocument,
+        () => updatedRole as unknown as IRoleDocument,
       );
     }),
 

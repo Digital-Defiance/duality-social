@@ -9,11 +9,11 @@ import {
 import { NextFunction, Request, Response } from 'express';
 import { body } from 'express-validator';
 import sizeOf from 'image-size';
-import { MulterRequest } from '../../interfaces/multer-request.ts';
-import { RouteConfig } from '../../interfaces/route-config.ts';
-import { upload } from '../../multer-config.ts';
-import { FeedService } from '../../services/feed.ts';
-import { BaseController } from '../base.ts';
+import { MulterRequest } from '../../interfaces/multer-request';
+import { RouteConfig } from '../../interfaces/route-config';
+import { upload } from '../../multer-config';
+import { FeedService } from '../../services/feed';
+import { BaseController } from '../base';
 
 export class FeedController extends BaseController {
   private feedService: FeedService;

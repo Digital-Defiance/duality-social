@@ -6,6 +6,6 @@ export interface RouteConfig {
   path: string;
   handler: RequestHandler;
   useAuthentication: boolean;
-  middleware?: RequestHandler[];
+  middleware?: any[];
   validation?: ValidationChain[];
 }

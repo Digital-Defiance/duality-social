@@ -9,19 +9,20 @@ import {
   InvalidPasswordError,
   IRequestUser,
   ITokenResponse,
+  IUserDocument,
   IUserResponse,
   UserNotFoundError,
 } from '@duality-social/duality-social-lib';
 import { UserModel } from '@duality-social/duality-social-node-lib';
 import { Request, Response } from 'express';
 import { body, param, query } from 'express-validator';
-import { MongooseValidationError } from '../../errors/mongoose-validation-error.ts';
-import { RouteConfig } from '../../interfaces/route-config.ts';
-import { findAuthToken } from '../../middlewares/authenticate-token.ts';
-import { JwtService } from '../../services/jwt.ts';
-import { RequestUserService } from '../../services/request-user.ts';
-import { UserService } from '../../services/user.ts';
-import { BaseController } from '../base.ts';
+import { MongooseValidationError } from '../../errors/mongoose-validation-error';
+import { RouteConfig } from '../../interfaces/route-config';
+import { findAuthToken } from '../../middlewares/authenticate-token';
+import { JwtService } from '../../services/jwt';
+import { RequestUserService } from '../../services/request-user';
+import { UserService } from '../../services/user';
+import { BaseController } from '../base';
 
 /**
  * Controller for user-related routes
@@ -260,7 +261,7 @@ export class UserController extends BaseController {
    * @param res
    * @returns
    */
-  private async refreshToken(req: Request, res: Response) {
+  private async refreshToken(req: Request, res: Response): Promise<void> {
     try {
       const token = findAuthToken(req.headers);
       if (!token) {
@@ -281,15 +282,19 @@ export class UserController extends BaseController {
         !userDoc ||
         userDoc.accountStatusType !== AccountStatusTypeEnum.Active
       ) {
-        return res.status(403).json({ message: 'User not found or inactive' });
+        res.status(403).json({ message: 'User not found or inactive' });
       }
-      const { token: newToken, roles } =
-        await this.jwtService.signToken(userDoc);
+      const { token: newToken, roles } = await this.jwtService.signToken(
+        userDoc as IUserDocument,
+      );
 
       res.header('Authorization', `Bearer ${newToken}`);
       res.status(200).json({
         message: 'Token refreshed',
-        user: RequestUserService.makeRequestUser(userDoc, roles),
+        user: RequestUserService.makeRequestUser(
+          userDoc as IUserDocument,
+          roles,
+        ),
       } as IUserResponse);
     } catch (error) {
       console.error('Token refresh error:', error);
@@ -562,6 +567,8 @@ export class UserController extends BaseController {
 
   /**
    * Get a user's public profile
+   * @param req - The request object
+   * @param res - The response object
    */
   public async getUserProfile(req: Request, res: Response): Promise<void> {
     try {

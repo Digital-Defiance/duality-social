@@ -1,9 +1,9 @@
 import { registerModels } from '@duality-social/duality-social-node-lib';
 import express, { Application, Request, Response } from 'express';
 import mongoose, { Error } from 'mongoose';
-import { environment } from './environment.ts';
-import { Middlewares } from './middlewares.ts';
-import { AppRouter } from './routers/app.ts';
+import { environment } from './environment';
+import { Middlewares } from './middlewares';
+import { AppRouter } from './routers/app';
 
 /**
  * Application class

@@ -1,0 +1,11 @@
+{
+  "name": "duality-social-node",
+  "type": "commonjs",
+  "binary": {
+    "module_name": "bcrypt_lib",
+    "module_path": "./node_modules/bcrypt/lib/binding/napi-v{napi_build_version}",
+    "host": "https://github.com/kelektiv/node.bcrypt.js/releases/download/",
+    "remote_path": "v{version}",
+    "package_name": "{module_name}-v{version}-napi-v{napi_build_version}-{platform}-{arch}-{libc}.tar.gz"
+  }
+}

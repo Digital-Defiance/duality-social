@@ -1,0 +1,16 @@
+{
+  // Disable the default formatter
+  "editor.formatOnSave": false,
+  "editor.formatOnPaste": false,
+  "editor.formatOnType": false,
+
+  // Use ESLint to fix formatting on save instead
+  "editor.codeActionsOnSave": { "source.fixAll.eslint": true },
+
+  // Completely disable the prettier extension
+  "prettier.enable": false,
+
+  // Make sure ESLint is enabled
+  "eslint.enable": true,
+  "eslint.validate": ["typescript", "javascript"]
+}

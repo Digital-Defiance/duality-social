@@ -4,6 +4,13 @@
   "description": "Duality Social Node express backend",
   "main": "main.js",
   "type": "commonjs",
+  "binary": {
+    "module_name": "bcrypt_lib",
+    "module_path": "./node_modules/bcrypt/lib/binding/napi-v{napi_build_version}",
+    "host": "https://github.com/kelektiv/node.bcrypt.js/releases/download/",
+    "remote_path": "v{version}",
+    "package_name": "{module_name}-v{version}-napi-v{napi_build_version}-{platform}-{arch}-{libc}.tar.gz"
+  },
   "scripts": {
     "start": "node ../../dist/apps/duality-social-node/main.js",
     "azure-postbuild": "yarn && npx nx build",
@@ -34,17 +41,19 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.5.1",
     "multer": "^1.4.5-lts.1",
+    "sanitize-html": "^2.15.0",
     "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.0.1",
     "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.17",
-    "@types/express": "^4.17.21",
+    "@types/express": "^5.0.1",
     "@types/express-session": "^1.18.0",
     "@types/jest": "^29.5.13",
     "@types/multer": "^1.4.12",
     "@types/node": "^22.6.1",
+    "@types/sanitize-html": "^2",
     "@types/supertest": "^6.0.2",
     "@types/uuid": "^10.0.0",
     "@types/validator": "^13.12.0",

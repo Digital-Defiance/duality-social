@@ -1,6 +1,6 @@
-import { App, application } from './application.ts';
-import { environment } from './environment.ts';
-import { validateEnvironment } from './interfaces/environment.ts';
+import { App, application } from './application';
+import { environment } from './environment';
+import { validateEnvironment } from './interfaces/environment';
 
 const app: App = application;
 
